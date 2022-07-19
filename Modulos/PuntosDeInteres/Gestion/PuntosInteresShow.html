@@ -8,7 +8,7 @@
 
     <title>Document</title>
 </head>
-<body onload="ConsultarPuntosDeInteres();">
+<body onload="">
     <!--Contenedor -->
     <div  class="container-fluid">
         <div class="row ">
@@ -23,7 +23,27 @@
                         <input type="button" class="btn btn-secondary" onclick="ConsultarPuntosDeInteres();" value="Limpiar Filtros">
                         
                         </div>
+                        <div class="col-3">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Categorias
+                                </button>
+                                <ul class="dropdown-menu text-center">
+                                    <li><a href="./Gestion/PuntosInteresAlta.html" class="w-100 text-center link-dark d-inline-flex text-decoration-none rounded">Punto Interes</a></li>
+                                    <li><a href="./Categorias/AlojamientoAlta.html" class="w-100 text-center bg-primary text-white link-dark d-inline-flex text-decoration-none ">Alojamientos</a></li>
+                                    <li><a href="./Gestion/PuntosInteresShow.html" class="w-100 text-center bg-secondary text-white link-dark d-inline-flex text-decoration-none ">Gastronomia</a></li>
+                                    <li><a href="./Gestion/PuntosInteresAlta.html" class="w-100 text-center bg-success text-white link-dark d-inline-flex text-decoration-none ">Espectaculos</a></li>
+                                    <li><a href="./Gestion/PuntosInteresShow.html" class="w-100 text-center bg-danger text-white link-dark d-inline-flex text-decoration-none ">Actividades al Aire Libre</a></li>
+                                    <li><a href="./Gestion/PuntosInteresAlta.html" class="w-100 text-center bg-warning text-white link-dark d-inline-flex text-decoration-none ">Actividades Nocturnas</a></li>
+                                    <li><a href="./Gestion/PuntosInteresShow.html" class="w-100 text-center bg-info text-white link-dark d-inline-flex text-decoration-none ">Transporte</a></li>
+                                    <li><a href="./Gestion/PuntosInteresShow.html" class="w-100 text-center bg-dark text-white link-dark d-inline-flex text-decoration-none ">Actividades Infantiles</a></li>
+                                    <li><a href="./Gestion/PuntosInteresShow.html" class="w-100 text-center bg-white link-dark d-inline-flex text-decoration-none ">Servicios Escenciales</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
                     </form>
+                    
                 </div>
             </header>    
         </div>
@@ -39,22 +59,35 @@
                     <span class="fs-5 fw-semibold">Menu Gestor Turistico</span>
                     </a>
                     <ul class="list-unstyled ps-0">
-                    <li class="mb-1">
-                        <a class="link-dark d-inline-flex text-decoration-none rounded" href="../PuntosInteresMolde.html">Dashboard</a>
-                    </li>    
+                        <li class="mb-1">
+                            <a class="link-dark d-inline-flex text-decoration-none rounded" href="../PuntosInteresMolde.html">Dashboard</a>
+                        </li>     
                     <li class="mb-1">
                         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
                         Puntos de Interes
                         </button>
                         <div class="collapse" id="home-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="./PuntosInteresAlta.html" class="link-dark d-inline-flex text-decoration-none rounded">Agregar Nuevo</a></li>
-                            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Mostrar Todos</a></li>
+                            <li><a href="./Gestion/PuntosInteresAlta.html" class="ms-3 link-dark d-inline-flex text-decoration-none rounded" data-bs-toggle="collapse" data-bs-target="#categorias-collapse">Agregar Nuevo</a></li>
+                            <div class="collapse" id="categorias-collapse">
+                                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                    <li><a href="./Gestion/PuntosInteresAlta.html" class="ms-5 link-dark d-inline-flex text-decoration-none rounded">Punto Interes</a></li>
+                                    <li><a href="./Categorias/AlojamientoAlta.html" class="ms-5 link-dark d-inline-flex text-decoration-none rounded">Alojamientos</a></li>
+                                    <li><a href="./Gestion/PuntosInteresShow.html" class="ms-5 link-dark d-inline-flex text-decoration-none rounded">Gastronomia</a></li>
+                                    <li><a href="./Gestion/PuntosInteresAlta.html" class="ms-5 link-dark d-inline-flex text-decoration-none rounded">Espectaculos</a></li>
+                                    <li><a href="./Gestion/PuntosInteresShow.html" class="ms-5 link-dark d-inline-flex text-decoration-none rounded">Actividades al Aire Libre</a></li>
+                                    <li><a href="./Gestion/PuntosInteresAlta.html" class="ms-5 link-dark d-inline-flex text-decoration-none rounded">Actividades Nocturnas</a></li>
+                                    <li><a href="./Gestion/PuntosInteresShow.html" class="ms-5 link-dark d-inline-flex text-decoration-none rounded">Transporte</a></li>
+                                    <li><a href="./Gestion/PuntosInteresShow.html" class="ms-5 link-dark d-inline-flex text-decoration-none rounded">Actividades Infantiles</a></li>
+                                    <li><a href="./Gestion/PuntosInteresShow.html" class="ms-5 link-dark d-inline-flex text-decoration-none rounded">Servicios Escenciales</a></li>
+                                </ul>
+                                </div>
+                            <li><a href="./Gestion/PuntosInteresShow.html" class="ms-3 link-dark d-inline-flex text-decoration-none rounded">Mostrar Todos</a></li>
                         </ul>
                         </div>
                     </li>
                     <li class="mb-1">
-                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                        <button class="btn btn-toggle  d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
                         Gestion de Tours
                         </button>
                         <div class="collapse" id="dashboard-collapse">
@@ -69,7 +102,7 @@
                     
                     </ul>
                 </div>
-            </aside>
+        </aside>
             <main class="col-9 rounded" style="border:2px solid black;">
                 <div class="row justify-content-center">
                     <div class="col-11 mt-3">
