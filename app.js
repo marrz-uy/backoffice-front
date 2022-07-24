@@ -4,20 +4,22 @@ var IdModificarPuntoDeInteres;
 //ALTA *******************************************************************************************
 $('#btnRegistrarPuntosInteres').click(function (e) { 
   e.preventDefault();
+  let contacto='"'+`[${$('#TelefonoPuntoDeInteres').val()},${$('#CelularPuntoDeInteres').val()},${$('#FacebookPuntoDeInteres').val()},${$('#InstagramPuntoDeInteres').val()}]`+'"';
 $.ajax({
       url: 'http://127.0.0.1:8000/api/PuntosInteres',
       type:'POST',
-      dataType: 'text',
+      dataType: 'json',
       data:{
           Nombre:$('#NombrePuntoDeInteres').val(),
           Departamento:$('#DepartamentoPuntoDeInteres').val(),
           Ciudad:$('#CiudadPuntoDeInteres').val(),
           Direccion:$('#DireccionPuntoDeInteres').val(),
-          Contacto:$('#ContactoPuntoDeInteres').val(),
+          Contacto:contacto,
           Horario:$('#HorarioPuntoDeInteres').val(),
           Descripcion:$('#DescripcionPuntoDeInteres').val()
       }
   }).done(function(data){
+    console.log(data);
       alert('Se registro correctamente');
          $('#NombrePuntoDeInteres').val('');
          $('#DepartamentoPuntoDeInteres').val('');
@@ -174,7 +176,7 @@ function EliminarPuntoDeInteres(id) {
     //method_field:'DELETE',
     dataType: 'json',
 }).done(function(data){
-    console.log(data);
+    alert(data);
     ConsultarPuntosDeInteres();
 }).fail( function( jqXHR, textStatus, errorThrown ) {
 
@@ -222,8 +224,6 @@ alert('Uncaught Error: ' + jqXHR.responseText);
 //   console.log(response);  
 // });
 }
-
-
 //MODIFICACION *******************************************************************************************
 function CargarModalPuntosDeInteres(id,Nombre,Departamento,Ciudad,Direccion,Contacto,Horario,Descripcion){
 $('#NombrePuntoDeInteres').val(Nombre);
