@@ -2,68 +2,140 @@ var tbody=document.getElementById('tbody');
 var PuntosDeInteres=[];
 var IdModificarPuntoDeInteres;
 var main=document.getElementById('main');
-
-//ALTA *******************************************************************************************
-$('#btnRegistrarPuntosInteres').click(function (e) { 
-  e.preventDefault();
+var InformacionPuntoDeInteres;
+function CargarFormularioPuntoDeInteres(){
   let contacto='"'+`[${$('#TelefonoPuntoDeInteres').val()},${$('#CelularPuntoDeInteres').val()},${$('#FacebookPuntoDeInteres').val()},${$('#InstagramPuntoDeInteres').val()}]`+'"';
-$.ajax({
-      url: 'http://127.0.0.1:8000/api/PuntosInteres',
-      type:'POST',
-      dataType: 'json',
-      data:{
+  let horario='"'+`[${$('#HoraDeApertura').val()},${$('#HoraDeCierre').val()}]`+'"';
+  console.log(contacto);
+  console.log(horario);
+  InformacionPuntoDeInteres={
           Nombre:$('#NombrePuntoDeInteres').val(),
           Departamento:$('#DepartamentoPuntoDeInteres').val(),
           Ciudad:$('#CiudadPuntoDeInteres').val(),
           Direccion:$('#DireccionPuntoDeInteres').val(),
           Contacto:contacto,
-          Horario:$('#HorarioPuntoDeInteres').val(),
-          Descripcion:$('#DescripcionPuntoDeInteres').val()
-      }
-  }).done(function(data){
-    console.log(data);
-      alert('Se registro correctamente');
-         $('#NombrePuntoDeInteres').val('');
-         $('#DepartamentoPuntoDeInteres').val('');
-         $('#CiudadPuntoDeInteres').val('');
-         $('#DireccionPuntoDeInteres').val('');
-         $('#ContactoPuntoDeInteres').val('');
-         $('#HorarioPuntoDeInteres').val('');
-         $('#DescripcionPuntoDeInteres').val('');    
-  }).fail( function( jqXHR, textStatus, errorThrown ) {
+          Horario:horario,
+          Descripcion:$('#DescripcionPuntoDeInteres').val(),
+          Imagen:$('#Imagen').val()
+  }
+  JSON.stringify(InformacionPuntoDeInteres);
+  console.log(InformacionPuntoDeInteres);
+}
+//ALTA *******************************************************************************************
+$('#btnRegistrarPuntosInteres').click(function (e) { 
+  e.preventDefault();
+  let contacto='"'+`[${$('#TelefonoPuntoDeInteres').val()},${$('#CelularPuntoDeInteres').val()},${$('#FacebookPuntoDeInteres').val()},${$('#InstagramPuntoDeInteres').val()}]`+'"';
+  let horario='"'+`[${$('#HoraDeApertura').val()},${$('#HoraDeCierre').val()}]`+'"';
+  console.log(contacto);
+  console.log(horario);
+  InformacionPuntoDeInteres={
+          Nombre:$('#NombrePuntoDeInteres').val(),
+          Departamento:$('#DepartamentoPuntoDeInteres').val(),
+          Ciudad:$('#CiudadPuntoDeInteres').val(),
+          Direccion:$('#DireccionPuntoDeInteres').val(),
+          Contacto:contacto,
+          Horario:horario,
+          Descripcion:$('#DescripcionPuntoDeInteres').val(),
+          Imagen:$('#Imagen').val()
+  }
+  JSON.stringify(InformacionPuntoDeInteres);
+  console.log(InformacionPuntoDeInteres);
+  AltaDePuntoDeInteres(InformacionPuntoDeInteres);
+});
+
+function AltaDePuntoDeInteres(InformacionPuntoDeInteres){
+  $.ajax({
+    url: 'http://127.0.0.1:8000/api/PuntosInteres',
+    type:'POST',
+    dataType: 'json',
+    data:InformacionPuntoDeInteres
+}).done(function(data){
+  console.log(data);
+       alert('Se registro correctamente');
+       $('#NombrePuntoDeInteres').val('');
+       $('#DepartamentoPuntoDeInteres').val('');
+       $('#CiudadPuntoDeInteres').val('');
+       $('#DireccionPuntoDeInteres').val('');
+       $('#ContactoPuntoDeInteres').val('');
+       $('#HorarioPuntoDeInteres').val('');
+       $('#DescripcionPuntoDeInteres').val('');    
+}).fail( function( jqXHR, textStatus, errorThrown ) {
 
 if (jqXHR.status === 0) {
 
-  alert('Not connect: Verify Network.');
+alert('Not connect: Verify Network.');
 
 } else if (jqXHR.status == 404) {
 
-  alert('Requested page not found [404]');
+alert('Requested page not found [404]');
 
 } else if (jqXHR.status == 500) {
 
-  alert('Internal Server Error [500].');
+alert('Internal Server Error [500].');
 
 } else if (textStatus === 'parsererror') {
 
-  alert('Requested JSON parse failed.');
-  
+alert('Requested JSON parse failed.');
+
 } else if (textStatus === 'timeout') {
 
-  alert('Time out error.');
+alert('Time out error.');
 
 } else if (textStatus === 'abort') {
 
-  alert('Ajax request aborted.');
+alert('Ajax request aborted.');
 
 } else {
 
-  alert('Uncaught Error: ' + jqXHR.responseText);
+alert('Uncaught Error: ' + jqXHR.responseText);
 
 }
 
 });
+}
+function AltaDeServicioEscencial(){
+  //AltaDePuntoDeInteres(InformacionPuntoDeInteres);
+  $.ajax({
+    url: 'http://127.0.0.1:8000/api/PuntosInteres',
+    type:'POST',
+    dataType: 'json',
+    data:{Tipo:$('#TipoDeServicioEsencial').val()}
+}).done(function(data){
+  console.log(data);   
+}).fail( function( jqXHR, textStatus, errorThrown ) {
+
+if (jqXHR.status === 0) {
+
+alert('Not connect: Verify Network.');
+
+} else if (jqXHR.status == 404) {
+
+alert('Requested page not found [404]');
+
+} else if (jqXHR.status == 500) {
+
+alert('Internal Server Error [500].');
+
+} else if (textStatus === 'parsererror') {
+
+alert('Requested JSON parse failed.');
+
+} else if (textStatus === 'timeout') {
+
+alert('Time out error.');
+
+} else if (textStatus === 'abort') {
+
+alert('Ajax request aborted.');
+
+} else {
+
+alert('Uncaught Error: ' + jqXHR.responseText);
+
+}
+
 });
+}
 //CONSULTA *******************************************************************************************
 function ConsultarPuntosDeInteres(){
   $.ajax({
@@ -927,28 +999,28 @@ function FormularioDeServiciosEscenciales(){
           </div>
           <!--HORARIO--------------------------------------------------------------------------------------------------->
           <div class="mb-3">
-              <div class="accordion" id="accordionExample">
-                  <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingOne">
-                      <button class="accordion-button form-control" type="button" data-bs-toggle="collapse" data-bs-target="#horarios" aria-expanded="true" aria-controls="collapseOne">
-                        Horario
-                      </button>
-                    </h2>
-                    <div id="horarios" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#horarios">
-                      <div class="accordion-body">
-                          <div class="mb-3">
-                              <input type="text" class="form-control" id="DireccionPuntoDeInteres" name="DireccionPuntoDeInteres" placeholder="Horario Apertura">
-                          </div>
-                          <div class="mb-3">
-                              <input type="text" class="form-control" id="DireccionPuntoDeInteres" name="DireccionPuntoDeInteres" placeholder="Horario Cierre">
-                          </div>
-                      
-                      </div>
-                    </div>
-                  </div>
-                
-                </div>
-          </div>
+                                <div class="accordion" id="accordionExample">
+                                    <div class="accordion-item">
+                                      <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button form-control" type="button" data-bs-toggle="collapse" data-bs-target="#horarios" aria-expanded="true" aria-controls="collapseOne">
+                                          Horario
+                                        </button>
+                                      </h2>
+                                      <div id="horarios" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#horarios">
+                                        <div class="accordion-body">
+                                            <div class="mb-3">
+                                                <input type="text" class="form-control" id="HoraDeApertura" name="HoraApertura" placeholder="Horario de Apertura">
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="text" class="form-control" id="HoraDeCierre" name="HoraCierre" placeholder="Horario de Cierre">
+                                            </div>
+                                        
+                                        </div>
+                                      </div>
+                                    </div>
+                                  
+                                  </div>
+            </div>
           <div class="mb-3">
               <input class="form-control" type="file" id="formFile">
             </div>
@@ -964,13 +1036,13 @@ function FormularioDeServiciosEscenciales(){
       <form action="" method="POST">
           <h3 class="text-center">DETALLES</h3>
           <div class="mb-3">
-              <select class="form-select" aria-label="Default select example">
+              <select id="TipoDeServicioEsencial" class="form-select" aria-label="Default select example">
                   <option selected>Seleccionar Tipo</option>
-                  <option value="1">Hospitales</option>
-                  <option value="2">Farmacias</option>
-                  <option value="3">Cerrajerias</option>
-                  <option value="4">Estaciones de Servicio</option>
-                  <option value="5">Seccionales</option>
+                  <option value="Hospitales">Hospitales</option>
+                  <option value="Farmacias">Farmacias</option>
+                  <option value="Cerrajerias">Cerrajerias</option>
+                  <option value="Estaciones de Servicio">Estaciones de Servicio</option>
+                  <option value="Seccionales">Seccionales</option>
               </select>
           </div>
           
@@ -978,7 +1050,7 @@ function FormularioDeServiciosEscenciales(){
   </div>
 </div>
 <div class="row mb-3 justify-content-center">
-  <input type="button" class="w-50 btn btn-primary form-control" id="btnRegistrarPuntosInteres" value="Registrar">
+  <input type="button" class="w-50 btn btn-primary form-control" onclick="AltaDeServicioEscencial();" value="Registrar">
 </div>`
 }
 function FormularioDeEspectaculos(){

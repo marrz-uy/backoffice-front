@@ -108,9 +108,7 @@
                             <div class="mb-3">
                                 <input type="text" class="form-control" id="DireccionPuntoDeInteres" name="DireccionPuntoDeInteres" placeholder="Direccion">
                             </div>
-                            <div class="mb-3">
-                                <input type="text" class="form-control" id="ContactoPuntoDeInteres" name="ContactoPuntoDeInteres" placeholder="Contacto">
-                            </div>
+                           
                             <div class="mb-3">
                                 <div class="accordion" id="accordionExample">
                                     <div class="accordion-item">
@@ -145,9 +143,33 @@
                                   
                                   </div>
                             </div>
-                            <div class="mb-3">
-                                <input type="text" class="form-control" id="HorarioPuntoDeInteres" name="HorarioPuntoDeInteres" placeholder="Horario">
+                             <!--HORARIO--------------------------------------------------------------------------------------------------->
+                             <div class="mb-3">
+                                <div class="accordion" id="accordionExample">
+                                    <div class="accordion-item">
+                                      <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button form-control" type="button" data-bs-toggle="collapse" data-bs-target="#horarios" aria-expanded="true" aria-controls="collapseOne">
+                                          Horario
+                                        </button>
+                                      </h2>
+                                      <div id="horarios" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#horarios">
+                                        <div class="accordion-body">
+                                            <div class="mb-3">
+                                                <input type="text" class="form-control" id="HoraDeApertura" name="HoraApertura" placeholder="Horario de Apertura">
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="text" class="form-control" id="HoraDeCierre" name="HoraCierre" placeholder="Horario de Cierre">
+                                            </div>
+                                        
+                                        </div>
+                                      </div>
+                                    </div>
+                                  
+                                  </div>
                             </div>
+                            <div class="mb-3">
+                                <input class="form-control" type="file" id="Imagen" name="Imagen">
+                              </div>
                             <div class="mb-3">
                                 <textarea class="form-control" id="DescripcionPuntoDeInteres" name="DescripcionPuntoDeInteres" rows="3"></textarea>
                             </div>
