@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
     <title>Document</title>
 </head>
 <body>
@@ -15,7 +15,7 @@
                 <div class="col-sm m-2">
                     <form class="row justify-content-center" method="POST">
                         <div class="col-sm">
-                            <img src="../../../mars-NyN.png" alt="Logo" width="50px">
+                            <img src="../../mars-NyN.png" alt="Logo" width="50px">
                         </div>
                         <div class="col-3">
                         <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
@@ -24,33 +24,14 @@
                             <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">
                             <input type="button" class="btn btn-secondary" onclick="ConsultarPuntosDeInteres();" value="Limpiar Filtros">                        
                         </div>
-                        <div class="col-auto">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                  Seleccionar Categoria
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                  <li><a onclick="FormularioDeAlojamiento();" class="dropdown-item text-white bg-secondary" href="#">Alojamiento</a></li>
-                                  <li><a onclick="FormularioDeGastronomia();" class="dropdown-item text-white bg-secondary" href="#">Gastronomia</a></li>
-                                  <li><a onclick="FormularioDeEspectaculos();" class="dropdown-item text-white bg-secondary" href="#">Espectaculos</a></li>
-                                  <li><a onclick="FormularioDeActivdadesAlAireLibre();" class="dropdown-item text-white bg-secondary" href="#">Actividades al Aire Libre</a></li>
-                                  <li><a onclick="FormularioDeActividadesNocturnas();" class="dropdown-item text-white bg-secondary " href="#">Actividades Nocturnas</a></li>
-                                  <li><a class="dropdown-item text-white bg-secondary" href="#">Transporte</a></li>
-                                  <li><a onclick="FormularioDeActividadesInfantiles();" class="dropdown-item text-white bg-secondary" href="#">Actividades Infantiles</a></li>
-                                  <li><a onclick="FormularioDeServiciosEscenciales();" class="dropdown-item text-white bg-secondary" href="#">Servicios Escenciales</a></li>
-                                </ul>
-                              </div>
-                        </div>
+                
                        
                     </form>
                   
                 </div>
                 
             </header>    
-        </div>
-        
-            
-        
+        </div>     
         <!--Aside y Main -->
         <div style="height: 90vh;" class="row">
             <aside class="col-3 rounded" style="border:2px solid black;">
@@ -61,18 +42,13 @@
                     </a>
                     <ul class="list-unstyled ps-0">
                     <li class="mb-1">
-                        <a class="link-dark d-inline-flex text-decoration-none rounded" href="../PuntosInteresMolde2.html">Dashboard</a>
+                        <a class="link-dark d-inline-flex text-decoration-none rounded" href="./Dashboard.html">Dashboard</a>
                     </li>    
                     <li class="mb-1">
-                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
-                        Puntos de Interes
+                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
+                        <a href="./PuntosInteresShow.html" class="link-dark text-decoration-none">Puntos de Interes</a>
                         </button>
-                        <div class="collapse" id="home-collapse">
-                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="./Gestion/PuntosInteresAlta.html" class="link-dark d-inline-flex text-decoration-none rounded">Agregar Nuevo</a></li>
-                            <li><a href="./PuntosInteresShow.html" class="link-dark d-inline-flex text-decoration-none rounded">Mostrar Todos</a></li>
-                        </ul>
-                        </div>
+                     
                     </li>
                     <li class="mb-1">
                         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
@@ -94,19 +70,19 @@
             <main id="main" class="col-9 rounded" style="border:2px solid black;">
                 <div class="row justify-content-center">
                     <div class="col-sm-6 mt-3">
-                        <form action="" method="POST">
+                        <form id="FormularioPuntoDeInteres" action="" method="POST">
                             <h3 class="text-center">REGISTRO DE PUNTOS DE INTERES</h3>
                             <div class="mb-3">
-                                <input type="text" class="form-control" id="NombrePuntoDeInteres" name="NombrePuntoDeInteres"  placeholder="Nombre">
+                                <input type="text" class="form-control" id="NombrePuntoDeInteres" name="NombrePuntoDeInteres"  placeholder="Nombre" required>
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" id="DepartamentoPuntoDeInteres" name="DepartamentoPuntoDeInteres" placeholder="Departamento">
+                                <input type="text" class="form-control" id="DepartamentoPuntoDeInteres" name="DepartamentoPuntoDeInteres" placeholder="Departamento" required>
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" id="CiudadPuntoDeInteres" name="CiudadPuntoDeInteres" placeholder="Ciudad">
+                                <input type="text" class="form-control" id="CiudadPuntoDeInteres" name="CiudadPuntoDeInteres" placeholder="Ciudad" required>
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" id="DireccionPuntoDeInteres" name="DireccionPuntoDeInteres" placeholder="Direccion">
+                                <input type="text" class="form-control" id="DireccionPuntoDeInteres" name="DireccionPuntoDeInteres" placeholder="Direccion" required>
                             </div>
                            
                             <div class="mb-3">
@@ -120,10 +96,10 @@
                                       <div id="contactos" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#contactos">
                                         <div class="accordion-body">
                                             <div class="mb-3">
-                                                <input type="text" class="form-control" id="TelefonoPuntoDeInteres" name="TelefonoPuntoDeInteres" placeholder="Telefono">
+                                                <input type="number" class="form-control" id="TelefonoPuntoDeInteres" name="TelefonoPuntoDeInteres" placeholder="Telefono" required>
                                             </div>
                                             <div class="mb-3">
-                                                <input type="text" class="form-control" id="CelularPuntoDeInteres" name="CelularPuntoDeInteres" placeholder="Celular">
+                                                <input type="number" class="form-control" id="CelularPuntoDeInteres" name="CelularPuntoDeInteres" placeholder="Celular" required>
                                             </div>
                                             <div class="mb-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
@@ -174,7 +150,23 @@
                                 <textarea class="form-control" id="DescripcionPuntoDeInteres" name="DescripcionPuntoDeInteres" rows="3"></textarea>
                             </div>
                             <div class="mb-3">
-                                <input type="button" class="btn btn-primary form-control" id="btnRegistrarPuntosInteres" value="Registrar">
+                                
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary form-control dropdown-toggle" type="submit" id="btnRegistrarPuntosInteres" data-bs-toggle="dropdown" aria-expanded="false">Seleccionar Punto De Interes</button>
+                                    <div class="row">
+                                        <ul class="dropdown-menu col" aria-labelledby="dropdownMenuButton1">
+                                            <li><a onclick="FormularioDeAlojamiento();" class="dropdown-item text-white bg-secondary" href="#">Alojamiento</a></li>
+                                            <li><a onclick="FormularioDeGastronomia();" class="dropdown-item text-white bg-secondary" href="#">Gastronomia</a></li>
+                                            <li><a onclick="FormularioDeEspectaculos();" class="dropdown-item text-white bg-secondary" href="#">Espectaculos</a></li>
+                                            <li><a onclick="FormularioDeActivdadesAlAireLibre();" class="dropdown-item text-white bg-secondary" href="#">Actividades al Aire Libre</a></li>
+                                            <li><a onclick="FormularioDeActividadesNocturnas();" class="dropdown-item text-white bg-secondary " href="#">Actividades Nocturnas</a></li>
+                                            <li><a class="dropdown-item text-white bg-secondary" href="#">Transporte</a></li>
+                                            <li><a onclick="FormularioDeActividadesInfantiles();" class="dropdown-item text-white bg-secondary" href="#">Actividades Infantiles</a></li>
+                                            <li><a onclick="FormularioDeServiciosEscenciales();" class="dropdown-item text-white bg-secondary" href="#">Servicios Escenciales</a></li>
+                                          </ul>
+                                    </div>
+                                    <button class="btn mt-3 btn-primary form-control">Siguiente</button>
+                                  </div>
                             </div>
                         </form>
                         
@@ -187,7 +179,9 @@
         
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../../../app.js"></script>
-    <script src="../../../bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="../../formularios.js"></script>
+    <script src="../../app.js"></script>
+    <script src="../../bootstrap/js/bootstrap.bundle.js"></script>
 </body>
 </html>
