@@ -8,7 +8,7 @@
 
     <title>Document</title>
 </head>
-<body onload="ConsultarPuntosDeInteres();">
+<body>
     <!--Contenedor -->
     <div  class="container-fluid">
         <div class="row ">
@@ -38,8 +38,9 @@
                                     <li><a onclick="FormularioDeActividadesNocturnas();" class="dropdown-item text-white bg-secondary " href="#">Actividades Nocturnas</a></li>
                                     <li><a class="dropdown-item text-white bg-secondary" href="#">Transporte</a></li>
                                     <li><a onclick="FormularioDeActividadesInfantiles();" class="dropdown-item text-white bg-secondary" href="#">Actividades Infantiles</a></li>
-                                    <li><a onclick="FormularioDeServiciosEscenciales();" class="dropdown-item text-white bg-secondary" href="#">Servicios Escenciales</a></li>
-                                  </ul>
+                                    <li><a onclick="ConsultarPuntosDeInteres('servicios_esenciales');" class="dropdown-item text-white bg-secondary" href="#">Servicios Escenciales</a></li>
+                                    <li><a onclick="ConsultarPuntosDeInteres('PuntosDeInteres');" class="dropdown-item text-white bg-secondary" href="#">Mostar Todos</a></li>
+                                </ul>
                               </div>
                         </div>
                        
@@ -107,6 +108,19 @@
                               
                             </tbody>
                             </table>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-sm-3">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                      <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                      <li onclick="ConsultarPuntosDeInteresPaginaSiguiente(1);" class="page-item"><a class="page-link" href="#">1</a></li>
+                                      <li onclick="ConsultarPuntosDeInteresPaginaSiguiente(2);" class="page-item"><a class="page-link" href="#">2</a></li>
+                                      <li onclick="ConsultarPuntosDeInteresPaginaSiguiente(3);" class="page-item"><a class="page-link" href="#">3</a></li>
+                                      <li onclick="ConsultarPuntosDeInteresPaginaSiguiente(2);" class="page-item"><a class="page-link" href="#">Next</a></li>
+                                    </ul>
+                                  </nav>
+                            </div>
                         </div>
                     </div>
                     
