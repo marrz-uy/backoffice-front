@@ -75,3 +75,5 @@ alert('Uncaught Error: ' + jqXHR.responseText);
     .then(response => response.json())
     .then(data =>{})
   })
+
+  // '+'\''+js[i].ci+''+'\',
