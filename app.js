@@ -5,10 +5,12 @@ var IdModificarPuntoDeInteres;
 var InformacionPuntoDeInteres;
 var InformacionDetalladaPuntoDeInteres;
 var boton=document.getElementById('btnRegistrarPuntosInteres');
+var categoria='PuntosDeInteres';
+
 //VALIDACIONES DE FORMULARIOS-------------------------------------------------------------------------------------------->
 $(document).ready(function () {
   ConsultarPuntosDeInteres('PuntosDeInteres');
-  var categoria='PuntosDeInteres';
+  
 
 });
 
@@ -166,6 +168,7 @@ function ConsultarPuntosDeInteres(categoria){
 }).done(function(data){ 
       console.log(data);
       let js=data.data;
+      console.log(js);
       tbody.innerHTML="";
       for(var i=0; i<js.length; i++){
         let split=js[i].Contacto.split(',')
@@ -176,7 +179,7 @@ function ConsultarPuntosDeInteres(categoria){
         '<td>'+js[i].Ciudad+'</td>'+
         '<td>'+split[1]+'</td>'+
         '<td>'+js[i].Direccion+'</td>'+
-        '<td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" onclick="EliminarPuntoDeInteres('+js[i].id+','+'\''+categoria+''+'\');" class="bi bi-trash">viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" onclick="CargarModalPuntosDeInteres('+'\''+js[i].id+''+'\','+'\''+js[i].Nombre+''+'\','+'\''+js[i].Departamento+''+'\','+'\''+js[i].Ciudad+''+'\','+'\''+js[i].Direccion+''+'\','+'\''+js[i].Contacto+''+'\','+'\''+js[i].Horario+''+'\','+'\''+js[i].Descripcion+''+'\');" class="bi bi-gear ms-3"   viewBox="0 0 16 16"><path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/><path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/></svg></td>'+
+        '<td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" onclick="EliminarPuntoDeInteres('+js[i].id+','+'\''+categoria+''+'\');" class="bi bi-trash">viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  onclick="CargarModalPuntosDeInteres('+'\''+js[i].id+''+'\','+'\''+js[i].Nombre+''+'\','+'\''+js[i].Departamento+''+'\','+'\''+js[i].Ciudad+''+'\','+'\''+js[i].Direccion+''+'\','+'\''+js[i].Contacto+''+'\','+'\''+js[i].Horario+''+'\','+'\''+js[i].Descripcion+''+'\');" class="bi bi-gear ms-3"   viewBox="0 0 16 16"><path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/><path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/></svg></td>'+
         '</tr>';
         let puntointeres={
           id:js[i].id,
@@ -365,10 +368,12 @@ $('#NombrePuntoDeInteres').val(Nombre);
 $('#DepartamentoPuntoDeInteres').val(Departamento);
 $('#CiudadPuntoDeInteres').val(Ciudad);
 $('#DireccionPuntoDeInteres').val(Direccion);
-$('#ContactoPuntoDeInteres').val(Contacto);
-$('#HorarioPuntoDeInteres').val(Horario);
+$('#TelefonoPuntoDeInteres').val(Contacto);
+$('#HoraApertura').val(Horario);
+$('#HoraCierre').val(Horario);
 $('#DescripcionPuntoDeInteres').val(Descripcion);
 IdModificarPuntoDeInteres=id;
+CargarFormularioPuntoDeInteres();
 }
 function ModificarPuntosDeInteres (id) {
   $.ajax({
@@ -376,13 +381,13 @@ function ModificarPuntosDeInteres (id) {
     type:'PATCH',
     dataType: 'json',
     data:{
-      Nombre:$('#NombrePuntoDeInteres').val(),
-      Departamento:$('#DepartamentoPuntoDeInteres').val(),
-      Ciudad:$('#CiudadPuntoDeInteres').val(),
-      Direccion:$('#DireccionPuntoDeInteres').val(),
-      Contacto:$('#ContactoPuntoDeInteres').val(),
-      Horario:$('#HorarioPuntoDeInteres').val(),
-      Descripcion:$('#DescripcionPuntoDeInteres').val()
+      Nombre:InformacionPuntoDeInteres.Nombre,
+      Departamento:InformacionPuntoDeInteres.Departamento,
+      Ciudad:InformacionPuntoDeInteres.Ciudad,
+      Direccion:InformacionPuntoDeInteres.Direccion,
+      Contacto:InformacionPuntoDeInteres.Contacto,
+      Horario:InformacionPuntoDeInteres.Horario,
+      Descripcion:InformacionPuntoDeInteres.Descripcion
     }
 }).done(function(data){
     alert(data.respuesta);
@@ -421,7 +426,8 @@ alert('Uncaught Error: ' + jqXHR.responseText);
 
 });  
 }
-$('#btnModificarPuntoDeInteres').click(function (e) { 
+
+$('#btnModificarPuntosInteres').click(function (e) { 
   e.preventDefault();
   ModificarPuntosDeInteres(IdModificarPuntoDeInteres);
 });
