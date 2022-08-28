@@ -123,7 +123,7 @@ function RegistrarPuntoDeInteres(InformacionPuntoDeInteres){
 }).done(function(data){
   console.log(data);
   alert(data.respuesta);   
-  location.reload();  
+  //location.reload();  
 }).fail( function( jqXHR, textStatus, errorThrown ) {
 
 if (jqXHR.status === 0) {
@@ -165,12 +165,13 @@ function ConsultarPuntosDeInteres(categoria){
     url:`http://127.0.0.1:8000/api/PuntosInteres/${categoria}`,
     type:'GET',
     dataType: 'json',
-}).done(function(data){ 
-      console.log(data);
+}).done(function(data){ 34
+      
       let js=data.data;
       console.log(js);
       tbody.innerHTML="";
       for(var i=0; i<js.length; i++){
+        console.log(js[i].Contacto);
         let split=js[i].Contacto.split(',')
         tbody.innerHTML=tbody.innerHTML+
         '<tr class="table-active">'+
