@@ -36,19 +36,21 @@ if($('#DireccionPuntoDeInteres').val()==''){
 });
 function CargarFormularioPuntoDeInteres(){
   var contacto='"'+`${$('#TelefonoPuntoDeInteres').val()},${$('#CelularPuntoDeInteres').val()},${$('#FacebookPuntoDeInteres').val()},${$('#InstagramPuntoDeInteres').val()}`+'"';
-  //var contacto=[$('#TelefonoPuntoDeInteres').val(),$('#CelularPuntoDeInteres').val(),$('#FacebookPuntoDeInteres').val(),$('#InstagramPuntoDeInteres').val()];
-  var horario='"'+`[${$('#HoraDeApertura').val()},${$('#HoraDeCierre').val()}]`+'"';
   console.log(contacto);
-  console.log(horario);
   InformacionPuntoDeInteres={
           Nombre:$('#NombrePuntoDeInteres').val(),
           Departamento:$('#DepartamentoPuntoDeInteres').val(),
           Ciudad:$('#CiudadPuntoDeInteres').val(),
           Direccion:$('#DireccionPuntoDeInteres').val(),
-          Contacto:contacto,
-          Horario:horario,
+          Telefono:$('#TelefonoPuntoDeInteres').val(),
+          Celular:$('#CelularPuntoDeInteres').val(),
+          Facebook:$('#FacebookPuntoDeInteres').val(),
+          Instagram:$('#InstagramPuntoDeInteres').val(),
+          HoraDeApertura:$('#HoraDeApertura').val(),
+          HoraDeCierre:$('#HoraDeCierre').val(),
           Descripcion:$('#DescripcionPuntoDeInteres').val(),
-          Imagen:$('#Imagen').val()
+          Imagen:$('#Imagen').val(),
+          Op:'PuntoDeInteres'
   }
   JSON.stringify(InformacionPuntoDeInteres);
   
@@ -174,10 +176,9 @@ function ConsultarPuntosDeInteres(categoria){
         '<th scope="row">'+js[i].Nombre+'</th>'+
         '<td>'+js[i].Departamento+'</td>'+
         '<td>'+js[i].Ciudad+'</td>'+
-        '<td>'+js[i].Contacto+'</td>'+
         '<td>'+js[i].Direccion+'</td>'+
-        '<td><i onclick="EliminarPuntoDeInteres('+js[i].id+','+'\''+categoria+''+'\');" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres('+'\''+js[i].id+''+'\','+'\''+js[i].Nombre+''+'\','+'\''+js[i].Departamento+''+'\','+'\''+js[i].Ciudad+''+'\','+'\''+js[i].Direccion+''+'\','+'\''+js[i].Contacto.split('"')+''+'\','+'\''+js[i].Horario.split('"')+''+'\','+'\''+js[i].Descripcion+''+'\');" class="bi bi-gear"></i></td>'+
-        '</tr>';
+        '<td><i onclick="EliminarPuntoDeInteres('+js[i].id+','+'\''+categoria+''+'\');" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres('+'\''+js[i].id+''+'\','+'\''+js[i].Nombre+''+'\','+'\''+js[i].Departamento+''+'\','+'\''+js[i].Ciudad+''+'\','+'\''+js[i].Direccion+''+'\','+'\''+js[i].Telefono+''+'\','+'\''+js[i].HoraDeApertura+''+'\','+'\''+js[i].HoraDeCierre+''+'\','+'\''+js[i].Descripcion+''+'\');" class="bi bi-gear"></i></td>'+
+        '</tr>'; 
         let puntointeres={
           id:js[i].id,
           Nombre:js[i].Nombre,
@@ -357,10 +358,8 @@ alert('Uncaught Error: ' + jqXHR.responseText);
 
 }
 //MODIFICACION *******************************************************************************************
-function CargarModalPuntosDeInteres(id,Nombre,Departamento,Ciudad,Direccion,Contacto,Horario,Descripcion){
+function CargarModalPuntosDeInteres(id,Nombre,Departamento,Ciudad,Direccion,Contacto,HoraDeApertura,HoraDeCierre,Descripcion){
 var Contacto=Contacto.split(',');
-var Horario=Horario.split(',');
-console.log(Horario);
 $('#ModalPuntosDeInteres').modal('show');
 $('#NombrePuntoDeInteres').val(Nombre);
 $('#DepartamentoPuntoDeInteres').val(Departamento);
@@ -370,41 +369,31 @@ $('#TelefonoPuntoDeInteres').val(Contacto[1]);
 $('#CelularPuntoDeInteres').val(Contacto[2]);
 $('#FacebookPuntoDeInteres').val(Contacto[3]);
 $('#InstagramPuntoDeInteres').val(Contacto[4]);
-$('#HoraDeApertura').val(Horario[1]);
-$('#HoraDeCierre').val(Horario[2]);
-$('#HoraApertura').val(Horario);
-$('#HoraCierre').val(Horario);
+$('#HoraDeApertura').val(HoraDeApertura);
+$('#HoraDeCierre').val(HoraDeCierre);
 $('#DescripcionPuntoDeInteres').val(Descripcion);
 IdModificarPuntoDeInteres=id;
 CargarFormularioPuntoDeInteres();
 }
-// function CargarModalPuntosDeInteres(Informacion){
-//   $('#ModalPuntosDeInteres').modal('show');
-//   console.log(Informacion);
-//   $('#NombrePuntoDeInteres').val(Nombre);
-//   $('#DepartamentoPuntoDeInteres').val(Departamento);
-//   $('#CiudadPuntoDeInteres').val(Ciudad);
-//   $('#DireccionPuntoDeInteres').val(Direccion);
-//   $('#TelefonoPuntoDeInteres').val(Contacto);
-//   $('#HoraApertura').val(Horario);
-//   $('#HoraCierre').val(Horario);
-//   $('#DescripcionPuntoDeInteres').val(Descripcion);
-//   IdModificarPuntoDeInteres=id;
-//   CargarFormularioPuntoDeInteres();
-//   }
 function ModificarPuntosDeInteres (id) {
+  console.log(InformacionPuntoDeInteres);
   $.ajax({
     url:`http://127.0.0.1:8000/api/PuntosInteres/${id}`,
     type:'PATCH',
     dataType: 'json',
     data:{
-      Nombre:InformacionPuntoDeInteres.Nombre,
-      Departamento:InformacionPuntoDeInteres.Departamento,
-      Ciudad:InformacionPuntoDeInteres.Ciudad,
-      Direccion:InformacionPuntoDeInteres.Direccion,
-      Contacto:InformacionPuntoDeInteres.Contacto,
-      Horario:InformacionPuntoDeInteres.Horario,
-      Descripcion:InformacionPuntoDeInteres.Descripcion
+      Nombre:$('#NombrePuntoDeInteres').val(),
+      Departamento:$('#DepartamentoPuntoDeInteres').val(),
+      Ciudad:$('#CiudadPuntoDeInteres').val(),
+      Direccion:$('#DireccionPuntoDeInteres').val(),
+      Telefono:$('#TelefonoPuntoDeInteres').val(),
+      Celular:$('#CelularPuntoDeInteres').val(),
+      Facebook:$('#FacebookPuntoDeInteres').val(),
+      Instagram:$('#InstagramPuntoDeInteres').val(),
+      HoraDeApertura:$('#HoraDeApertura').val(),
+      HoraDeCierre:$('#HoraDeCierre').val(),
+      Descripcion:$('#DescripcionPuntoDeInteres').val(),
+      Imagen:$('#Imagen').val(),
     }
 }).done(function(data){
     alert(data.respuesta);
