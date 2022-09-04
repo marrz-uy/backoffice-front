@@ -29,6 +29,9 @@ if($('#CiudadPuntoDeInteres').val()==''){
 if($('#DireccionPuntoDeInteres').val()==''){
     alert('El campo Direccion no puede estar vacio');
    }
+   if($('#TelefonoPuntoDeInteres').val()==''){
+    alert('El campo Telefono no puede estar vacio');
+   }
  
  
   CargarFormularioPuntoDeInteres();
@@ -189,7 +192,7 @@ function ConsultarPuntosDeInteres(categoria){
         '<td>'+js[i].Departamento+'</td>'+
         '<td>'+js[i].Ciudad+'</td>'+
         '<td>'+js[i].Direccion+'</td>'+
-        '<td><i onclick="EliminarPuntoDeInteres('+js[i].id+','+'\''+categoria+''+'\');" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres('+'\''+js[i].id+''+'\','+'\''+js[i].Nombre+''+'\','+'\''+js[i].Departamento+''+'\','+'\''+js[i].Ciudad+''+'\','+'\''+js[i].Direccion+''+'\','+'\''+js[i].Telefono+''+'\','+'\''+js[i].HoraDeApertura+''+'\','+'\''+js[i].HoraDeCierre+''+'\','+'\''+js[i].Descripcion+''+'\');" class="bi bi-gear"></i></td>'+
+        '<td><i onclick="EliminarPuntoDeInteres('+js[i].id+');" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres('+'\''+js[i].id+''+'\','+'\''+js[i].Nombre+''+'\','+'\''+js[i].Departamento+''+'\','+'\''+js[i].Ciudad+''+'\','+'\''+js[i].Direccion+''+'\','+'\''+js[i].Telefono+''+'\','+'\''+js[i].HoraDeApertura+''+'\','+'\''+js[i].HoraDeCierre+''+'\','+'\''+js[i].Descripcion+''+'\');" class="bi bi-gear"></i></td>'+
         '</tr>'; 
         let puntointeres={
           id:js[i].id,
@@ -325,15 +328,16 @@ function BuscarUnPuntoDeInteres (){
   }  
 }
 //BAJA *******************************************************************************************
-function EliminarPuntoDeInteres(id,categoria) {
+function EliminarPuntoDeInteres(id) {
   $.ajax({
-    url:`http://127.0.0.1:8000/api/PuntosInteres/${id}/${categoria}`,
+    url:`http://127.0.0.1:8000/api/PuntosInteres/${id}`,
     type:'DELETE',
     dataType: 'json',
 }).done(function(data){
   console.log(data);
     alert(data.respuesta);
     ConsultarPuntosDeInteres(categoria);
+    location.reload();
 }).fail( function( jqXHR, textStatus, errorThrown ) {
 
 if (jqXHR.status === 0) {
@@ -387,6 +391,7 @@ $('#DescripcionPuntoDeInteres').val(Descripcion);
 IdModificarPuntoDeInteres=id;
 CargarFormularioPuntoDeInteres();
 }
+
 function ModificarPuntosDeInteres (id) {
   console.log(InformacionPuntoDeInteres);
   $.ajax({
