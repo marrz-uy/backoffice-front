@@ -107,8 +107,20 @@ alert('Uncaught Error: ' + jqXHR.responseText);
 }
 function AltaDeServicioEscencial(){
   InformacionDetalladaPuntoDeInteres={
-    Tipo:$('#TipoDeServicioEsencial').val(),
+    Tipo:$('#TipoDetallado').val(),
     Op:'ServicioEsencial'
+} 
+InformacionDetalladaPuntoDeInteres=JSON.stringify(InformacionDetalladaPuntoDeInteres);
+InformacionPuntoDeInteres.InformacionDetalladaPuntoDeInteres=InformacionDetalladaPuntoDeInteres;
+console.log(InformacionPuntoDeInteres);
+RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
+}
+function AltaDeEspectaculos(){
+  InformacionDetalladaPuntoDeInteres={
+    Tipo:$('#TipoDetallado').val(),
+    Artista:$('#NombreDeArtista').val(),
+    PrecioEntrada:$('#PrecioEntrada').val(),
+    Op:'Espectaculos'
 } 
 InformacionDetalladaPuntoDeInteres=JSON.stringify(InformacionDetalladaPuntoDeInteres);
 InformacionPuntoDeInteres.InformacionDetalladaPuntoDeInteres=InformacionDetalladaPuntoDeInteres;
