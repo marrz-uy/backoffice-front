@@ -155,7 +155,7 @@ function RegistrarPuntoDeInteres(InformacionPuntoDeInteres) {
   }).done(function (data) {
     console.log(data);
     alert(data.respuesta);
-    //location.reload();  
+    location.reload();  
   }).fail(function (jqXHR, textStatus, errorThrown) {
 
     if (jqXHR.status === 0) {
@@ -208,7 +208,7 @@ function ConsultarPuntosDeInteres(categoria) {
         '<td>' + js[i].Departamento + '</td>' +
         '<td>' + js[i].Ciudad + '</td>' +
         '<td>' + js[i].Direccion + '</td>' +
-        '<td><i onclick="EliminarPuntoDeInteres(' + js[i].puntosinteres_id + ');" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(' + '\'' + js[i].id + '' + '\',' + '\'' + js[i].Nombre + '' + '\',' + '\'' + js[i].Departamento + '' + '\',' + '\'' + js[i].Ciudad + '' + '\',' + '\'' + js[i].Direccion + '' + '\',' + '\'' + js[i].Telefono + '' + '\',' + '\'' + js[i].HoraDeApertura + '' + '\',' + '\'' + js[i].HoraDeCierre + '' + '\',' + '\'' + js[i].Descripcion + '' + '\');" class="bi bi-gear"></i></td>' +
+        '<td><i onclick="EliminarPuntoDeInteres(' + js[i].id + ');" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(' + '\'' + js[i].id + '' + '\',' + '\'' + js[i].Nombre + '' + '\',' + '\'' + js[i].Departamento + '' + '\',' + '\'' + js[i].Ciudad + '' + '\',' + '\'' + js[i].Direccion + '' + '\',' + '\'' + js[i].Telefono + '' + '\',' + '\'' + js[i].HoraDeApertura + '' + '\',' + '\'' + js[i].HoraDeCierre + '' + '\',' + '\'' + js[i].Descripcion + '' + '\');" class="bi bi-gear"></i></td>' +
         '</tr>';
       let puntointeres = {
         id: js[i].id,
@@ -470,11 +470,11 @@ $('#btnModificarPuntosInteres').click(function (e) {
 });
 function FormularioDeServiciosEscenciales() {
   $.ajax({
-    url: './Formularios/ServiciosEscencialesAlta.tml',
+    url: './Formularios/ServiciosEscencialesAlta.html',
     type: 'GET',
     dataType: 'text ',
   }).done(function (data) {
-    main.innerHTML = '';
+    main.innerre = '';
     main.innerHTML = data;
   }).fail(function (jqXHR, textStatus, errorThrown) {
 
