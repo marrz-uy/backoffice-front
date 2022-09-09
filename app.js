@@ -6,7 +6,7 @@ var InformacionPuntoDeInteres;
 var InformacionDetalladaPuntoDeInteres;
 var boton = document.getElementById('btnRegistrarPuntosInteres');
 var categoria = 'PuntosDeInteres';
-var prueba;
+
 
 function sendError(errorText){
   alert(errorText);
