@@ -6,7 +6,7 @@ var InformacionPuntoDeInteres;
 var InformacionDetalladaPuntoDeInteres;
 var boton = document.getElementById('btnRegistrarPuntosInteres');
 var categoria = 'PuntosDeInteres';
-
+var prueba;
 
 function sendError(errorText){
   alert(errorText);
@@ -90,39 +90,7 @@ function AltaDePuntoDeInteres(InformacionPuntoDeInteres) {
     $('#ContactoPuntoDeInteres').val('');
     $('#HorarioPuntoDeInteres').val('');
     $('#DescripcionPuntoDeInteres').val('');
-  }).fail(function (jqXHR, textStatus, errorThrown) {
-
-    if (jqXHR.status === 0) {
-
-      alert('Not connect: Verify Network.');
-
-    } else if (jqXHR.status == 404) {
-
-      alert('Requested page not found [404]');
-
-    } else if (jqXHR.status == 500) {
-
-      alert('Internal Server Error [500].');
-
-    } else if (textStatus === 'parsererror') {
-
-      alert('Requested JSON parse failed.');
-
-    } else if (textStatus === 'timeout') {
-
-      alert('Time out error.');
-
-    } else if (textStatus === 'abort') {
-
-      alert('Ajax request aborted.');
-
-    } else {
-
-      alert('Uncaught Error: ' + jqXHR.responseText);
-
-    }
-
-  });
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function AltaDeServicioEscencial() {
   InformacionDetalladaPuntoDeInteres = {
@@ -156,39 +124,7 @@ function RegistrarPuntoDeInteres(InformacionPuntoDeInteres) {
     console.log(data);
     alert(data.respuesta);
     location.reload();  
-  }).fail(function (jqXHR, textStatus, errorThrown) {
-
-    if (jqXHR.status === 0) {
-
-      alert('Not connect: Verify Network.');
-
-    } else if (jqXHR.status == 404) {
-
-      alert('Requested page not found [404]');
-
-    } else if (jqXHR.status == 500) {
-
-      alert('Internal Server Error [500].');
-
-    } else if (textStatus === 'parsererror') {
-
-      alert('Requested JSON parse failed.');
-
-    } else if (textStatus === 'timeout') {
-
-      alert('Time out error.');
-
-    } else if (textStatus === 'abort') {
-
-      alert('Ajax request aborted.');
-
-    } else {
-
-      alert('Uncaught Error: ' + jqXHR.responseText);
-
-    }
-
-  });
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 //CONSULTA *******************************************************************************************
 function ConsultarPuntosDeInteres(categoria) {
@@ -222,39 +158,7 @@ function ConsultarPuntosDeInteres(categoria) {
       }
       PuntosDeInteres.push(puntointeres);
     }
-  }).fail(function (jqXHR, textStatus, errorThrown) {
-
-    if (jqXHR.status === 0) {
-
-      alert('Not connect: Verify Network.');
-
-    } else if (jqXHR.status == 404) {
-
-      alert('Requested page not found [404]');
-
-    } else if (jqXHR.status == 500) {
-
-      alert('Internal Server Error [500].');
-
-    } else if (textStatus === 'parsererror') {
-
-      alert('Requested JSON parse failed.');
-
-    } else if (textStatus === 'timeout') {
-
-      alert('Time out error.');
-
-    } else if (textStatus === 'abort') {
-
-      alert('Ajax request aborted.');
-
-    } else {
-
-      alert('Uncaught Error: ' + jqXHR.responseText);
-
-    }
-
-  });
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function ConsultarPuntosDeInteresPaginaSiguiente(pagina) {
   $.ajax({
@@ -288,39 +192,7 @@ function ConsultarPuntosDeInteresPaginaSiguiente(pagina) {
       }
       PuntosDeInteres.push(puntointeres);
     }
-  }).fail(function (jqXHR, textStatus, errorThrown) {
-
-    if (jqXHR.status === 0) {
-
-      alert('Not connect: Verify Network.');
-
-    } else if (jqXHR.status == 404) {
-
-      alert('Requested page not found [404]');
-
-    } else if (jqXHR.status == 500) {
-
-      alert('Internal Server Error [500].');
-
-    } else if (textStatus === 'parsererror') {
-
-      alert('Requested JSON parse failed.');
-
-    } else if (textStatus === 'timeout') {
-
-      alert('Time out error.');
-
-    } else if (textStatus === 'abort') {
-
-      alert('Ajax request aborted.');
-
-    } else {
-
-      alert('Uncaught Error: ' + jqXHR.responseText);
-
-    }
-
-  });
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function BuscarUnPuntoDeInteres() {
   tbody.innerHTML = '';
@@ -353,39 +225,7 @@ function EliminarPuntoDeInteres(id) {
     console.log(data);
     alert(data.respuesta);
     ConsultarPuntosDeInteres(categoria);
-  }).fail(function (jqXHR, textStatus, errorThrown) {
-
-    if (jqXHR.status === 0) {
-
-      alert('Not connect: Verify Network.');
-
-    } else if (jqXHR.status == 404) {
-
-      alert('Requested page not found [404]');
-
-    } else if (jqXHR.status == 500) {
-
-      alert('Internal Server Error [500].');
-
-    } else if (textStatus === 'parsererror') {
-
-      alert('Requested JSON parse failed.');
-
-    } else if (textStatus === 'timeout') {
-
-      alert('Time out error.');
-
-    } else if (textStatus === 'abort') {
-
-      alert('Ajax request aborted.');
-
-    } else {
-
-      alert('Uncaught Error: ' + jqXHR.responseText);
-
-    }
-
-  });
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 
 }
 //MODIFICACION *******************************************************************************************
@@ -432,35 +272,7 @@ function ModificarPuntosDeInteres(id) {
     location.reload();
   }).fail(function (jqXHR, textStatus, errorThrown) {
 
-    if (jqXHR.status === 0) {
-
-      alert('Not connect: Verify Network.');
-
-    } else if (jqXHR.status == 404) {
-
-      alert('Requested page not found [404]');
-
-    } else if (jqXHR.status == 500) {
-
-      alert('Internal Server Error [500].');
-
-    } else if (textStatus === 'parsererror') {
-
-      alert('Requested JSON parse failed.');
-
-    } else if (textStatus === 'timeout') {
-
-      alert('Time out error.');
-
-    } else if (textStatus === 'abort') {
-
-      alert('Ajax request aborted.');
-
-    } else {
-
-      alert('Uncaught Error: ' + jqXHR.responseText);
-
-    }
+    ErrorHandler(jqXHR, textStatus);
 
   });
 }
@@ -476,9 +288,5 @@ function FormularioDeServiciosEscenciales() {
   }).done(function (data) {
     main.innerre = '';
     main.innerHTML = data;
-  }).fail(function (jqXHR, textStatus, errorThrown) {
-
-    ErrorHandler(jqXHR, textStatus);
-    
-  });
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
