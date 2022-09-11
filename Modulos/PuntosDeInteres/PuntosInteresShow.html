@@ -33,13 +33,13 @@
                                 <ul class="dropdown-menu col" aria-labelledby="dropdownMenuButton1">
                                     <li><a onclick="FormularioDeAlojamiento();" class="dropdown-item text-white bg-secondary" href="#">Alojamiento</a></li>
                                     <li><a onclick="FormularioDeGastronomia();" class="dropdown-item text-white bg-secondary" href="#">Gastronomia</a></li>
-                                    <li><a onclick="ConsultarPuntosDeInteres('espectaculos');" class="dropdown-item text-white bg-secondary" href="#">Espectaculos</a></li>
+                                    <li><a onclick="ConsultarPuntosDeInteres('espectaculos');CargarCategoria('espectaculos');" class="dropdown-item text-white bg-secondary" href="#">Espectaculos</a></li>
                                     <li><a onclick="FormularioDeActivdadesAlAireLibre();" class="dropdown-item text-white bg-secondary" href="#">Actividades al Aire Libre</a></li>
                                     <li><a onclick="FormularioDeActividadesNocturnas();" class="dropdown-item text-white bg-secondary " href="#">Actividades Nocturnas</a></li>
                                     <li><a class="dropdown-item text-white bg-secondary" href="#">Transporte</a></li>
                                     <li><a onclick="FormularioDeActividadesInfantiles();" class="dropdown-item text-white bg-secondary" href="#">Actividades Infantiles</a></li>
-                                    <li><a onclick="ConsultarPuntosDeInteres('servicios_esenciales');" class="dropdown-item text-white bg-secondary" href="#">Servicios Escenciales</a></li>
-                                    <li><a onclick="ConsultarPuntosDeInteres('PuntosDeInteres');" class="dropdown-item text-white bg-secondary" href="#">Mostar Todos</a></li>
+                                    <li><a onclick="ConsultarPuntosDeInteres('servicios_esenciales');CargarCategoria('servicios_esenciales');" class="dropdown-item text-white bg-secondary" href="#">Servicios Escenciales</a></li>
+                                    <li><a onclick="ConsultarPuntosDeInteres('PuntosDeInteres');CargarCategoria('PuntosDeInteres');" class="dropdown-item text-white bg-secondary" href="#">Mostar Todos</a></li>
                                 </ul>
                               </div>
                         </div>
@@ -130,7 +130,7 @@
         
     </div>
 <!-- MODAL GENERAL DE PUNTO DE INTERES --------------------------------------------------------------------------------------->
-<div class="modal fade" id="ModalPuntosDeInteres" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="PuntosDeInteres" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
@@ -141,7 +141,7 @@
             <div class="row justify-content-center">
                 <div class="col-sm-6 mt-3">
                     <form action="" method="POST">
-                        <h3 class="text-center">CONTACTO ALOJAMIENTO</h3>
+                        <h3 class="text-center">CONTACTO PUNTO DE INTERES</h3>
                         <div class="mb-3">
                             <input type="text" class="form-control" id="NombrePuntoDeInteres" name="NombrePuntoDeInteres"  placeholder="Nombre">
                         </div>
@@ -166,10 +166,10 @@
                                   <div id="contactos" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#contactos">
                                     <div class="accordion-body">
                                         <div class="mb-3">
-                                            <input type="text" class="form-control" id="TelefonoPuntoDeInteres" name="TelefonoPuntoDeInteres" placeholder="Telefono">
+                                            <input type="text" class="form-control" id="TelefonoPuntoDeInteres0" name="TelefonoPuntoDeInteres" placeholder="Telefono">
                                         </div>
                                         <div class="mb-3">
-                                            <input type="text" class="form-control" id="CelularPuntoDeInteres" name="CelularPuntoDeInteres" placeholder="Celular">
+                                            <input type="text" class="form-control" id="TelefonoPuntoDeInteres1" name="CelularPuntoDeInteres" placeholder="Celular">
                                         </div>
                                         <div class="mb-3">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
@@ -232,18 +232,18 @@
     </div>
 </div>
 <!-- MODAL ESPECTACULOS --------------------------------------------------------------------------------------->
-<div class="modal fade" id="ModalEspectaculos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="espectaculos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">ESPECTACULOS</h5>
+          <h5 class="modal-title">ESPECTACULOS</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <div class="row justify-content-center">
                 <div class="col-sm-6 mt-3">
                     <form action="" method="POST">
-                        <h3 class="text-center">CONTACTO ALOJAMIENTO</h3>
+                        <h3 class="text-center">CONTACTO ESPECTACULO</h3>
                         <div class="mb-3">
                             <input type="text" class="form-control" id="NombrePuntoDeInteres" name="NombrePuntoDeInteres"  placeholder="Nombre">
                         </div>
@@ -325,8 +325,7 @@
                     </form>
                     
                 </div>
-                <div class="row justify-content-center">
-                    <div class="col-sm-6 mt-3">
+                <div class="col-sm-6 mt-3">
                         <form action="" method="POST">
                             <h3 class="text-center">Detalles del Espectaculo</h3>
                             <div class="mb-3">
@@ -345,8 +344,7 @@
                                 <input type="text" class="form-control" id="PrecioEntrada" placeholder="Precio de Entrada" required>
                             </div>
                         </form>                  
-                    </div>
-                </div>
+                </div>             
               </div>
               <div class="row mb-3 justify-content-center">
                 <input type="button" class="w-50 btn btn-primary form-control" id="btnModificarPuntosInteres" value="Modificar">
@@ -545,6 +543,23 @@
       </div>
     </div>
 </div>
+<!-- MODAL DE CONSULTA -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalConsulta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">¿Desea Eliminar?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="btnEliminarPunto" class="btn btn-danger">Eliminar</button>
+          <button type="button" id="btnCerrarConsulta" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../../app.js"></script>
     <script src="../../bootstrap/js/bootstrap.bundle.js"></script>
