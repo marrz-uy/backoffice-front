@@ -234,14 +234,5 @@ $('#btnModificarPuntosInteres').click(function (e) {
   e.preventDefault();
   ModificarPuntosDeInteres(IdModificarPuntoDeInteres);
 });
-function FormularioDeServiciosEscenciales() {
-  $.ajax({
-    url: './Formularios/ServiciosEscencialesAlta.html',
-    type: 'GET',
-    dataType: 'text ',
-  }).done(function (data) {
-    main.innerre = '';
-    main.innerHTML = data;
-  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
-}
+
 function CargarCategoria(categoria){localStorage.setItem('Categoria',`#${categoria}`);};

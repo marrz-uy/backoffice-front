@@ -1,3 +1,15 @@
+function sendError(errorText){alert(errorText);}
+function ErrorHandler(jqXHR, textStatus){
+  if (jqXHR.status === 0)  return sendError('Not connect: Verify Network');
+  if (jqXHR.status == 404) return sendError('Requested page not found [404]');
+  if (jqXHR.status == 500) return sendError('Internal Server Error [500].');
+  if (textStatus === 'parsererror') return sendError('Requested JSON parse failed.');
+  if (textStatus === 'timeout') return sendError('Time out error.');
+  if (textStatus === 'abort') return sendError('Ajax request aborted.');
+
+  return sendError('Uncaught Error: ' + jqXHR.responseText);
+
+}
 function FormularioGeneralPuntoDeInteres(){
   $.ajax({
     url: './Formularios/PuntoDeInteresGeneral.html',
@@ -6,39 +18,7 @@ function FormularioGeneralPuntoDeInteres(){
 }).done(function(data){
     main.innerHTML='';
     main.innerHTML=data;
-}).fail( function( jqXHR, textStatus, errorThrown ) {
-
-if (jqXHR.status === 0) {
-
-alert('Not connect: Verify Network.');
-
-} else if (jqXHR.status == 404) {
-
-alert('Requested page not found [404]');
-
-} else if (jqXHR.status == 500) {
-
-alert('Internal Server Error [500].');
-
-} else if (textStatus === 'parsererror') {
-
-alert('Requested JSON parse failed.');
-
-} else if (textStatus === 'timeout') {
-
-alert('Time out error.');
-
-} else if (textStatus === 'abort') {
-
-alert('Ajax request aborted.');
-
-} else {
-
-alert('Uncaught Error: ' + jqXHR.responseText);
-
-}
-
-}); 
+}).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);}); 
 }
 function FormularioDeAlojamiento(){
     main.innerHTML='';
@@ -228,39 +208,7 @@ function FormularioDeAlojamiento(){
       dataType: 'json',
   }).done(function(data){
       
-  }).fail( function( jqXHR, textStatus, errorThrown ) {
-  
-  if (jqXHR.status === 0) {
-  
-  alert('Not connect: Verify Network.');
-  
-  } else if (jqXHR.status == 404) {
-  
-  alert('Requested page not found [404]');
-  
-  } else if (jqXHR.status == 500) {
-  
-  alert('Internal Server Error [500].');
-  
-  } else if (textStatus === 'parsererror') {
-  
-  alert('Requested JSON parse failed.');
-  
-  } else if (textStatus === 'timeout') {
-  
-  alert('Time out error.');
-  
-  } else if (textStatus === 'abort') {
-  
-  alert('Ajax request aborted.');
-  
-  } else {
-  
-  alert('Uncaught Error: ' + jqXHR.responseText);
-  
-  }
-  
-  });
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
   }
   function FormularioDeActividadesNocturnas(){
     main.innerHTML='';
@@ -320,41 +268,10 @@ function FormularioDeAlojamiento(){
       type:'GET',
       dataType: 'text ',
   }).done(function(data){
+      console.log(data);
       main.innerHTML='';
       main.innerHTML=data;
-  }).fail( function( jqXHR, textStatus, errorThrown ) {
-  
-  if (jqXHR.status === 0) {
-  
-  alert('Not connect: Verify Network.');
-  
-  } else if (jqXHR.status == 404) {
-  
-  alert('Requested page not found [404]');
-  
-  } else if (jqXHR.status == 500) {
-  
-  alert('Internal Server Error [500].');
-  
-  } else if (textStatus === 'parsererror') {
-  
-  alert('Requested JSON parse failed.');
-  
-  } else if (textStatus === 'timeout') {
-  
-  alert('Time out error.');
-  
-  } else if (textStatus === 'abort') {
-  
-  alert('Ajax request aborted.');
-  
-  } else {
-  
-  alert('Uncaught Error: ' + jqXHR.responseText);
-  
-  }
-  
-  }); 
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
   }
   function FormularioDeActividadesInfantiles(){
     main.innerHTML='';
@@ -473,38 +390,6 @@ function FormularioDeAlojamiento(){
       // main.innerHTML='';
       // main.innerHTML=data;
       console.log(data);
-  }).fail( function( jqXHR, textStatus, errorThrown ) {
-  
-  if (jqXHR.status === 0) {
-  
-  alert('Not connect: Verify Network.');
-  
-  } else if (jqXHR.status == 404) {
-  
-  alert('Requested page not found [404]');
-  
-  } else if (jqXHR.status == 500) {
-  
-  alert('Internal Server Error [500].');
-  
-  } else if (textStatus === 'parsererror') {
-  
-  alert('Requested JSON parse failed.');
-  
-  } else if (textStatus === 'timeout') {
-  
-  alert('Time out error.');
-  
-  } else if (textStatus === 'abort') {
-  
-  alert('Ajax request aborted.');
-  
-  } else {
-  
-  alert('Uncaught Error: ' + jqXHR.responseText);
-  
-  }
-  
-  }); 
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
   }
   
