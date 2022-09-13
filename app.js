@@ -60,7 +60,6 @@ function CargarFormularioPuntoDeInteres() {
     Op: 'PuntoDeInteres'
   }
   JSON.stringify(InformacionPuntoDeInteres);
-
 }
 function AltaDePuntoDeInteres(InformacionPuntoDeInteres) {
   $.ajax({
@@ -114,7 +113,7 @@ function RegistrarPuntoDeInteres(InformacionPuntoDeInteres) {
     location.reload();  
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
-//CONSULTA *******************************************************************************************
+//CONSULTA ******************************************************* ************************************
 function ConsultarPuntosDeInteres(categoria) {
   $.ajax({
     url: `http://127.0.0.1:8000/api/PuntosInteres/${categoria}`,
@@ -122,28 +121,30 @@ function ConsultarPuntosDeInteres(categoria) {
     dataType: 'json',
   }).done(function (data) {
     let js = data.data;
-    console.log(js);
+    
     tbody.innerHTML = "";
     for (var i = 0; i < js.length; i++) {
+      if(categoria!='PuntosDeInteres'){
+        return tbody.innerHTML = tbody.innerHTML +
+        '<tr class="table-active">' +
+        '<th scope="row">' + js[i].Nombre + '</th>' +
+        '<td>' + js[i].Departamento + '</td>' +
+        '<td>' + js[i].Ciudad + '</td>' +
+        '<td>' + js[i].Direccion + '</td>' +
+        '<td><i onclick="EliminarPuntoDeInteres('+js[i].puntosinteres_id+');" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(' + '\'' + js[i].puntosinteres_id + '' + '\',' + '\'' + js[i].Nombre + '' + '\',' + '\'' + js[i].Departamento + '' + '\',' + '\'' + js[i].Ciudad + '' + '\',' + '\'' + js[i].Direccion + '' + '\',' + '\'' + js[i].Telefono + '' + '\',' + '\'' + js[i].HoraDeApertura + '' + '\',' + '\'' + js[i].HoraDeCierre + '' + '\',' + '\'' + js[i].Descripcion + '' + '\');" class="bi bi-gear"></i></td>' +
+        '</tr>';
+      };
       tbody.innerHTML = tbody.innerHTML +
         '<tr class="table-active">' +
         '<th scope="row">' + js[i].Nombre + '</th>' +
         '<td>' + js[i].Departamento + '</td>' +
         '<td>' + js[i].Ciudad + '</td>' +
         '<td>' + js[i].Direccion + '</td>' +
-        '<td><i onclick="EliminarPuntoDeInteres(' + js[i].id + ');" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(' + '\'' + js[i].id + '' + '\',' + '\'' + js[i].Nombre + '' + '\',' + '\'' + js[i].Departamento + '' + '\',' + '\'' + js[i].Ciudad + '' + '\',' + '\'' + js[i].Direccion + '' + '\',' + '\'' + js[i].Telefono + '' + '\',' + '\'' + js[i].HoraDeApertura + '' + '\',' + '\'' + js[i].HoraDeCierre + '' + '\',' + '\'' + js[i].Descripcion + '' + '\');" class="bi bi-gear"></i></td>' +
+        '<td><i onclick="EliminarPuntoDeInteres('+js[i].id+');" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(' + '\'' + js[i].id + '' + '\',' + '\'' + js[i].Nombre + '' + '\',' + '\'' + js[i].Departamento + '' + '\',' + '\'' + js[i].Ciudad + '' + '\',' + '\'' + js[i].Direccion + '' + '\',' + '\'' + js[i].Telefono + '' + '\',' + '\'' + js[i].HoraDeApertura + '' + '\',' + '\'' + js[i].HoraDeCierre + '' + '\',' + '\'' + js[i].Descripcion + '' + '\');" class="bi bi-gear"></i></td>' +
         '</tr>';
-      let puntointeres = {
-        id: js[i].id,
-        Nombre: js[i].Nombre,
-        Departamento: js[i].Departamento,
-        Ciudad: js[i].Ciudad,
-        Direccion: js[i].Direccion,
-        Contacto: js[i].Contacto,
-        Horario: js[i].Horario,
-        Descripcion: js[i].Descripcion
-      }
-      PuntosDeInteres.push(puntointeres);
+    }
+    if(categoria!='PuntosDeInteres'){
+     
     }
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
@@ -184,6 +185,7 @@ function EliminarPuntoDeInteres(id) {
 }
 //MODIFICACION *******************************************************************************************
 function CargarModalPuntosDeInteres(id, Nombre, Departamento, Ciudad, Direccion,HoraDeApertura, HoraDeCierre, Descripcion) {
+  console.log(localStorage.getItem('Categoria'));
   $(localStorage.getItem('Categoria')).modal('show');
   ConsultarTelefonosPuntoDeInteres(id);
   $('#NombrePuntoDeInteres').val(Nombre);
