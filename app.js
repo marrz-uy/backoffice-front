@@ -121,7 +121,6 @@ function ConsultarPuntosDeInteres(categoria) {
     dataType: 'json',
   }).done(function (data) {
     let js = data.data;
-    
     tbody.innerHTML = "";
     for (var i = 0; i < js.length; i++) {
       if(categoria!='PuntosDeInteres'){
@@ -186,7 +185,24 @@ function EliminarPuntoDeInteres(id) {
 //MODIFICACION *******************************************************************************************
 function CargarModalPuntosDeInteres(id, Nombre, Departamento, Ciudad, Direccion,HoraDeApertura, HoraDeCierre, Descripcion) {
   console.log(localStorage.getItem('Categoria'));
-  $(localStorage.getItem('Categoria')).modal('show');
+  //$(localStorage.getItem('Categoria')).modal('show');
+  $('#PuntosDeInteres').modal('show');
+  ModalEspectaculos();
+  setTimeout(function(){
+    $('#NombrePuntoDeInteres').val(Nombre);
+    $('#DepartamentoPuntoDeInteres').val(Departamento);
+    $('#CiudadPuntoDeInteres').val(Ciudad);
+    $('#DireccionPuntoDeInteres').val(Direccion);
+    $('#FacebookPuntoDeInteres').val();
+    $('#InstagramPuntoDeInteres').val();
+    $('#HoraDeApertura').val(HoraDeApertura);
+    $('#HoraDeCierre').val(HoraDeCierre);
+    $('#DescripcionPuntoDeInteres').val(Descripcion);
+    console.log(id);
+    ConsultarTelefonosPuntoDeInteres(id);
+    IdModificarPuntoDeInteres = id;
+    CargarFormularioPuntoDeInteres();
+  },1000)
   ConsultarTelefonosPuntoDeInteres(id);
   $('#NombrePuntoDeInteres').val(Nombre);
   $('#DepartamentoPuntoDeInteres').val(Departamento);
@@ -236,3 +252,15 @@ $('#btnModificarPuntosInteres').click(function (e) {
 });
 
 function CargarCategoria(categoria){localStorage.setItem('Categoria',`#${categoria}`);};
+function ModalEspectaculos(){
+  $.ajax({
+    url: './Modal/ModalEspectaculos.html',
+    type:'GET',
+    dataType: 'text ',
+}).done(function(data){
+    console.log(data);
+    $('#ModalBody').html('');
+    $('#ModalBody').html(data);
+    
+}).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);}); 
+}
