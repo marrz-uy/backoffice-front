@@ -4,6 +4,7 @@ var PuntosDeInteres = [];
 var IdModificarPuntoDeInteres;
 var InformacionPuntoDeInteres;
 var InformacionDetalladaPuntoDeInteres;
+var respuestaHTTP;
 var boton = document.getElementById('btnRegistrarPuntosInteres');
 var categoria = 'PuntosDeInteres';
 
@@ -115,36 +116,50 @@ function RegistrarPuntoDeInteres(InformacionPuntoDeInteres) {
 }
 //CONSULTA ******************************************************* ************************************
 function ConsultarPuntosDeInteres(categoria) {
+ 
   $.ajax({
     url: `http://127.0.0.1:8000/api/PuntosInteres/${categoria}`,
     type: 'GET',
     dataType: 'json',
   }).done(function (data) {
-    let js = data.data;
+    var js = data.data;
+    console.log(js);
     tbody.innerHTML = "";
     for (var i = 0; i < js.length; i++) {
       if(categoria!='PuntosDeInteres'){
-        return tbody.innerHTML = tbody.innerHTML +
-        '<tr class="table-active">' +
-        '<th scope="row">' + js[i].Nombre + '</th>' +
-        '<td>' + js[i].Departamento + '</td>' +
-        '<td>' + js[i].Ciudad + '</td>' +
-        '<td>' + js[i].Direccion + '</td>' +
-        '<td><i onclick="EliminarPuntoDeInteres('+js[i].puntosinteres_id+');" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(' + '\'' + js[i].puntosinteres_id + '' + '\',' + '\'' + js[i].Nombre + '' + '\',' + '\'' + js[i].Departamento + '' + '\',' + '\'' + js[i].Ciudad + '' + '\',' + '\'' + js[i].Direccion + '' + '\',' + '\'' + js[i].Telefono + '' + '\',' + '\'' + js[i].HoraDeApertura + '' + '\',' + '\'' + js[i].HoraDeCierre + '' + '\',' + '\'' + js[i].Descripcion + '' + '\');" class="bi bi-gear"></i></td>' +
-        '</tr>';
+        console.log(js.length);
+        return tbody.innerHTML=tbody.innerHTML+`
+        <tr class="table-active">
+        <th scope="row">${js[i].Nombre}</th>
+        <td>${js[i].Departamento}</td>
+        <td>${js[i].Ciudad}</td>
+        <td>${js[i].Direccion}</td>
+        <td><i onclick="EliminarPuntoDeInteres(${js[i].puntosinteres_id});" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(${js[i].puntosinteres_id},${localStorage.getItem('Categoria')},'Unico');" class="bi bi-gear"></i></td>
+        </tr>`;
+        
       };
-      tbody.innerHTML = tbody.innerHTML +
-        '<tr class="table-active">' +
-        '<th scope="row">' + js[i].Nombre + '</th>' +
-        '<td>' + js[i].Departamento + '</td>' +
-        '<td>' + js[i].Ciudad + '</td>' +
-        '<td>' + js[i].Direccion + '</td>' +
-        '<td><i onclick="EliminarPuntoDeInteres('+js[i].id+');" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(' + '\'' + js[i].id + '' + '\',' + '\'' + js[i].Nombre + '' + '\',' + '\'' + js[i].Departamento + '' + '\',' + '\'' + js[i].Ciudad + '' + '\',' + '\'' + js[i].Direccion + '' + '\',' + '\'' + js[i].Telefono + '' + '\',' + '\'' + js[i].HoraDeApertura + '' + '\',' + '\'' + js[i].HoraDeCierre + '' + '\',' + '\'' + js[i].Descripcion + '' + '\');" class="bi bi-gear"></i></td>' +
-        '</tr>';
+      tbody.innerHTML=tbody.innerHTML+`
+        <tr class="table-active">
+        <th scope="row">${js[i].Nombre}</th>
+        <td>${js[i].Departamento}</td>
+        <td>${js[i].Ciudad}</td>
+        <td>${js[i].Direccion}</td>
+        <td><i onclick="EliminarPuntoDeInteres(${js[i].id});" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(${js[i].id},${localStorage.getItem('Categoria')},'Unico');" class="bi bi-gear"></i></td>
+        </tr>`;
     }
-    if(categoria!='PuntosDeInteres'){
-     
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+function ConsultarUnPuntoDeInteres(id,Categoria,Opcion) {
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/PuntosInteres/${Categoria}`,
+    type: 'GET',
+    dataType: 'json',
+    data:{
+      id:id,
+      Opcion:Opcion
     }
+  }).done(function (data) {
+    return respuestaHTTP=data[0];
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function ConsultarTelefonosPuntoDeInteres(id) {
@@ -183,38 +198,33 @@ function EliminarPuntoDeInteres(id) {
 
 }
 //MODIFICACION *******************************************************************************************
-function CargarModalPuntosDeInteres(id, Nombre, Departamento, Ciudad, Direccion,HoraDeApertura, HoraDeCierre, Descripcion) {
-  console.log(localStorage.getItem('Categoria'));
-  //$(localStorage.getItem('Categoria')).modal('show');
+function CargarModalPuntosDeInteres(id,Categoria,Opcion) {
+  ConsultarUnPuntoDeInteres(id,Categoria,Opcion);
   $('#PuntosDeInteres').modal('show');
   ModalEspectaculos();
+  console.log(id);
   setTimeout(function(){
-    $('#NombrePuntoDeInteres').val(Nombre);
-    $('#DepartamentoPuntoDeInteres').val(Departamento);
-    $('#CiudadPuntoDeInteres').val(Ciudad);
-    $('#DireccionPuntoDeInteres').val(Direccion);
-    $('#FacebookPuntoDeInteres').val();
-    $('#InstagramPuntoDeInteres').val();
-    $('#HoraDeApertura').val(HoraDeApertura);
-    $('#HoraDeCierre').val(HoraDeCierre);
-    $('#DescripcionPuntoDeInteres').val(Descripcion);
-    console.log(id);
+    inputPuntoDeInteres(respuestaHTTP.Nombre,respuestaHTTP.Departamento,respuestaHTTP.Ciudad,respuestaHTTP.Direccion,respuestaHTTP.Facebook,respuestaHTTP.Instagram,respuestaHTTP.HoraDeApertura,respuestaHTTP.HoraDeCierre,respuestaHTTP.Descripcion);
+    inputEspectaculo(respuestaHTTP.Artista,respuestaHTTP.PrecioEntrada);
     ConsultarTelefonosPuntoDeInteres(id);
-    IdModificarPuntoDeInteres = id;
-    CargarFormularioPuntoDeInteres();
+    console.log(respuestaHTTP.Nombre);
   },1000)
-  ConsultarTelefonosPuntoDeInteres(id);
-  $('#NombrePuntoDeInteres').val(Nombre);
-  $('#DepartamentoPuntoDeInteres').val(Departamento);
-  $('#CiudadPuntoDeInteres').val(Ciudad);
-  $('#DireccionPuntoDeInteres').val(Direccion);
-  $('#FacebookPuntoDeInteres').val();
-  $('#InstagramPuntoDeInteres').val();
-  $('#HoraDeApertura').val(HoraDeApertura);
-  $('#HoraDeCierre').val(HoraDeCierre);
-  $('#DescripcionPuntoDeInteres').val(Descripcion);
-  IdModificarPuntoDeInteres = id;
-  CargarFormularioPuntoDeInteres();
+
+  // setTimeout(function(){
+  //   $('#NombrePuntoDeInteres').val(Nombre);
+  //   $('#DepartamentoPuntoDeInteres').val(Departamento);
+  //   $('#CiudadPuntoDeInteres').val(Ciudad);
+  //   $('#DireccionPuntoDeInteres').val(Direccion);
+  //   $('#FacebookPuntoDeInteres').val();
+  //   $('#InstagramPuntoDeInteres').val();
+  //   $('#HoraDeApertura').val(HoraDeApertura);
+  //   $('#HoraDeCierre').val(HoraDeCierre);
+  //   $('#DescripcionPuntoDeInteres').val(Descripcion);
+  //   console.log(id);
+  //   ConsultarTelefonosPuntoDeInteres(id);
+  //   IdModificarPuntoDeInteres = id;
+  //   CargarFormularioPuntoDeInteres();
+  // },1000)
 }
 
 function ModificarPuntosDeInteres(id) {
@@ -250,15 +260,28 @@ $('#btnModificarPuntosInteres').click(function (e) {
   e.preventDefault();
   ModificarPuntosDeInteres(IdModificarPuntoDeInteres);
 });
-
-function CargarCategoria(categoria){localStorage.setItem('Categoria',`#${categoria}`);};
+function inputPuntoDeInteres(Nombre,Departamento,Ciudad,Direccion,Facebook,Instagram,HoraDeApertura,HoraDeCierre,Descripcion){
+  $('#NombrePuntoDeInteres').val(Nombre);
+  $('#DepartamentoPuntoDeInteres').val(Departamento);
+  $('#CiudadPuntoDeInteres').val(Ciudad);
+  $('#DireccionPuntoDeInteres').val(Direccion);
+  $('#FacebookPuntoDeInteres').val(Facebook);
+  $('#InstagramPuntoDeInteres').val(Instagram);
+  $('#HoraDeApertura').val(HoraDeApertura);
+  $('#HoraDeCierre').val(HoraDeCierre);
+  $('#DescripcionPuntoDeInteres').val(Descripcion);
+}
+function inputEspectaculo(Artista,PrecioEntrada){
+$('#NombreDeArtista').val(Artista);
+$('#PrecioEntrada').val(PrecioEntrada);
+}
+function CargarCategoria(categoria){localStorage.setItem('Categoria',`'${categoria}'`);};
 function ModalEspectaculos(){
   $.ajax({
     url: './Modal/ModalEspectaculos.html',
     type:'GET',
     dataType: 'text ',
 }).done(function(data){
-    console.log(data);
     $('#ModalBody').html('');
     $('#ModalBody').html(data);
     
