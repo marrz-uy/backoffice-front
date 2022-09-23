@@ -22,7 +22,11 @@ function ErrorHandler(jqXHR, textStatus){
 
 }
 //VALIDACIONES DE FORMULARIOS-------------------------------------------------------------------------------------------->
-$(document).ready(function () {ConsultarPuntosDeInteres('PuntosDeInteres');CargarCategoria('PuntosDeInteres');});
+$(document).ready(function (){
+  ConsultarPuntosDeInteres('PuntosDeInteres');
+  CargarCategoria('PuntosDeInteres');
+
+});
 
 //ALTA *******************************************************************************************
 $('#btnRegistrarPuntosInteres').click(function (e) {
@@ -286,4 +290,10 @@ function ModalEspectaculos(){
     $('#ModalBody').html(data);
     
 }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);}); 
+}
+
+function prueba(){
+  for(var i=0;i<3;i++){
+    $(`#campoRequerido${i}`).show();
+  }
 }
