@@ -27,12 +27,14 @@ $(document).ready(function (){
   CargarCategoria('PuntosDeInteres');
 
 });
+
 //ALTA --------------------------------------------------------------------------------------------------------------------------------------->
 $('#btnRegistrarPuntosInteres').click(function (e) {
   e.preventDefault();
   if ($('#NombrePuntoDeInteres').val() == '') {
     return $('#NombrePuntoDeInteres').addClass('is-invalid');
   }
+
   if ($('#DepartamentoPuntoDeInteres').val() == '') {
     return $('#DepartamentoPuntoDeInteres').addClass('is-invalid');
   }
@@ -43,6 +45,39 @@ $('#btnRegistrarPuntosInteres').click(function (e) {
     return $('#DireccionPuntoDeInteres').addClass('is-invalid');
   }
   getInputPuntoDeInteres();
+});
+$('#btnSiguiente').click(function (e) { 
+  e.preventDefault();
+  if ($('#NombrePuntoDeInteres').val() == '') {
+    return $('#NombrePuntoDeInteres').addClass('is-invalid');
+  }
+  if ($('#NombrePuntoDeInteres').val() != '') {
+    $('#NombrePuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
+  }
+
+  if ($('#DepartamentoPuntoDeInteres').val() == '') {
+    return $('#DepartamentoPuntoDeInteres').addClass('is-invalid');
+  }
+  if ($('#DepartamentoPuntoDeInteres').val() != '') {
+    $('#DepartamentoPuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
+  }
+
+  if ($('#CiudadPuntoDeInteres').val() == '') {
+    return $('#CiudadPuntoDeInteres').addClass('is-invalid');
+  }
+  if ($('#CiudadPuntoDeInteres').val() != '') {
+    $('#CiudadPuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
+  }
+
+  if ($('#DireccionPuntoDeInteres').val() == '') {
+    return $('#DireccionPuntoDeInteres').addClass('is-invalid');
+  }
+  if ($('#DireccionPuntoDeInteres').val() != '') {
+    $('#DireccionPuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
+  }
+  getInputPuntoDeInteres();
+  if($('#TipoCategoria').val()==='Espectaculos'){FormularioDeEspectaculos();}
+  if($('#TipoCategoria').val()==='Servicios_Esenciales'){FormularioDeServiciosEscenciales();}
 });
 function AltaDePuntoDeInteres(InformacionPuntoDeInteres) {
   $.ajax({
