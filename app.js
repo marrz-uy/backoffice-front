@@ -163,6 +163,7 @@ function ConsultarUnPuntoDeInteres(id,Categoria,Opcion) {
       Opcion:Opcion
     }
   }).done(function (data) {
+    
     if(Categoria==='PuntosDeInteres'){
       return respuestaHTTP=data;
     }
