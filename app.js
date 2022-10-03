@@ -138,6 +138,7 @@ function ConsultarPuntosDeInteres(categoria) {
         <td>${js[i].Direccion}</td>
         <td><i onclick="EliminarPuntoDeInteres(${js[i].puntosinteres_id});" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(${js[i].puntosinteres_id},${localStorage.getItem('Categoria')},'Unico');" class="bi bi-gear"></i></td>
         </tr>`;
+        
       };
       if(categoria==='PuntosDeInteres'){
         tbody.innerHTML=tbody.innerHTML+`

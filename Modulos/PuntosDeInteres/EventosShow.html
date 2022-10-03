@@ -65,11 +65,11 @@
                         <li class="mb-1">
                             <a class="link-dark d-inline-flex text-decoration-none rounded" href="./Dashboard.html">Dashboard</a>
                         </li>     
-                    <li class="mb-1">
-                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
-                          <a href="./PuntosInteresShow.html" class="link-dark text-decoration-none">Puntos De Interes</a>
-                        </button>
-                    </li>
+                        <li class="mb-1">
+                          <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
+                          <a href="./PuntosInteresShow.html" class="link-dark text-decoration-none">Puntos de Interes</a>
+                          </button>  
+                      </li>
                     <li class="mb-1">
                         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
                         <a href="./EventosShow.html" class="link-dark text-decoration-none">Eventos</a>
@@ -150,15 +150,15 @@
     </div>
 </div>
 <!-- MODAL DE CONSULTA -------------------------------------------------------------------------->
-<div class="modal fade" id="ModalConsulta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="ModalConsultaEvento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">¿Desea Eliminar?</h5>
         </div>
         <div class="modal-footer">
-          <button type="button" id="btnEliminarPunto" class="btn btn-danger">Eliminar</button>
-          <button type="button" id="btnCerrarConsulta" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" id="btnEliminarEvento" class="btn btn-danger">Eliminar</button>
+          <button type="button" onclick="$('#ModalConsultaEvento').modal('hide');" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>

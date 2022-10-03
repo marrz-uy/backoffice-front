@@ -38,7 +38,7 @@ function ConsultarPuntosDeInteres(categoria) {
           <td>${js[i].Ciudad}</td>
           <td>${js[i].Direccion}</td>
           <td>
-                <svg onclick="getInputLugar('${js[i].id}','${js[i].Nombre}');" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                <svg onclick="getInputLugarDelEvento('${js[i].id}','${js[i].Nombre}');" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
                     <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
                 </svg>
           </td>
@@ -66,20 +66,14 @@ function ConsultarEventos() {
       <td>${js[i].FechaInicio}</td>
       <td>${js[i].HoraInicio}</td>
       <td>${js[i].Tipo}</td>
-      <td><i onclick="EliminarPuntoDeInteres(${js[i].puntosinteres_id});" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(${js[i].puntosinteres_id},${localStorage.getItem('Categoria')},'Unico');" class="bi bi-gear"></i></td>
+      <td><i onclick="EliminarEvento(${js[i].id});" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(${js[i].puntosinteres_id},${localStorage.getItem('Categoria')},'Unico');" class="bi bi-gear"></i></td>
       </tr>`;
     }
-    return respuestaHTTP=data;
+    respuestaHTTP=data;
+    pagination(respuestaHTTP);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
-function getInputLugar(id,nombre){
-    InformacionLugar = {
-        id: id,
-        Nombre: nombre,
-      }
-      JSON.stringify(InformacionLugar);
-      $('#LugarDelEvento').val(nombre);
-}
+
 function ConsultarPorPagina(EndPoint,Pagina){
   $.ajax({
     url: `http://127.0.0.1:8000/api/${EndPoint}=${Pagina}`,
@@ -102,10 +96,76 @@ function ConsultarPorPagina(EndPoint,Pagina){
     }
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
+
+//ALTAS--------------------------------------------------------------------------------------------------------------------------------------->
+function RegistrarEvento(InformacionDelEvento){
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/Eventos`,
+    type: 'POST',
+    dataType: 'json',
+    data:InformacionDelEvento
+  }).done(function (data) {
+    alert(data.respuesta);
+    CleanInput();
+    location.reload();
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+$('#btnRegistrarEvento').click(function (e) { 
+  e.preventDefault();
+  getInputEvento();
+  RegistrarEvento(InformacionDelEvento);
+});
+//ELIMINAR------------------------------------------------------------------------------------------------------------------------------------>
+function EliminarEvento(id) {
+  $('#ModalConsultaEvento').modal('show');
+  $('#btnEliminarEvento').click(function (e) { 
+    $.ajax({
+      url: `http://127.0.0.1:8000/api/Eventos/${id}`,
+      type: 'DELETE',
+      dataType: 'json',
+    }).done(function (data) {
+      console.log(data);
+      alert(data.respuesta);
+      location.reload();
+    }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+  });
+
+}
+//AUXILIARES---------------------------------------------------------------------------------------------------------------------------------->
 function pagination(respuestaHTTP) {
-$('#pagination').append(`<li class="page-item"><a class="page-link" href="#">Anterior</a></li>`);  
-for(i=respuestaHTTP.current_page;i<=respuestaHTTP.last_page;i++){
-$('#pagination').append(`<li onclick="ConsultarPorPagina(${EndPoint},${i})" class="page-item"><a class="page-link" href="#">${i}</a></li>`)
+  $('#pagination').append(`<li class="page-item"><a class="page-link" href="#">Anterior</a></li>`);  
+  for(i=respuestaHTTP.current_page;i<=respuestaHTTP.last_page;i++){
+  $('#pagination').append(`<li onclick="ConsultarPorPagina(${EndPoint},${i})" class="page-item"><a class="page-link" href="#">${i}</a></li>`)
+  }
+  $('#pagination').append(`<li onclick="ConsultarPuntosDeInteresPaginaSiguiente(2);" class="page-item"><a class="page-link" href="#">Siguiente</a></li>`)
+  }
+  function getInputLugarDelEvento(id,nombre){
+    InformacionLugar = {
+        id: id,
+        Nombre: nombre,
+      }
+      JSON.stringify(InformacionLugar);
+      $('#LugarDelEvento').val(nombre);
 }
-$('#pagination').append(`<li onclick="ConsultarPuntosDeInteresPaginaSiguiente(2);" class="page-item"><a class="page-link" href="#">Siguiente</a></li>`)
+function getInputEvento(){
+  InformacionDelEvento = {
+    Nombre:$('#NombreDelEvento').val(),
+    LugarDelEvento:InformacionLugar.id,
+    LugarDeVentaDeEntradas:$('#LugarDeVentaDeEntradas').val(),
+    FechaInicio:$('#FechaDeApertura').val(),
+    FechaFin:$('#FechaDeCierre').val(),
+    HoraInicio:$('#HoraDeApertura').val(),
+    HoraFin:$('#HoraDeCierre').val(),
+    TipoDeEvento:$('#TipoDeEvento').val()
+  }
+  return JSON.stringify(InformacionDelEvento);
 }
+function CleanInput() {
+    $('#NombreDelEvento').val('');
+    $('#LugarDeVentaDeEntradas').val('');
+    $('#FechaDeApertura').val('');
+    $('#FechaDeCierre').val('');
+    $('#HoraDeApertura').val('');
+    $('#HoraDeCierre').val('');
+    $('#TipoDeEvento').val('');  
+  }
