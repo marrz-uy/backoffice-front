@@ -1,4 +1,7 @@
 var InformacionLugar;
+var tbody=document.getElementById('TablaEventos');
+var respuestaHTTP;
+var EndPoint='Eventos?page=';
 function sendError(errorText){alert(errorText);}
 function ErrorHandler(jqXHR, textStatus){
   if (jqXHR.status === 0)  return sendError('Not connect: Verify Network');
@@ -11,11 +14,13 @@ function ErrorHandler(jqXHR, textStatus){
   return sendError('Uncaught Error: ' + jqXHR.responseText);
 
 }
+
 $('#btnConsultarLugar').click(function (e) { 
     e.preventDefault();
     $('#ModalDeLugares').modal('show');
     ConsultarPuntosDeInteres('PuntosDeInteres');
 });
+//CONSULTAS----------------------------------------------------------------------------------------------------------------------------------->
 function ConsultarPuntosDeInteres(categoria) {
     $.ajax({
       url: `http://127.0.0.1:8000/api/PuntosInteres/${categoria}`,
@@ -23,11 +28,11 @@ function ConsultarPuntosDeInteres(categoria) {
       dataType: 'json',
     }).done(function (data) {
       var js = data.data;
-      tbody.innerHTML = "";
+      console.log(js);
+      $('#tbody').html('');
       for (var i = 0; i < js.length; i++) {
         if(categoria==='PuntosDeInteres'){
-          tbody.innerHTML=tbody.innerHTML+`
-          <tr class="table-active">
+          $('#tbody').append(`<tr class="table-active">
           <th scope="row">${js[i].Nombre}</th>
           <td>${js[i].Departamento}</td>
           <td>${js[i].Ciudad}</td>
@@ -37,11 +42,35 @@ function ConsultarPuntosDeInteres(categoria) {
                     <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
                 </svg>
           </td>
-          </tr>`;
+          </tr>`);
+         
         }
         
       }
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+function ConsultarEventos() {
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/Eventos`,
+    type: 'GET',
+    dataType: 'json',
+  }).done(function (data) {
+    var js = data.data;
+    console.log(data);
+    console.log(js);
+    tbody.innerHTML='';
+    for (var i = 0; i < js.length; i++) {
+      tbody.innerHTML=tbody.innerHTML+
+      `<tr class="table-active">
+      <th scope="row">${js[i].Nombre}</th>
+      <td>${js[i].FechaInicio}</td>
+      <td>${js[i].HoraInicio}</td>
+      <td>${js[i].Tipo}</td>
+      <td><i onclick="EliminarPuntoDeInteres(${js[i].puntosinteres_id});" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(${js[i].puntosinteres_id},${localStorage.getItem('Categoria')},'Unico');" class="bi bi-gear"></i></td>
+      </tr>`;
+    }
+    return respuestaHTTP=data;
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function getInputLugar(id,nombre){
     InformacionLugar = {
@@ -50,4 +79,33 @@ function getInputLugar(id,nombre){
       }
       JSON.stringify(InformacionLugar);
       $('#LugarDelEvento').val(nombre);
+}
+function ConsultarPorPagina(EndPoint,Pagina){
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/${EndPoint}=${Pagina}`,
+    type: 'GET',
+    dataType: 'json',
+  }).done(function (data) {
+    var js = data.data;
+    console.log(data);
+    console.log(js);
+    tbody.innerHTML='';
+    for (var i = 0; i < js.length; i++) {
+      tbody.innerHTML=tbody.innerHTML+
+      `<tr class="table-active">
+      <th scope="row">${js[i].Nombre}</th>
+      <td>${js[i].FechaInicio}</td>
+      <td>${js[i].HoraInicio}</td>
+      <td>${js[i].Tipo}</td>
+      <td><i onclick="EliminarPuntoDeInteres(${js[i].puntosinteres_id});" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(${js[i].puntosinteres_id},${localStorage.getItem('Categoria')},'Unico');" class="bi bi-gear"></i></td>
+      </tr>`;
+    }
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+function pagination(respuestaHTTP) {
+$('#pagination').append(`<li class="page-item"><a class="page-link" href="#">Anterior</a></li>`);  
+for(i=respuestaHTTP.current_page;i<=respuestaHTTP.last_page;i++){
+$('#pagination').append(`<li onclick="ConsultarPorPagina(${EndPoint},${i})" class="page-item"><a class="page-link" href="#">${i}</a></li>`)
+}
+$('#pagination').append(`<li onclick="ConsultarPuntosDeInteresPaginaSiguiente(2);" class="page-item"><a class="page-link" href="#">Siguiente</a></li>`)
 }

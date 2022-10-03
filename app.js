@@ -23,7 +23,7 @@ function ErrorHandler(jqXHR, textStatus){
 }
 //VALIDACIONES DE FORMULARIOS----------------------------------------------------------------------------------------------------------------->
 $(document).ready(function (){
-  ConsultarPuntosDeInteres('PuntosDeInteres');
+  // ConsultarPuntosDeInteres('PuntosDeInteres');
   CargarCategoria('PuntosDeInteres');
 
 });
