@@ -1,5 +1,6 @@
 var tbody = document.getElementById('tbody');
 var main = document.getElementById('main');
+var EndPoint='Eventos?page=';
 var PuntosDeInteres = [];
 var IdModificarPuntoDeInteres;
 var InformacionPuntoDeInteres;
@@ -126,6 +127,8 @@ function ConsultarPuntosDeInteres(categoria) {
     dataType: 'json',
   }).done(function (data) {
     var js = data.data;
+    respuestaHTTP=data;
+    pagination(respuestaHTTP);
     tbody.innerHTML = "";
     for (var i = 0; i < js.length; i++) {
       if(categoria!='PuntosDeInteres'){
@@ -306,4 +309,13 @@ function prueba(){
   for(var i=0;i<3;i++){
     $(`#campoRequerido${i}`).show();
   }
+}
+
+function pagination(respuestaHTTP) {
+  $('#pagination').html('');
+  $('#pagination').append(`<li class="page-item"><a class="page-link" href="#">Anterior</a></li>`);  
+  for(i=respuestaHTTP.current_page;i<=respuestaHTTP.last_page;i++){
+  $('#pagination').append(`<li onclick="ConsultarPorPagina(${EndPoint},${i})" class="page-item"><a class="page-link" href="#">${i}</a></li>`)
+  }
+  $('#pagination').append(`<li onclick="ConsultarPuntosDeInteresPaginaSiguiente(2);" class="page-item"><a class="page-link" href="#">Siguiente</a></li>`)
 }

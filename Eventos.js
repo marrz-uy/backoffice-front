@@ -17,7 +17,9 @@ function ErrorHandler(jqXHR, textStatus){
 $('#btnConsultarLugar').click(function (e) { 
     e.preventDefault();
     $('#ModalDeLugares').modal('show');
+    $('#mensaje').text('');
     ConsultarPuntosDeInteres('PuntosDeInteres');
+    
 });
 //CONSULTAS----------------------------------------------------------------------------------------------------------------------------------->
 function ConsultarPuntosDeInteres(categoria) {
@@ -27,6 +29,7 @@ function ConsultarPuntosDeInteres(categoria) {
       dataType: 'json',
     }).done(function (data) {
       var js = data.data;
+      pagination(data);
       console.log(js);
       $('#tbody').html('');
       for (var i = 0; i < js.length; i++) {
@@ -143,13 +146,15 @@ function EliminarEvento(id) {
 //MODIFICACIONES---------------------------------------------------------------------------------------------------------------------------->
 function CargarModalEvento(id){
   $('#ModalDeEventos').modal('show');
+  $('#mensaje').text('');
   ConsultarEvento(id);
 //  setTimeout(setInputEvento(respuestaHTTP.Nombre,respuestaHTTP.puntosinteres_id,respuestaHTTP.LugarDeVentaDeEntradas,respuestaHTTP.FechaInicio,respuestaHTTP.FechaFin,respuestaHTTP.HoraInicio,respuestaHTTP.HoraFin,respuestaHTTP.Tipo),1000);
   
-  setTimeout(setInputEvento(respuestaHTTP.Nombre,respuestaHTTP.puntosinteres_id,respuestaHTTP.LugarDeVentaDeEntradas,respuestaHTTP.FechaInicio,respuestaHTTP.FechaFin,respuestaHTTP.HoraInicio,respuestaHTTP.HoraFin,respuestaHTTP.Tipo),1000);
+  setInputEvento(respuestaHTTP.Nombre,respuestaHTTP.puntosinteres_id,respuestaHTTP.LugarDeVentaDeEntradas,respuestaHTTP.FechaInicio,respuestaHTTP.FechaFin,respuestaHTTP.HoraInicio,respuestaHTTP.HoraFin,respuestaHTTP.Tipo);
 }
 //AUXILIARES---------------------------------------------------------------------------------------------------------------------------------->
 function pagination(respuestaHTTP) {
+  $('#pagination').html('');
   $('#pagination').append(`<li class="page-item"><a class="page-link" href="#">Anterior</a></li>`);  
   for(i=respuestaHTTP.current_page;i<=respuestaHTTP.last_page;i++){
   $('#pagination').append(`<li onclick="ConsultarPorPagina(${EndPoint},${i})" class="page-item"><a class="page-link" href="#">${i}</a></li>`)
@@ -163,6 +168,7 @@ function pagination(respuestaHTTP) {
       }
       JSON.stringify(InformacionLugar);
       $('#LugarDelEvento').val(nombre);
+      $('#mensaje').text('Se agrego correctamente');
 }
 function getInputEvento(){
   InformacionDelEvento = {

@@ -153,21 +153,21 @@
 <div class="modal fade" id="ModalDeEventos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-          <div class="row">
-              <div class="col-10">
-                  <h5 class="modal-title" id="exampleModalLabel">Modificar Evento</h5>
-              </div>
-              <div class="col-2">
-                  <input type="button" onclick="window.location='PuntosInteresAlta.html';" class="ms-5 btn btn-success" value="Agregar Sitio">
-              </div>
-          </div>
-      </div>
+        <div class="modal-header">
+            <div class="row w-100 justify-content-between">
+                <div class="col-8">
+                    <h3>MODIFICAR EVENTO</h3>
+                </div>
+                <div class="col-3">
+                    <input type="button" onclick="window.location='PuntosInteresAlta.html';" class="ms-5 btn btn-success" value="Agregar Sitio">
+                </div>
+            </div>
+        </div>
       <div  class="modal-body">
           <div class="row justify-content-center">
               <div class="col-sm-6 mt-3">
                   <form id="FormularioEventos" action="" method="POST">
-                      <h3 class="text-center">REGISTRO DE EVENTOS</h3>
+                      
                       <div class="mb-3">
                           <input type="text" class="form-control" id="NombreDelEvento" name="NombreDeEvento"  placeholder="Nombre" required>
                           <div id="campoRequerido0" class="ms-2 invalid-feedback">
@@ -288,16 +288,16 @@
           </div>
       </div>
       <div class="modal-footer">
-          <div class="row">
-              <div class="col-3">
-                  <p style="color:rgb(31, 102, 31)">Se agrego correctamente</p>
-              </div>
-              <div class="col-3">
-                  <button type="button" onclick="$('#ModalDeEventos').modal('hide');" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-              </div>
-          </div>
-        
-      </div>
+        <div class="row w-100 justify-content-between">
+            <div class="col-8">
+                <p id="mensaje" style="color:rgb(31, 102, 31)"></p>
+            </div>
+            <div class="col-2">
+                <button type="button" onclick="$('#ModalDeEventos').modal('hide');" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+      
+    </div>
     </div>
   </div>
 </div>
@@ -314,7 +314,7 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../../app.js"></script>
     <script src="../../Eventos.js"></script>

@@ -43,13 +43,19 @@
                     <ul class="list-unstyled ps-0">
                     <li class="mb-1">
                         <a class="link-dark d-inline-flex text-decoration-none rounded" href="./Dashboard.html">Dashboard</a>
-                    </li>    
+                    </li>
+                       
                     <li class="mb-1">
                         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
                         <a href="./PuntosInteresShow.html" class="link-dark text-decoration-none">Puntos de Interes</a>
                         </button>
                      
                     </li>
+                    <li class="mb-1">
+                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
+                        <a href="./EventosShow.html" class="link-dark text-decoration-none">Eventos</a>
+                        </button>  
+                    </li> 
                     <li class="mb-1">
                         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
                         Gestion de Tours
@@ -198,11 +204,11 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-            <div class="row">
-                <div class="col-10">
+            <div class="row w-100 justify-content-between">
+                <div class="col-8">
                     <h5 class="modal-title" id="exampleModalLabel">Lugares de Eventos</h5>
                 </div>
-                <div class="col-2">
+                <div class="col-3">
                     <input type="button" onclick="window.location='PuntosInteresAlta.html';" class="ms-5 btn btn-success" value="Agregar Sitio">
                 </div>
             </div>
@@ -224,13 +230,22 @@
                 </tbody>
                 </table>
             </div>
+            <div class="row justify-content-center">
+                <div  class="col-sm-3">
+                  <nav aria-label="Page navigation example">
+                    <ul id="pagination" class="pagination">
+                      
+                    </ul>
+                  </nav>
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
-            <div class="row">
-                <div class="col-3">
-                    <p style="color:rgb(31, 102, 31)">Se agrego correctamente</p>
+            <div class="row w-100 justify-content-between">
+                <div class="col-8">
+                    <p id="mensaje" style="color:rgb(31, 102, 31)"></p>
                 </div>
-                <div class="col-3">
+                <div class="col-2">
                     <button type="button" onclick="$('#ModalDeLugares').modal('hide');" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
@@ -244,11 +259,11 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-            <div class="row">
-                <div class="col-10">
-                    <h5 class="modal-title" id="exampleModalLabel">Modificar Evento</h5>
+            <div class="row w-100 justify-content-between">
+                <div class="col-8">
+                    <h5 class="modal-title" id="exampleModalLabel">Lugares de Eventos</h5>
                 </div>
-                <div class="col-2">
+                <div class="col-3">
                     <input type="button" onclick="window.location='PuntosInteresAlta.html';" class="ms-5 btn btn-success" value="Agregar Sitio">
                 </div>
             </div>
@@ -378,11 +393,11 @@
             </div>
         </div>
         <div class="modal-footer">
-            <div class="row">
-                <div class="col-3">
+            <div class="row w-100 justify-content-between">
+                <div class="col-8">
                     <p style="color:rgb(31, 102, 31)">Se agrego correctamente</p>
                 </div>
-                <div class="col-3">
+                <div class="col-2">
                     <button type="button" onclick="$('#ModalDeLugares').modal('hide');" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
