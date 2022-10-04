@@ -1,5 +1,4 @@
 var InformacionLugar;
-var tbody=document.getElementById('TablaEventos');
 var respuestaHTTP;
 var EndPoint='Eventos?page=';
 function sendError(errorText){alert(errorText);}
@@ -58,22 +57,33 @@ function ConsultarEventos() {
     var js = data.data;
     console.log(data);
     console.log(js);
-    tbody.innerHTML='';
+    $('#TablaEventos').html('');
     for (var i = 0; i < js.length; i++) {
-      tbody.innerHTML=tbody.innerHTML+
-      `<tr class="table-active">
+      $('#TablaEventos').append(`<tr class="table-active">
       <th scope="row">${js[i].Nombre}</th>
       <td>${js[i].FechaInicio}</td>
       <td>${js[i].HoraInicio}</td>
       <td>${js[i].Tipo}</td>
-      <td><i onclick="EliminarEvento(${js[i].id});" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(${js[i].puntosinteres_id},${localStorage.getItem('Categoria')},'Unico');" class="bi bi-gear"></i></td>
-      </tr>`;
+      <td><i onclick="EliminarEvento(${js[i].id});" class="bi bi-trash" ></i><i onclick="CargarModalEvento(${js[i].id});" class="bi bi-gear"></i></td>
+      </tr>`);
     }
     respuestaHTTP=data;
     pagination(respuestaHTTP);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
-
+function ConsultarEvento(id){
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/Eventos`,
+    type: 'GET',
+    dataType: 'json',
+    data:{
+      id:id,
+      Opcion:'Unico'
+    }
+  }).done(function (data) {
+    return respuestaHTTP=data;
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
 function ConsultarPorPagina(EndPoint,Pagina){
   $.ajax({
     url: `http://127.0.0.1:8000/api/${EndPoint}=${Pagina}`,
@@ -96,7 +106,6 @@ function ConsultarPorPagina(EndPoint,Pagina){
     }
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
-
 //ALTAS--------------------------------------------------------------------------------------------------------------------------------------->
 function RegistrarEvento(InformacionDelEvento){
   $.ajax({
@@ -115,7 +124,7 @@ $('#btnRegistrarEvento').click(function (e) {
   getInputEvento();
   RegistrarEvento(InformacionDelEvento);
 });
-//ELIMINAR------------------------------------------------------------------------------------------------------------------------------------>
+//BAJAS------------------------------------------------------------------------------------------------------------------------------------>
 function EliminarEvento(id) {
   $('#ModalConsultaEvento').modal('show');
   $('#btnEliminarEvento').click(function (e) { 
@@ -130,6 +139,14 @@ function EliminarEvento(id) {
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
   });
 
+}
+//MODIFICACIONES---------------------------------------------------------------------------------------------------------------------------->
+function CargarModalEvento(id){
+  $('#ModalDeEventos').modal('show');
+  ConsultarEvento(id);
+//  setTimeout(setInputEvento(respuestaHTTP.Nombre,respuestaHTTP.puntosinteres_id,respuestaHTTP.LugarDeVentaDeEntradas,respuestaHTTP.FechaInicio,respuestaHTTP.FechaFin,respuestaHTTP.HoraInicio,respuestaHTTP.HoraFin,respuestaHTTP.Tipo),1000);
+  
+  setTimeout(setInputEvento(respuestaHTTP.Nombre,respuestaHTTP.puntosinteres_id,respuestaHTTP.LugarDeVentaDeEntradas,respuestaHTTP.FechaInicio,respuestaHTTP.FechaFin,respuestaHTTP.HoraInicio,respuestaHTTP.HoraFin,respuestaHTTP.Tipo),1000);
 }
 //AUXILIARES---------------------------------------------------------------------------------------------------------------------------------->
 function pagination(respuestaHTTP) {
@@ -160,6 +177,16 @@ function getInputEvento(){
   }
   return JSON.stringify(InformacionDelEvento);
 }
+function setInputEvento(Nombre,LugarDelEvento,LugarDeVentaDeEntradas,FechaInicio,FechaFin,HoraInicio,HoraFin,TipoDeEvento) {
+  $('#NombreDelEvento').val(Nombre);
+  $('#LugarDelEvento').val(LugarDelEvento);
+  $('#LugarDeVentaDeEntradas').val(LugarDeVentaDeEntradas);
+  $('#FechaDeApertura').val(FechaInicio);
+  $('#FechaDeCierre').val(FechaFin);
+  $('#HoraDeApertura').val(HoraInicio);
+  $('#HoraDeCierre').val(HoraFin);
+  $('#TipoDeEvento').val(TipoDeEvento);  
+  }
 function CleanInput() {
     $('#NombreDelEvento').val('');
     $('#LugarDeVentaDeEntradas').val('');
@@ -168,4 +195,4 @@ function CleanInput() {
     $('#HoraDeApertura').val('');
     $('#HoraDeCierre').val('');
     $('#TipoDeEvento').val('');  
-  }
+}

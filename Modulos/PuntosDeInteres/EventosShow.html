@@ -149,6 +149,158 @@
       </div>
     </div>
 </div>
+<!-- MODAL DE EVENTOS -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalDeEventos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <div class="row">
+              <div class="col-10">
+                  <h5 class="modal-title" id="exampleModalLabel">Modificar Evento</h5>
+              </div>
+              <div class="col-2">
+                  <input type="button" onclick="window.location='PuntosInteresAlta.html';" class="ms-5 btn btn-success" value="Agregar Sitio">
+              </div>
+          </div>
+      </div>
+      <div  class="modal-body">
+          <div class="row justify-content-center">
+              <div class="col-sm-6 mt-3">
+                  <form id="FormularioEventos" action="" method="POST">
+                      <h3 class="text-center">REGISTRO DE EVENTOS</h3>
+                      <div class="mb-3">
+                          <input type="text" class="form-control" id="NombreDelEvento" name="NombreDeEvento"  placeholder="Nombre" required>
+                          <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                                   El campo es requerido
+                          </div>
+                      </div>
+                      <div class="row mb-3">
+                          
+                          <div class="col-10">
+                              <input type="text" class="form-control" id="LugarDelEvento" name="LugarDelEvento"  placeholder="Agregar sitio del evento">
+                          </div>
+                          <div class="col-2">
+                              <button id="btnConsultarLugar" type="button" class="btn btn-success btn-toggle">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                                      <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"></path>
+                                  </svg>        
+                              </button>
+                          </div>
+                         
+                          <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                                   El campo es requerido
+                          </div>
+                      </div>
+                      <div class="row mb-3">
+                          
+                          <div class="col-10">
+                              <input type="text" class="form-control" id="ArtistaDelEvento" name="ArtistaDelEvento"  placeholder="Agregar artista al evento">
+                          </div>
+                          <div class="col-2">
+                              <button id="btnConsultarArtista" type="button" class="btn btn-success btn-toggle">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                                      <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"></path>
+                                  </svg>        
+                              </button>
+                          </div>
+                         
+                          <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                                   El campo es requerido
+                          </div>
+                      </div>
+                      <div class="mb-3">
+                          <div class="mb-3">
+                              <select id="LugarDeVentaDeEntradas" class="form-select" aria-label="Default select example">
+                                  <option selected>Ventas de Entradas</option>
+                                  <option value="Abitab">Abitab</option>
+                                  <option value="RedPagos">RedPagos</option>
+                                  <option value="TickAntel">TickAntel</option>
+                                  <option value="Lugar Del Evento">Lugar Del Evento</option>
+                                  <option value="AccesoYa">AccesoYa</option>
+                                  <option value="RedTicket">RedTicket</option>
+                              </select>
+                          </div>
+                          <div id="campoRequerido1" class="ms-2 invalid-feedback">
+                              El campo es requerido
+                      </div>
+                      </div>
+                      <!--Fecha--------------------------------------------------------------------------------------------------->
+                      <div class="mb-3">
+                          <div class="accordion" id="accordionExample">
+                              <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                  <button class="accordion-button form-control" type="button" data-bs-toggle="collapse" data-bs-target="#fechas" aria-expanded="true" aria-controls="collapseOne">
+                                    Fechas
+                                  </button>
+                                </h2>
+                                <div id="fechas" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#fechas">
+                                  <div class="accordion-body">
+                                      <div class="mb-3">
+                                          <input type="date" class="form-control" id="FechaDeApertura" name="FechaDeApertura" placeholder="Fecha de Apertura">
+                                      </div>
+                                      <div class="mb-3">
+                                          <input type="date" class="form-control" id="FechaDeCierre" name="FechaDeCierre" placeholder="Fecha de Cierre">
+                                      </div>
+                                  
+                                  </div>
+                                </div>
+                              </div>
+                            
+                            </div>
+                      </div>   
+                      <!--HORARIO--------------------------------------------------------------------------------------------------->
+                      <div class="mb-3">
+                          <div class="accordion" id="accordionExample">
+                              <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                  <button class="accordion-button form-control" type="button" data-bs-toggle="collapse" data-bs-target="#horarios" aria-expanded="true" aria-controls="collapseOne">
+                                    Horario
+                                  </button>
+                                </h2>
+                                <div id="horarios" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#horarios">
+                                  <div class="accordion-body">
+                                      <div class="mb-3">
+                                          <input type="time" class="form-control" id="HoraDeApertura" name="HoraApertura" placeholder="Horario de Apertura">
+                                      </div>
+                                      <div class="mb-3">
+                                          <input type="time" class="form-control" id="HoraDeCierre" name="HoraCierre" placeholder="Horario de Cierre">
+                                      </div>
+                                  
+                                  </div>
+                                </div>
+                              </div>
+                            
+                            </div>
+                      </div>
+                      <div class="mb-3">
+                          <input type="text" class="form-control" id="TipoDeEvento" name="TipoDeEvento"  placeholder="Indicar Tipo de Evento" required>
+                          <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                                   El campo es requerido
+                          </div>
+                      </div> 
+                      <div class="mb-3">
+                          <input type="button" class="form-control btn btn-primary" id="btnRegistrarEvento" name="btnRegistrarEvento"  value="Registrar Evento">
+                      </div>                       
+                  </form>
+                  
+              </div>
+              
+          </div>
+      </div>
+      <div class="modal-footer">
+          <div class="row">
+              <div class="col-3">
+                  <p style="color:rgb(31, 102, 31)">Se agrego correctamente</p>
+              </div>
+              <div class="col-3">
+                  <button type="button" onclick="$('#ModalDeEventos').modal('hide');" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              </div>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
 <!-- MODAL DE CONSULTA -------------------------------------------------------------------------->
 <div class="modal fade" id="ModalConsultaEvento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
