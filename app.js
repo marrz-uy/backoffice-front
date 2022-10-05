@@ -1,6 +1,6 @@
 var tbody = document.getElementById('tbody');
 var main = document.getElementById('main');
-var EndPoint='Eventos?page=';
+var EndPoint='PuntosDeInteres?page';
 var PuntosDeInteres = [];
 var IdModificarPuntoDeInteres;
 var InformacionPuntoDeInteres;
@@ -28,7 +28,6 @@ $(document).ready(function (){
   CargarCategoria('PuntosDeInteres');
 
 });
-
 //ALTA --------------------------------------------------------------------------------------------------------------------------------------->
 $('#btnRegistrarPuntosInteres').click(function (e) {
   e.preventDefault();
@@ -304,18 +303,33 @@ function ModalEspectaculos(Categoria){
     
 }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);}); 
 }
-
-function prueba(){
-  for(var i=0;i<3;i++){
-    $(`#campoRequerido${i}`).show();
-  }
-}
-
 function pagination(respuestaHTTP) {
   $('#pagination').html('');
   $('#pagination').append(`<li class="page-item"><a class="page-link" href="#">Anterior</a></li>`);  
   for(i=respuestaHTTP.current_page;i<=respuestaHTTP.last_page;i++){
-  $('#pagination').append(`<li onclick="ConsultarPorPagina(${EndPoint},${i})" class="page-item"><a class="page-link" href="#">${i}</a></li>`)
+  $('#pagination').append(`<li onclick="ConsultarPorPagina('${EndPoint}','${i}');" class="page-item"><a class="page-link" href="#">${i}</a></li>`)
   }
   $('#pagination').append(`<li onclick="ConsultarPuntosDeInteresPaginaSiguiente(2);" class="page-item"><a class="page-link" href="#">Siguiente</a></li>`)
+}
+function ConsultarPorPagina(EndPoint,Pagina){
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/PuntosInteres/${EndPoint}=${Pagina}`,
+    type: 'GET',
+    dataType: 'json',
+  }).done(function (data) {
+    var js = data.data;
+    console.log(data);
+    console.log(js);
+    tbody.innerHTML='';
+    for (var i = 0; i < js.length; i++) {
+      tbody.innerHTML=tbody.innerHTML+
+      `<tr class="table-active">
+      <th scope="row">${js[i].Nombre}</th>
+      <td>${js[i].FechaInicio}</td>
+      <td>${js[i].HoraInicio}</td>
+      <td>${js[i].Tipo}</td>
+      <td><i onclick="EliminarPuntoDeInteres(${js[i].puntosinteres_id});" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(${js[i].puntosinteres_id},${localStorage.getItem('Categoria')},'Unico');" class="bi bi-gear"></i></td>
+      </tr>`;
+    }
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }

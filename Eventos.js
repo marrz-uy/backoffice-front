@@ -13,7 +13,6 @@ function ErrorHandler(jqXHR, textStatus){
   return sendError('Uncaught Error: ' + jqXHR.responseText);
 
 }
-
 $('#btnConsultarLugar').click(function (e) { 
     e.preventDefault();
     $('#ModalDeLugares').modal('show');
@@ -29,7 +28,6 @@ function ConsultarPuntosDeInteres(categoria) {
       dataType: 'json',
     }).done(function (data) {
       var js = data.data;
-      pagination(data);
       console.log(js);
       $('#tbody').html('');
       for (var i = 0; i < js.length; i++) {
@@ -49,6 +47,8 @@ function ConsultarPuntosDeInteres(categoria) {
         }
         
       }
+      respuestaHTTP=data;
+      pagination(respuestaHTTP);
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function ConsultarEventos() {
@@ -87,28 +87,7 @@ function ConsultarEvento(id){
     return respuestaHTTP=data;
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
-function ConsultarPorPagina(EndPoint,Pagina){
-  $.ajax({
-    url: `http://127.0.0.1:8000/api/${EndPoint}=${Pagina}`,
-    type: 'GET',
-    dataType: 'json',
-  }).done(function (data) {
-    var js = data.data;
-    console.log(data);
-    console.log(js);
-    tbody.innerHTML='';
-    for (var i = 0; i < js.length; i++) {
-      tbody.innerHTML=tbody.innerHTML+
-      `<tr class="table-active">
-      <th scope="row">${js[i].Nombre}</th>
-      <td>${js[i].FechaInicio}</td>
-      <td>${js[i].HoraInicio}</td>
-      <td>${js[i].Tipo}</td>
-      <td><i onclick="EliminarPuntoDeInteres(${js[i].puntosinteres_id});" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(${js[i].puntosinteres_id},${localStorage.getItem('Categoria')},'Unico');" class="bi bi-gear"></i></td>
-      </tr>`;
-    }
-  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
-}
+
 //ALTAS--------------------------------------------------------------------------------------------------------------------------------------->
 function RegistrarEvento(InformacionDelEvento){
   $.ajax({
@@ -145,21 +124,65 @@ function EliminarEvento(id) {
 }
 //MODIFICACIONES---------------------------------------------------------------------------------------------------------------------------->
 function CargarModalEvento(id){
+  var idEvento=id;
   $('#ModalDeEventos').modal('show');
+  CleanInput();
   $('#mensaje').text('');
   ConsultarEvento(id);
-//  setTimeout(setInputEvento(respuestaHTTP.Nombre,respuestaHTTP.puntosinteres_id,respuestaHTTP.LugarDeVentaDeEntradas,respuestaHTTP.FechaInicio,respuestaHTTP.FechaFin,respuestaHTTP.HoraInicio,respuestaHTTP.HoraFin,respuestaHTTP.Tipo),1000);
+  setTimeout(function(){
+    setInputEvento(respuestaHTTP.Nombre,respuestaHTTP.puntosinteres_id,respuestaHTTP.LugarDeVentaDeEntradas,respuestaHTTP.FechaInicio,respuestaHTTP.FechaFin,respuestaHTTP.HoraInicio,respuestaHTTP.HoraFin,respuestaHTTP.Tipo)
+  },1000);
   
-  setInputEvento(respuestaHTTP.Nombre,respuestaHTTP.puntosinteres_id,respuestaHTTP.LugarDeVentaDeEntradas,respuestaHTTP.FechaInicio,respuestaHTTP.FechaFin,respuestaHTTP.HoraInicio,respuestaHTTP.HoraFin,respuestaHTTP.Tipo);
 }
+function ModificarEvento(InformacionDelEvento,id){
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/Eventos/${id}`,
+    type: 'PATCH',
+    dataType: 'json',
+    data:InformacionDelEvento
+  }).done(function (data) {
+    alert(data.respuesta);
+    CleanInput();
+    location.reload();
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+$('#btnModificarEvento').click(function (e) { 
+  e.preventDefault();
+  getInputEvento();
+  ModificarEvento(InformacionDelEvento,idEvento);
+});
 //AUXILIARES---------------------------------------------------------------------------------------------------------------------------------->
 function pagination(respuestaHTTP) {
   $('#pagination').html('');
   $('#pagination').append(`<li class="page-item"><a class="page-link" href="#">Anterior</a></li>`);  
   for(i=respuestaHTTP.current_page;i<=respuestaHTTP.last_page;i++){
-  $('#pagination').append(`<li onclick="ConsultarPorPagina(${EndPoint},${i})" class="page-item"><a class="page-link" href="#">${i}</a></li>`)
+  $('#pagination').append(`<li onclick="ConsultarPorPagina('${EndPoint}','${i}')" class="page-item"><a class="page-link" href="#">${i}</a></li>`);
+  
+}
+$('#pagination').append(`<li onclick="ConsultarPorPagina('${EndPoint}','${respuestaHTTP.current_page+1}');" class="page-item"><a class="page-link" href="#">Siguiente</a></li>`);
   }
-  $('#pagination').append(`<li onclick="ConsultarPuntosDeInteresPaginaSiguiente(2);" class="page-item"><a class="page-link" href="#">Siguiente</a></li>`)
+  function ConsultarPorPagina(EndPoint,Pagina){
+    $.ajax({
+      url: `http://127.0.0.1:8000/api/${EndPoint}${Pagina}`,
+      type: 'GET',
+      dataType: 'json',
+    }).done(function (data) {
+      var js = data.data;
+      console.log(data);
+      console.log(js);
+      $('#TablaEventos').html('');
+      for (var i = 0; i < js.length; i++) {
+        $('#TablaEventos').append(`<tr class="table-active">
+        <th scope="row">${js[i].Nombre}</th>
+        <td>${js[i].FechaInicio}</td>
+        <td>${js[i].HoraInicio}</td>
+        <td>${js[i].Tipo}</td>
+        <td><i onclick="EliminarEvento(${js[i].id});" class="bi bi-trash" ></i><i onclick="CargarModalEvento(${js[i].id});" class="bi bi-gear"></i></td>
+        </tr>`);
+      }
+      // respuestaHTTP=data;
+      // pagination(respuestaHTTP);
+    }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
   }
   function getInputLugarDelEvento(id,nombre){
     InformacionLugar = {
@@ -169,6 +192,7 @@ function pagination(respuestaHTTP) {
       JSON.stringify(InformacionLugar);
       $('#LugarDelEvento').val(nombre);
       $('#mensaje').text('Se agrego correctamente');
+      return InformacionLugar;
 }
 function getInputEvento(){
   InformacionDelEvento = {
@@ -184,6 +208,7 @@ function getInputEvento(){
   return JSON.stringify(InformacionDelEvento);
 }
 function setInputEvento(Nombre,LugarDelEvento,LugarDeVentaDeEntradas,FechaInicio,FechaFin,HoraInicio,HoraFin,TipoDeEvento) {
+  console.log('prueba');
   $('#NombreDelEvento').val(Nombre);
   $('#LugarDelEvento').val(LugarDelEvento);
   $('#LugarDeVentaDeEntradas').val(LugarDeVentaDeEntradas);
