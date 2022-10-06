@@ -132,7 +132,7 @@ function CargarModalEvento(id){
   $('#mensaje').text('');
   ConsultarEvento(id);
   setTimeout(function(){
-    setInputEvento(respuestaHTTP.Nombre,respuestaHTTP.puntosinteres_id,respuestaHTTP.LugarDeVentaDeEntradas,respuestaHTTP.FechaInicio,respuestaHTTP.FechaFin,respuestaHTTP.HoraInicio,respuestaHTTP.HoraFin,respuestaHTTP.Tipo)
+    setInputEvento(respuestaHTTP.Nombre,'',respuestaHTTP.LugarDeVentaDeEntradas,respuestaHTTP.FechaInicio,respuestaHTTP.FechaFin,respuestaHTTP.HoraInicio,respuestaHTTP.HoraFin,respuestaHTTP.Tipo)
     ConsultarUnPuntoDeInteres(respuestaHTTP.puntosinteres_id,'PuntosDeInteres','Unico');
     setTimeout(function(){console.log($('#LugarDelEvento').val(respuestaHTTP.Nombre))},1000);
   },1000);
