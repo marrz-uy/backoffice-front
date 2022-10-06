@@ -239,6 +239,7 @@ $('#btnModificarPuntosInteres').click(function (e) {
 });
 //FUNCIONES AUXILIARES------------------------------------------------------------------------------------------------------------------->
 function setInputPuntoDeInteres(Nombre,Departamento,Ciudad,Direccion,Facebook,Instagram,HoraDeApertura,HoraDeCierre,Descripcion){
+  console.log(respuestaHTTP);
   $('#NombrePuntoDeInteres').val(Nombre);
   $('#DepartamentoPuntoDeInteres').val(Departamento);
   $('#CiudadPuntoDeInteres').val(Ciudad);

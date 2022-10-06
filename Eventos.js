@@ -29,6 +29,8 @@ function ConsultarPuntosDeInteres(categoria) {
     }).done(function (data) {
       var js = data.data;
       console.log(js);
+      respuestaHTTP=data;
+      pagination(respuestaHTTP,'PuntosInteres/PuntosDeInteres?page=');
       $('#tbody').html('');
       for (var i = 0; i < js.length; i++) {
         if(categoria==='PuntosDeInteres'){
@@ -47,10 +49,10 @@ function ConsultarPuntosDeInteres(categoria) {
         }
         
       }
-      respuestaHTTP=data;
-      pagination(respuestaHTTP);
+      
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
+
 function ConsultarEventos() {
   $.ajax({
     url: `http://127.0.0.1:8000/api/Eventos`,
@@ -71,7 +73,7 @@ function ConsultarEventos() {
       </tr>`);
     }
     respuestaHTTP=data;
-    pagination(respuestaHTTP);
+    pagination(respuestaHTTP,EndPoint);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function ConsultarEvento(id){
@@ -131,8 +133,10 @@ function CargarModalEvento(id){
   ConsultarEvento(id);
   setTimeout(function(){
     setInputEvento(respuestaHTTP.Nombre,respuestaHTTP.puntosinteres_id,respuestaHTTP.LugarDeVentaDeEntradas,respuestaHTTP.FechaInicio,respuestaHTTP.FechaFin,respuestaHTTP.HoraInicio,respuestaHTTP.HoraFin,respuestaHTTP.Tipo)
+    ConsultarUnPuntoDeInteres(respuestaHTTP.puntosinteres_id,'PuntosDeInteres','Unico');
+    setTimeout(function(){console.log(respuestaHTTP)},1000);
   },1000);
-  
+
 }
 function ModificarEvento(InformacionDelEvento,id){
   $.ajax({
@@ -152,7 +156,7 @@ $('#btnModificarEvento').click(function (e) {
   ModificarEvento(InformacionDelEvento,idEvento);
 });
 //AUXILIARES---------------------------------------------------------------------------------------------------------------------------------->
-function pagination(respuestaHTTP) {
+function pagination(respuestaHTTP,EndPoint) {
   $('#pagination').html('');
   $('#pagination').append(`<li class="page-item"><a class="page-link" href="#">Anterior</a></li>`);  
   for(i=respuestaHTTP.current_page;i<=respuestaHTTP.last_page;i++){
@@ -208,7 +212,7 @@ function getInputEvento(){
   return JSON.stringify(InformacionDelEvento);
 }
 function setInputEvento(Nombre,LugarDelEvento,LugarDeVentaDeEntradas,FechaInicio,FechaFin,HoraInicio,HoraFin,TipoDeEvento) {
-  console.log('prueba');
+  
   $('#NombreDelEvento').val(Nombre);
   $('#LugarDelEvento').val(LugarDelEvento);
   $('#LugarDeVentaDeEntradas').val(LugarDeVentaDeEntradas);
