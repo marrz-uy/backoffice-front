@@ -78,6 +78,7 @@ $('#btnSiguiente').click(function (e) {
   getInputPuntoDeInteres();
   if($('#TipoCategoria').val()==='Espectaculos'){FormularioDeEspectaculos();}
   if($('#TipoCategoria').val()==='Servicios_Esenciales'){FormularioDeServiciosEscenciales();}
+  if($('#TipoCategoria').val()==='transporte'){FormularioDeTransporte();}
 });
 function AltaDePuntoDeInteres(InformacionPuntoDeInteres) {
   $.ajax({
@@ -106,6 +107,11 @@ function AltaDeEspectaculos(){
   getInputEspectaculos();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
+function AltaDeTransporte() {
+  getInputTransporte();
+  RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
+}
+
 function RegistrarPuntoDeInteres(InformacionPuntoDeInteres) {
   $.ajax({
     url: 'http://127.0.0.1:8000/api/PuntosInteres',
@@ -276,6 +282,15 @@ function getInputServicioEsencial(){
   InformacionDetalladaPuntoDeInteres = {
     Tipo: $('#TipoDetallado').val(),
     Op: 'ServicioEsencial'
+  }
+  InformacionDetalladaPuntoDeInteres = JSON.stringify(InformacionDetalladaPuntoDeInteres);
+  InformacionPuntoDeInteres.InformacionDetalladaPuntoDeInteres = InformacionDetalladaPuntoDeInteres;
+  console.log(InformacionPuntoDeInteres);
+}
+function getInputTransporte(){
+  InformacionDetalladaPuntoDeInteres = {
+    Tipo: $('#TipoDetallado').val(),
+    Op: 'transporte'
   }
   InformacionDetalladaPuntoDeInteres = JSON.stringify(InformacionDetalladaPuntoDeInteres);
   InformacionPuntoDeInteres.InformacionDetalladaPuntoDeInteres = InformacionDetalladaPuntoDeInteres;
