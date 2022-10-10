@@ -1,4 +1,5 @@
 var InformacionLugar;
+var idEvento;
 var respuestaHTTP;
 var EndPoint='Eventos?page=';
 function sendError(errorText){alert(errorText);}
@@ -126,7 +127,7 @@ function EliminarEvento(id) {
 }
 //MODIFICACIONES---------------------------------------------------------------------------------------------------------------------------->
 function CargarModalEvento(id){
-  var idEvento=id;
+  idEvento=id;
   $('#ModalDeEventos').modal('show');
   CleanInput();
   $('#mensaje').text('');
