@@ -70,7 +70,7 @@ function ConsultarEventos() {
       <td>${js[i].FechaInicio}</td>
       <td>${js[i].HoraInicio}</td>
       <td>${js[i].Tipo}</td>
-      <td><i onclick="EliminarEvento(${js[i].id});" class="bi bi-trash" ></i><i onclick="CargarModalEvento(${js[i].id});" class="bi bi-gear"></i></td>
+      <td><i onclick="EliminarEvento(${js[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalEvento(${js[i].id});" class="bi bi-gear ms-2 pointer"></i></td>
       </tr>`);
     }
     respuestaHTTP=data;

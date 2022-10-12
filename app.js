@@ -144,7 +144,7 @@ function ConsultarPuntosDeInteres(categoria) {
         <td>${js[i].Departamento}</td>
         <td>${js[i].Ciudad}</td>
         <td>${js[i].Direccion}</td>
-        <td><i onclick="EliminarPuntoDeInteres(${js[i].puntosinteres_id});" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(${js[i].puntosinteres_id},${localStorage.getItem('Categoria')},'Unico');" class="bi bi-gear"></i></td>
+        <td><i onclick="EliminarPuntoDeInteres(${js[i].puntosinteres_id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalPuntosDeInteres(${js[i].puntosinteres_id},${localStorage.getItem('Categoria')},'Unico');" style="cursor:pointer;" class="bi bi-gear ms-2"></i></td>
         </tr>`;
         
       };
@@ -155,7 +155,7 @@ function ConsultarPuntosDeInteres(categoria) {
         <td>${js[i].Departamento}</td>
         <td>${js[i].Ciudad}</td>
         <td>${js[i].Direccion}</td>
-        <td><i onclick="EliminarPuntoDeInteres(${js[i].id});" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(${js[i].id},${localStorage.getItem('Categoria')},'Unico');" class="bi bi-gear"></i></td>
+        <td><i onclick="EliminarPuntoDeInteres(${js[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalPuntosDeInteres(${js[i].id},${localStorage.getItem('Categoria')},'Unico');" style="cursor:pointer;" class="bi bi-gear ms-2"></i></td>
         </tr>`;
       }
       
@@ -261,11 +261,12 @@ $('#NombreDeArtista').val(Artista);
 $('#PrecioEntrada').val(PrecioEntrada);
 }
 function getInputPuntoDeInteres() {
+  let Direccion=`${$('#DireccionPuntoDeInteres1').val()} ${$('#DireccionPuntoDeInteres2').val()} ${$('#DireccionPuntoDeInteres1').val()}`;
   InformacionPuntoDeInteres = {
     Nombre: $('#NombrePuntoDeInteres').val(),
     Departamento: $('#DepartamentoPuntoDeInteres').val(),
     Ciudad: $('#CiudadPuntoDeInteres').val(),
-    Direccion: $('#DireccionPuntoDeInteres').val(),
+    Direccion: Direccion,
     Telefono: $('#TelefonoPuntoDeInteres').val(),
     Celular: $('#CelularPuntoDeInteres').val(),
     Facebook: $('#FacebookPuntoDeInteres').val(),
@@ -274,6 +275,8 @@ function getInputPuntoDeInteres() {
     HoraDeCierre: $('#HoraDeCierre').val(),
     Descripcion: $('#DescripcionPuntoDeInteres').val(),
     Imagen: $('#Imagen').val(),
+    Latitud: $('#Latitud').val(),
+    Longitud: $('#Longitud').val(),
     Op: 'PuntoDeInteres'
   }
   return JSON.stringify(InformacionPuntoDeInteres);
