@@ -23,19 +23,20 @@
                 </div>
                 <h5 class="text-center text-secondary mt-3">Backoffice / MARRZ </h5>
                 <div class="mb-3 input-group">
-                    <input type="text" class="form-control" placeholder="Usuario">
+                    <input id="user" type="text" class="form-control" placeholder="Usuario">
                 </div>
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Contraseña">
+                    <input id="password" type="text" class="form-control" placeholder="Contraseña">
                 </div>
                 <div class="mb-3">
                     <a href="./Modulos/PuntosDeInteres/Dashboard.html">Avanzar --></a>
-                    <input type="text" class="btn btn-primary form-control" value="Ingresar">
+                    <input type="text" onclick="Login();" class="btn btn-primary form-control" value="Ingresar">
                 </div>
             </form>
         </div>
         
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./bootstrap/js/bootstrap.bundle.js"></script>
     <script src="./app.js"></script>
     <link rel="stylesheet" href="./Modulos/PuntosDeInteres/Formularios/ServiciosEscencialesAlta.html">

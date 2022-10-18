@@ -28,6 +28,20 @@ $(document).ready(function (){
   CargarCategoria('PuntosDeInteres');
 
 });
+//LOGIN--------------------------------------------------------------------------------------------------------------------------------------->
+function Login() {
+  $.ajax({
+    url: 'http://127.0.0.1:8000/api/LoginController',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      username:$('#user').val(),
+      password:$('#password').val()
+    }
+  }).done(function (data) { 
+    data.respuesta==='true'?location='Modulos/PuntosDeInteres/Dashboard.html':alert(data.respuesta);
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
 //ALTA --------------------------------------------------------------------------------------------------------------------------------------->
 $('#btnRegistrarPuntosInteres').click(function (e) {
   e.preventDefault();
