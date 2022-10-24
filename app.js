@@ -26,20 +26,39 @@ function ErrorHandler(jqXHR, textStatus){
 $(document).ready(function (){
   // ConsultarPuntosDeInteres('PuntosDeInteres');
   CargarCategoria('PuntosDeInteres');
-
 });
 //LOGIN--------------------------------------------------------------------------------------------------------------------------------------->
 function Login() {
+    $.ajax({
+      url: 'http://127.0.0.1:8000/api/LoginController',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        username:$('#user').val(),
+        password:$('#password').val()
+      }
+    }).done(function (data){
+      if(data.respuesta==='true'){
+        localStorage.setItem('Token',data.access_token);
+        return location='Modulos/PuntosDeInteres/Dashboard.html';
+      }
+      alert(data.respuesta);
+      //data.respuesta==='true'?location='Modulos/PuntosDeInteres/Dashboard.html':alert(data.respuesta);
+      
+      
+    }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+  }
+  
+
+function Logout() {
   $.ajax({
-    url: 'http://127.0.0.1:8000/api/LoginController',
+    url: 'http://127.0.0.1:8000/api/auth/logout',
     type: 'POST',
     dataType: 'json',
-    data: {
-      username:$('#user').val(),
-      password:$('#password').val()
-    }
-  }).done(function (data) { 
-    data.respuesta==='true'?location='Modulos/PuntosDeInteres/Dashboard.html':alert(data.respuesta);
+    
+  }).done(function (data){
+    console.log(data);
+    //localStorage.removeItem('Token');
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 //ALTA --------------------------------------------------------------------------------------------------------------------------------------->
