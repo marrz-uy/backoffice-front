@@ -81,6 +81,7 @@ $('#btnRegistrarPuntosInteres').click(function (e) {
 });
 $('#btnSiguiente').click(function (e) { 
   e.preventDefault();
+  console.log($('#TipoCategoria').val());
   if ($('#NombrePuntoDeInteres').val() == '') {
     return $('#NombrePuntoDeInteres').addClass('is-invalid');
   }
@@ -112,6 +113,8 @@ $('#btnSiguiente').click(function (e) {
   if($('#TipoCategoria').val()==='Espectaculos'){FormularioDeEspectaculos();}
   if($('#TipoCategoria').val()==='Servicios_Esenciales'){FormularioDeServiciosEscenciales();}
   if($('#TipoCategoria').val()==='transporte'){FormularioDeTransporte();}
+  if($('#TipoCategoria').val()==='Seleccionar Categoria'){RegistrarPuntoDeInteres(InformacionPuntoDeInteres);}
+  
 });
 function AltaDePuntoDeInteres(InformacionPuntoDeInteres) {
   $.ajax({
