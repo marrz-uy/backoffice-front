@@ -82,38 +82,38 @@ $('#btnRegistrarPuntosInteres').click(function (e) {
 $('#btnSiguiente').click(function (e) { 
   e.preventDefault();
   ConsultaDeRespuestasHTTP();
-  // if ($('#NombrePuntoDeInteres').val() == '') {
-  //   return $('#NombrePuntoDeInteres').addClass('is-invalid');
-  // }
-  // if ($('#NombrePuntoDeInteres').val() != '') {
-  //   $('#NombrePuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
-  // }
+  if ($('#NombrePuntoDeInteres').val() == '') {
+    return $('#NombrePuntoDeInteres').addClass('is-invalid');
+  }
+  if ($('#NombrePuntoDeInteres').val() != '') {
+    $('#NombrePuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
+  }
 
-  // if ($('#DepartamentoPuntoDeInteres').val() == '') {
-  //   return $('#DepartamentoPuntoDeInteres').addClass('is-invalid');
-  // }
-  // if ($('#DepartamentoPuntoDeInteres').val() != '') {
-  //   $('#DepartamentoPuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
-  // }
+  if ($('#DepartamentoPuntoDeInteres').val() == '') {
+    return $('#DepartamentoPuntoDeInteres').addClass('is-invalid');
+  }
+  if ($('#DepartamentoPuntoDeInteres').val() != '') {
+    $('#DepartamentoPuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
+  }
 
-  // if ($('#CiudadPuntoDeInteres').val() == '') {
-  //   return $('#CiudadPuntoDeInteres').addClass('is-invalid');
-  // }
-  // if ($('#CiudadPuntoDeInteres').val() != '') {
-  //   $('#CiudadPuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
-  // }
+  if ($('#CiudadPuntoDeInteres').val() == '') {
+    return $('#CiudadPuntoDeInteres').addClass('is-invalid');
+  }
+  if ($('#CiudadPuntoDeInteres').val() != '') {
+    $('#CiudadPuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
+  }
 
-  // if ($('#DireccionPuntoDeInteres').val() == '') {
-  //   return $('#DireccionPuntoDeInteres').addClass('is-invalid');
-  // }
-  // if ($('#DireccionPuntoDeInteres').val() != '') {
-  //   $('#DireccionPuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
-  // }
-  // getInputPuntoDeInteres();
-  // if($('#TipoCategoria').val()==='Espectaculos'){FormularioDeEspectaculos();}
-  // if($('#TipoCategoria').val()==='Servicios_Esenciales'){FormularioDeServiciosEscenciales();}
-  // if($('#TipoCategoria').val()==='transporte'){FormularioDeTransporte();}
-  // if($('#TipoCategoria').val()==='Seleccionar Categoria'){RegistrarPuntoDeInteres(InformacionPuntoDeInteres);}
+  if ($('#DireccionPuntoDeInteres').val() == '') {
+    return $('#DireccionPuntoDeInteres').addClass('is-invalid');
+  }
+  if ($('#DireccionPuntoDeInteres').val() != '') {
+    $('#DireccionPuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
+  }
+  getInputPuntoDeInteres();
+  if($('#TipoCategoria').val()==='Espectaculos'){FormularioDeEspectaculos();}
+  if($('#TipoCategoria').val()==='Servicios_Esenciales'){FormularioDeServiciosEscenciales();}
+  if($('#TipoCategoria').val()==='transporte'){FormularioDeTransporte();}
+  if($('#TipoCategoria').val()==='Seleccionar Categoria'){RegistrarPuntoDeInteres(InformacionPuntoDeInteres);}
   
 });
 function AltaDePuntoDeInteres(InformacionPuntoDeInteres) {
@@ -302,6 +302,7 @@ $('#btnModificarPuntosInteres').click(function (e) {
 //FUNCIONES AUXILIARES------------------------------------------------------------------------------------------------------------------->
 function setInputPuntoDeInteres(Nombre,Departamento,Ciudad,Direccion,Facebook,Instagram,HoraDeApertura,HoraDeCierre,Descripcion,Latitud,Longitud){
   console.log(respuestaHTTP);
+  console.log(Direccion);
   $('#NombrePuntoDeInteres').val(Nombre);
   $('#DepartamentoPuntoDeInteres').val(Departamento);
   $('#CiudadPuntoDeInteres').val(Ciudad);
