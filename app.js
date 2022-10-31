@@ -9,7 +9,6 @@ var respuestaHTTP;
 var boton = document.getElementById('btnRegistrarPuntosInteres');
 var categoria = 'PuntosDeInteres';
 
-
 function sendError(errorText){alert(errorText);}
 function ErrorHandler(jqXHR, textStatus){
   if (jqXHR.status === 0)  return sendError('Not connect: Verify Network');
@@ -47,9 +46,7 @@ function Login() {
       
       
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
-  }
-  
-
+}
 function Logout() {
   $.ajax({
     url: 'http://127.0.0.1:8000/api/auth/logout',
@@ -242,7 +239,6 @@ function ConsultarTelefonosPuntoDeInteres(id) {
     data:{id:id}
   }).done(function (data) {
     for (var i = 0; i < data.length; i++) {
-      console.log(data[i].Telefono);
       $(`#TelefonoPuntoDeInteres${i}`).val(data[i].Telefono);
       $(`#TelefonoPuntoDeInteres${i+1}`).val('');
     }
@@ -279,7 +275,6 @@ function CargarModalPuntosDeInteres(id,Categoria,Opcion) {
     setInputPuntoDeInteres(respuestaHTTP.Nombre,respuestaHTTP.Departamento,respuestaHTTP.Ciudad,respuestaHTTP.Direccion,respuestaHTTP.Facebook,respuestaHTTP.Instagram,respuestaHTTP.HoraDeApertura,respuestaHTTP.HoraDeCierre,respuestaHTTP.Descripcion,respuestaHTTP.Latitud,respuestaHTTP.Longitud);
     ConsultarTelefonosPuntoDeInteres(id);
     setInputEspectaculo(respuestaHTTP.Artista,respuestaHTTP.PrecioEntrada);
-    console.log(respuestaHTTP.Nombre);
   },1000)
 }
 function ModificarPuntosDeInteres(id,InformacionPuntoDeInteres) {
@@ -303,10 +298,13 @@ $('#btnModificarPuntosInteres').click(function (e) {
 function setInputPuntoDeInteres(Nombre,Departamento,Ciudad,Direccion,Facebook,Instagram,HoraDeApertura,HoraDeCierre,Descripcion,Latitud,Longitud){
   console.log(respuestaHTTP);
   console.log(Direccion);
+  Direccion=Direccion.split(' ');
   $('#NombrePuntoDeInteres').val(Nombre);
   $('#DepartamentoPuntoDeInteres').val(Departamento);
   $('#CiudadPuntoDeInteres').val(Ciudad);
-  $('#DireccionPuntoDeInteres').val(Direccion);
+  $('#DireccionPuntoDeInteres1').val(Direccion[0]);
+  $('#DireccionPuntoDeInteres2').val(Direccion[1]);
+  $('#DireccionPuntoDeInteres3').val(Direccion[2]);
   $('#FacebookPuntoDeInteres').val(Facebook);
   $('#InstagramPuntoDeInteres').val(Instagram);
   $('#HoraDeApertura').val(HoraDeApertura);
@@ -375,7 +373,6 @@ function ModalConsulta(Categoria){
     type:'GET',
     dataType: 'text ',
 }).done(function(data){
-  console.log(data);
     $('#ModalBody').html('');
     $('#ModalBody').html(data);
     
@@ -403,10 +400,10 @@ function ConsultarPorPagina(EndPoint,Pagina){
       tbody.innerHTML=tbody.innerHTML+
       `<tr class="table-active">
       <th scope="row">${js[i].Nombre}</th>
-      <td>${js[i].FechaInicio}</td>
-      <td>${js[i].HoraInicio}</td>
-      <td>${js[i].Tipo}</td>
-      <td><i onclick="EliminarPuntoDeInteres(${js[i].puntosinteres_id});" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(${js[i].puntosinteres_id},${localStorage.getItem('Categoria')},'Unico');" class="bi bi-gear"></i></td>
+      <td>${js[i].Departamento}</td>
+      <td>${js[i].Ciudad}</td>
+      <td>${js[i].Direccion}</td>
+      <td><i onclick="EliminarPuntoDeInteres(${js[i].id});" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(${js[i].id},${localStorage.getItem('Categoria')},'Unico');" class="bi bi-gear"></i></td>
       </tr>`;
     }
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
