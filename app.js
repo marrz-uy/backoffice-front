@@ -78,14 +78,12 @@ $('#btnRegistrarPuntosInteres').click(function (e) {
 });
 $('#btnSiguiente').click(function (e) { 
   e.preventDefault();
-  ConsultaDeRespuestasHTTP();
   if ($('#NombrePuntoDeInteres').val() == '') {
     return $('#NombrePuntoDeInteres').addClass('is-invalid');
   }
   if ($('#NombrePuntoDeInteres').val() != '') {
     $('#NombrePuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
   }
-
   if ($('#DepartamentoPuntoDeInteres').val() == '') {
     return $('#DepartamentoPuntoDeInteres').addClass('is-invalid');
   }
@@ -110,6 +108,7 @@ $('#btnSiguiente').click(function (e) {
   if($('#TipoCategoria').val()==='Espectaculos'){FormularioDeEspectaculos();}
   if($('#TipoCategoria').val()==='Servicios_Esenciales'){FormularioDeServiciosEscenciales();}
   if($('#TipoCategoria').val()==='transporte'){FormularioDeTransporte();}
+  if($('#TipoCategoria').val()==='Alojamiento'){FormularioDeAlojamiento();}
   if($('#TipoCategoria').val()==='Seleccionar Categoria'){RegistrarPuntoDeInteres(InformacionPuntoDeInteres);}
   
 });
@@ -144,7 +143,10 @@ function AltaDeTransporte() {
   getInputTransporte();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
-
+function AltaDeAlojamiento() {
+  getInputAlojamiento();
+  RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
+}
 function RegistrarPuntoDeInteres(InformacionPuntoDeInteres) {
   console.log(InformacionPuntoDeInteres);
   $.ajax({
@@ -362,6 +364,33 @@ function getInputEspectaculos() {
     Artista: $('#NombreDeArtista').val(),
     PrecioEntrada: $('#PrecioEntrada').val(),
     Op: 'Espectaculos'
+  }
+  InformacionDetalladaPuntoDeInteres = JSON.stringify(InformacionDetalladaPuntoDeInteres);
+  InformacionPuntoDeInteres.InformacionDetalladaPuntoDeInteres = InformacionDetalladaPuntoDeInteres;
+}
+function getInputAlojamiento() {
+  if ($('#InputPiscina').prop('checked')) {Piscina='Piscina';}
+  if ($('#InputTvcable').prop('checked')) {Tv='TvCable';}
+  if ($('#InputWifi').prop('checked')) {Wifi='Wifi';}
+  if ($('#InputAireAcondicionado').prop('checked')) {AireAcondicionado='AireAcondicionado';}
+  if ($('#InputBanoPrivado').prop('checked')) {BanoPrivado='BanoPrivado';}
+  if ($('#InputBar').prop('checked')) {Bar='Bar';}
+  if ($('#InputCasino').prop('checked')) {Casino='Casino';}
+  if ($('#InputDesayuno').prop('checked')) {Desayuno='Desayuno';}
+  InformacionDetalladaPuntoDeInteres = {
+    Tipo: $('#TipoDetallado').val(),
+    Costos:$('#InputCostos').val(),
+    Habitaciones:$('#InputHabitaciones').val(),
+    Calificaciones:$('#InputCalificaciones').val(),
+    Piscina:Piscina,
+    Tv:Tv,
+    Wifi:Wifi,
+    AireAcondicionado:AireAcondicionado,
+    BanoPrivado:BanoPrivado,
+    Bar:Bar,
+    Casino:Casino,
+    Desayuno:Desayuno,
+    Op: 'Alojamiento'
   }
   InformacionDetalladaPuntoDeInteres = JSON.stringify(InformacionDetalladaPuntoDeInteres);
   InformacionPuntoDeInteres.InformacionDetalladaPuntoDeInteres = InformacionDetalladaPuntoDeInteres;
