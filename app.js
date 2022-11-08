@@ -155,9 +155,9 @@ function RegistrarPuntoDeInteres(InformacionPuntoDeInteres) {
     dataType: 'json',
     data: InformacionPuntoDeInteres
   }).done(function (data) {
-    // alert(data.respuesta);
-    // location.reload(); 
-    console.log(data);
+    alert(data.respuesta);
+    location.reload(); 
+    //console.log(data);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function ConsultaDeRespuestasHTTP() {
@@ -276,7 +276,8 @@ function CargarModalPuntosDeInteres(id,Categoria,Opcion) {
   setTimeout(function(){
     setInputPuntoDeInteres(respuestaHTTP.Nombre,respuestaHTTP.Departamento,respuestaHTTP.Ciudad,respuestaHTTP.Direccion,respuestaHTTP.Facebook,respuestaHTTP.Instagram,respuestaHTTP.HoraDeApertura,respuestaHTTP.HoraDeCierre,respuestaHTTP.Descripcion,respuestaHTTP.Latitud,respuestaHTTP.Longitud);
     ConsultarTelefonosPuntoDeInteres(id);
-    setInputEspectaculo(respuestaHTTP.Artista,respuestaHTTP.PrecioEntrada);
+    if(Categoria==='espectaculos')setInputEspectaculo(respuestaHTTP.Artista,respuestaHTTP.PrecioEntrada);
+    if(Categoria==='alojamientos')setInputAlojamiento(respuestaHTTP);
   },1000)
 }
 function ModificarPuntosDeInteres(id,InformacionPuntoDeInteres) {
@@ -319,6 +320,21 @@ function setInputEspectaculo(Artista,PrecioEntrada){
 $('#NombreDeArtista').val(Artista);
 $('#PrecioEntrada').val(PrecioEntrada);
 }
+function setInputAlojamiento(datos){
+  if(datos.Tipo!=null)$('#TipoDetallado').val(datos.Tipo);
+  if(datos.Calificaciones!=null)$('#InputCalificaciones').val(datos.Calificaciones);
+  if(datos.Costos!=null)$('#InputCostos').val(datos.Costos);
+  if(datos.Habitaciones!=null)$('#InputHabitaciones').val(datos.Habitaciones);
+  if(datos.AireAcondicionado!=null)$('#InputAireAcondicionado').attr('checked',true);
+  if(datos.BanoPrivad!=null)$('#InputBanoPrivado').attr('checked',true);
+  if(datos.Bar!=null)$('#InputBar').attr('checked',true);
+  if(datos.Casino!=null)$('#InputCasino').attr('checked',true);
+  if(datos.Desayuno!=null)$('#InputDesayuno').attr('checked',true);
+  if(datos.Piscina!=null)$('#InputPiscina').attr('checked',true);
+  if(datos.Restaurante!=null)$('#InputRestaurante').attr('checked',true);
+  if(datos.TvCable!=null)$('#InputTvCable').attr('checked',true);
+  if(datos.Wifi!=null)$('#InputWifi').attr('checked',true);
+  }
 function getInputPuntoDeInteres() {
   let Direccion=`${$('#DireccionPuntoDeInteres1').val()} ${$('#DireccionPuntoDeInteres2').val()} ${$('#DireccionPuntoDeInteres3').val()}`;
   InformacionPuntoDeInteres = {
@@ -369,14 +385,15 @@ function getInputEspectaculos() {
   InformacionPuntoDeInteres.InformacionDetalladaPuntoDeInteres = InformacionDetalladaPuntoDeInteres;
 }
 function getInputAlojamiento() {
-  if ($('#InputPiscina').prop('checked')) {Piscina='Piscina';}
-  if ($('#InputTvcable').prop('checked')) {Tv='TvCable';}
-  if ($('#InputWifi').prop('checked')) {Wifi='Wifi';}
-  if ($('#InputAireAcondicionado').prop('checked')) {AireAcondicionado='AireAcondicionado';}
-  if ($('#InputBanoPrivado').prop('checked')) {BanoPrivado='BanoPrivado';}
-  if ($('#InputBar').prop('checked')) {Bar='Bar';}
-  if ($('#InputCasino').prop('checked')) {Casino='Casino';}
-  if ($('#InputDesayuno').prop('checked')) {Desayuno='Desayuno';}
+  $('#InputPiscina').prop('checked')?Piscina='Piscina':Piscina=null;
+  $('#InputTvcable').prop('checked')?Tv='TvCable':Tv=null;
+  $('#InputWifi').prop('checked')?Wifi='Wifi':Wifi=null;
+  $('#InputAireAcondicionado').prop('checked')?AireAcondicionado='AireAcondicionado':AireAcondicionado=null;
+  $('#InputBanoPrivado').prop('checked')?BanoPrivado='BanoPrivado':BanoPrivado=null;
+  $('#InputBar').prop('checked')?Bar='Bar':Bar=null;
+  $('#InputCasino').prop('checked')?Casino='Casino':Casino=null;
+  $('#InputDesayuno').prop('checked')?Desayuno='Desayuno':Desayuno=null;
+  $('#InputRestaurante').prop('checked')?Restaurante='Restaurante':Restaurante=null;
   InformacionDetalladaPuntoDeInteres = {
     Tipo: $('#TipoDetallado').val(),
     Costos:$('#InputCostos').val(),
@@ -390,6 +407,7 @@ function getInputAlojamiento() {
     Bar:Bar,
     Casino:Casino,
     Desayuno:Desayuno,
+    Restaurante:Restaurante,
     Op: 'Alojamiento'
   }
   InformacionDetalladaPuntoDeInteres = JSON.stringify(InformacionDetalladaPuntoDeInteres);
