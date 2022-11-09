@@ -288,13 +288,16 @@ function ModificarPuntosDeInteres(id,InformacionPuntoDeInteres) {
     dataType: 'json',
     data: InformacionPuntoDeInteres
   }).done(function (data) {
-    alert(data.respuesta);
-    location.reload();
+    // alert(data.respuesta);
+    // location.reload();
+    console.log(data);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 $('#btnModificarPuntosInteres').click(function (e) {
   e.preventDefault();
+  let Categoria=localStorage.getItem('Categoria');
   getInputPuntoDeInteres();
+  if(Categoria==="'alojamientos'")getInputAlojamiento();
   ModificarPuntosDeInteres(IdModificarPuntoDeInteres,InformacionPuntoDeInteres);
 });
 //FUNCIONES AUXILIARES------------------------------------------------------------------------------------------------------------------->
