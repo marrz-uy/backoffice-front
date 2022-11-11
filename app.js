@@ -288,9 +288,9 @@ function ModificarPuntosDeInteres(id,InformacionPuntoDeInteres) {
     dataType: 'json',
     data: InformacionPuntoDeInteres
   }).done(function (data) {
-    // alert(data.respuesta);
-    // location.reload();
-    console.log(data);
+    alert(data.respuesta);
+    location.reload();
+    //console.log(data);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 $('#btnModificarPuntosInteres').click(function (e) {
@@ -326,7 +326,6 @@ $('#PrecioEntrada').val(PrecioEntrada);
 function setInputAlojamiento(datos){
   if(datos.Tipo!=null)$('#TipoDetallado').val(datos.Tipo);
   if(datos.Calificaciones!=null)$('#InputCalificaciones').val(datos.Calificaciones);
-  if(datos.Costos!=null)$('#InputCostos').val(datos.Costos);
   if(datos.Habitaciones!=null)$('#InputHabitaciones').val(datos.Habitaciones);
   if(datos.AireAcondicionado!=null)$('#InputAireAcondicionado').attr('checked',true);
   if(datos.BanoPrivad!=null)$('#InputBanoPrivado').attr('checked',true);
@@ -399,11 +398,10 @@ function getInputAlojamiento() {
   $('#InputRestaurante').prop('checked')?Restaurante='Restaurante':Restaurante=null;
   InformacionDetalladaPuntoDeInteres = {
     Tipo: $('#TipoDetallado').val(),
-    Costos:$('#InputCostos').val(),
     Habitaciones:$('#InputHabitaciones').val(),
     Calificaciones:$('#InputCalificaciones').val(),
     Piscina:Piscina,
-    Tv:Tv,
+    TvCable:Tv,
     Wifi:Wifi,
     AireAcondicionado:AireAcondicionado,
     BanoPrivado:BanoPrivado,
