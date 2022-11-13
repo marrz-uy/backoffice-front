@@ -62,5 +62,15 @@ function FormularioGeneralPuntoDeInteres(){
       main.innerHTML=data;
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});  
   }
+  function FormularioDeGastronomico(){
+    $.ajax({
+      url: './Formularios/GastronomicoAlta.html',
+      type:'GET',
+      dataType: 'text',
+  }).done(function(data){
+      main.innerHTML='';
+      main.innerHTML=data;
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});  
+  }
  
   
