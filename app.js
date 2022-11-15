@@ -109,6 +109,7 @@ $('#btnSiguiente').click(function (e) {
   if($('#TipoCategoria').val()==='Servicios_Esenciales'){FormularioDeServiciosEscenciales();}
   if($('#TipoCategoria').val()==='transporte'){FormularioDeTransporte();}
   if($('#TipoCategoria').val()==='Alojamiento'){FormularioDeAlojamiento();}
+  if($('#TipoCategoria').val()==='gastronomicos'){FormularioDeGastronomico();}
   if($('#TipoCategoria').val()==='Seleccionar Categoria'){RegistrarPuntoDeInteres(InformacionPuntoDeInteres);}
   
 });
@@ -145,6 +146,10 @@ function AltaDeTransporte() {
 }
 function AltaDeAlojamiento() {
   getInputAlojamiento();
+  RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
+}
+function AltaDeGastronomico() {
+  getInputGastronomico();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
 function RegistrarPuntoDeInteres(InformacionPuntoDeInteres) {
@@ -278,6 +283,7 @@ function CargarModalPuntosDeInteres(id,Categoria,Opcion) {
     ConsultarTelefonosPuntoDeInteres(id);
     if(Categoria==='espectaculos')setInputEspectaculo(respuestaHTTP.Artista,respuestaHTTP.PrecioEntrada);
     if(Categoria==='alojamientos')setInputAlojamiento(respuestaHTTP);
+    if(Categoria==='gastronomicos')setInputGastronomico(respuestaHTTP);
   },1000)
 }
 function ModificarPuntosDeInteres(id,InformacionPuntoDeInteres) {
@@ -298,6 +304,7 @@ $('#btnModificarPuntosInteres').click(function (e) {
   let Categoria=localStorage.getItem('Categoria');
   getInputPuntoDeInteres();
   if(Categoria==="'alojamientos'")getInputAlojamiento();
+  if(Categoria==="'gastronomicos'")getInputGastronomico();
   ModificarPuntosDeInteres(IdModificarPuntoDeInteres,InformacionPuntoDeInteres);
 });
 //FUNCIONES AUXILIARES------------------------------------------------------------------------------------------------------------------->
@@ -337,6 +344,13 @@ function setInputAlojamiento(datos){
   if(datos.TvCable!=null)$('#InputTvCable').attr('checked',true);
   if(datos.Wifi!=null)$('#InputWifi').attr('checked',true);
   }
+function setInputGastronomico(datos){
+    if(datos.Tipo!=null)$('#TipoDetallado').val(datos.Tipo);
+    if(datos.ComidaVegge!=0)$('#InputComidaVegge').attr('checked',true);
+    if(datos.Comida!=0)$('#InputComida').attr('checked',true);
+    if(datos.Alcohol!=0)$('#InputAlcohol').attr('checked',true);
+    if(datos.MenuInfantil!=0)$('#InputMenuInfantil').attr('checked',true);
+    }
 function getInputPuntoDeInteres() {
   let Direccion=`${$('#DireccionPuntoDeInteres1').val()} ${$('#DireccionPuntoDeInteres2').val()} ${$('#DireccionPuntoDeInteres3').val()}`;
   InformacionPuntoDeInteres = {
@@ -410,6 +424,22 @@ function getInputAlojamiento() {
     Desayuno:Desayuno,
     Restaurante:Restaurante,
     Op: 'Alojamiento'
+  }
+  InformacionDetalladaPuntoDeInteres = JSON.stringify(InformacionDetalladaPuntoDeInteres);
+  InformacionPuntoDeInteres.InformacionDetalladaPuntoDeInteres = InformacionDetalladaPuntoDeInteres;
+}
+function getInputGastronomico() {
+  $('#InputComidaVegge').prop('checked')?ComidaVegge=1:ComidaVegge=0;
+  $('#InputComida').prop('checked')?Comida=1:Comida=0;
+  $('#InputAlcohol').prop('checked')?Alcohol=1:Alcohol=0;
+  $('#InputMenuInfantil').prop('checked')?MenuInfantil=1:MenuInfantil=0;
+  InformacionDetalladaPuntoDeInteres = {
+    Tipo: $('#TipoDetallado').val(),
+    ComidaVegge:ComidaVegge,
+    Comida:Comida,
+    Alcohol:Alcohol,
+    MenuInfantil:MenuInfantil,
+    Op: 'Gastronomicos'
   }
   InformacionDetalladaPuntoDeInteres = JSON.stringify(InformacionDetalladaPuntoDeInteres);
   InformacionPuntoDeInteres.InformacionDetalladaPuntoDeInteres = InformacionDetalladaPuntoDeInteres;
