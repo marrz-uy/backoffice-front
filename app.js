@@ -131,7 +131,6 @@ function AltaDePuntoDeInteres(InformacionPuntoDeInteres) {
     $('#DescripcionPuntoDeInteres').val('');
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
-
 function AltaDeServicioEscencial() {
   getInputServicioEsencial();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
