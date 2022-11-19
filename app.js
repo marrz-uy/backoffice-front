@@ -312,6 +312,7 @@ $('#btnModificarPuntosInteres').click(function (e) {
   if(Categoria==="'alojamientos'")getInputAlojamiento();
   if(Categoria==="'gastronomicos'")getInputGastronomico();
   if(Categoria==="'actividades_infantiles'")getInputActividadesInfantiles();
+  if(Categoria==="'actividades_nocturnas'")getInputActividadesNocturnas();
   ModificarPuntosDeInteres(IdModificarPuntoDeInteres,InformacionPuntoDeInteres);
 });
 //FUNCIONES AUXILIARES------------------------------------------------------------------------------------------------------------------->
@@ -352,6 +353,9 @@ function setInputAlojamiento(datos){
   if(datos.Wifi!=null)$('#InputWifi').attr('checked',true);
 }
 function setInputActividadesInfantiles(datos){
+  if(datos.Tipo!=null)$('#TipoDetallado').val(datos.Tipo);
+}
+function setInputActividadesNocturnas(datos){
   if(datos.Tipo!=null)$('#TipoDetallado').val(datos.Tipo);
 }
 function setInputGastronomico(datos){
@@ -400,6 +404,16 @@ function getInputActividadesInfantiles(){
   InformacionPuntoDeInteres.InformacionDetalladaPuntoDeInteres = InformacionDetalladaPuntoDeInteres;
   console.log(InformacionPuntoDeInteres);
 }
+function getInputActividadesNocturnas(){
+  InformacionDetalladaPuntoDeInteres = {
+    Tipo: $('#TipoDetallado').val(),
+    Op: 'ActividadesNocturnas'
+  }
+  InformacionDetalladaPuntoDeInteres = JSON.stringify(InformacionDetalladaPuntoDeInteres);
+  InformacionPuntoDeInteres.InformacionDetalladaPuntoDeInteres = InformacionDetalladaPuntoDeInteres;
+  console.log(InformacionPuntoDeInteres);
+}
+
 function getInputTransporte(){
   InformacionDetalladaPuntoDeInteres = {
     Tipo: $('#TipoDetallado').val(),

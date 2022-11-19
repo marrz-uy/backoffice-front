@@ -41,6 +41,16 @@ function FormularioGeneralPuntoDeInteres(){
       main.innerHTML=data;
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});  
   }
+  function FormularioDeActividadesNocturnas(){
+    $.ajax({
+      url: './Formularios/ActividadesNocturnasAlta.html',
+      type:'GET',
+      dataType: 'text ',
+  }).done(function(data){
+      main.innerHTML='';
+      main.innerHTML=data;
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});  
+  }
   function FormularioDeTransporte(){
     $.ajax({
       url: './Formularios/TransporteAlta.html',
