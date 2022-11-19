@@ -31,6 +31,16 @@ function FormularioGeneralPuntoDeInteres(){
       main.innerHTML=data;
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});  
   }
+  function FormularioDeActividadesInfantiles(){
+    $.ajax({
+      url: './Formularios/ActividadesInfantilesAlta.html',
+      type:'GET',
+      dataType: 'text ',
+  }).done(function(data){
+      main.innerHTML='';
+      main.innerHTML=data;
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});  
+  }
   function FormularioDeTransporte(){
     $.ajax({
       url: './Formularios/TransporteAlta.html',
