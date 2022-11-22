@@ -111,6 +111,7 @@ $('#btnSiguiente').click(function (e) {
   if($('#TipoCategoria').val()==='Alojamiento'){FormularioDeAlojamiento();}
   if($('#TipoCategoria').val()==='gastronomicos'){FormularioDeGastronomico();}
   if($('#TipoCategoria').val()==='Actividades_Infantiles'){FormularioDeActividadesInfantiles();}
+  if($('#TipoCategoria').val()==='Actividades_Nocturnas'){FormularioDeActividadesNocturnas();}
   if($('#TipoCategoria').val()==='Seleccionar Categoria'){RegistrarPuntoDeInteres(InformacionPuntoDeInteres);}
   
 });
@@ -140,7 +141,10 @@ function AltaDeActividadesInfantiles() {
   getInputActividadesInfantiles();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
-
+function AltaDeActividadesNocturnas() {
+  getInputActividadesNocturnas();
+  RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
+}
 function AltaDeEspectaculos(){
   getInputEspectaculos();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
