@@ -294,6 +294,7 @@ function CargarModalPuntosDeInteres(id,Categoria,Opcion) {
     if(Categoria==='alojamientos')setInputAlojamiento(respuestaHTTP);
     if(Categoria==='gastronomicos')setInputGastronomico(respuestaHTTP);
     if(Categoria==='actividades_infantiles')setInputActividadesInfantiles(respuestaHTTP);
+    if(Categoria==='transporte')setInputTransporte(respuestaHTTP);
   },1000)
 }
 function ModificarPuntosDeInteres(id,InformacionPuntoDeInteres) {
@@ -317,6 +318,7 @@ $('#btnModificarPuntosInteres').click(function (e) {
   if(Categoria==="'gastronomicos'")getInputGastronomico();
   if(Categoria==="'actividades_infantiles'")getInputActividadesInfantiles();
   if(Categoria==="'actividades_nocturnas'")getInputActividadesNocturnas();
+  if(Categoria==="'transporte'")getInputTransporte();
   ModificarPuntosDeInteres(IdModificarPuntoDeInteres,InformacionPuntoDeInteres);
 });
 //FUNCIONES AUXILIARES------------------------------------------------------------------------------------------------------------------->
@@ -357,6 +359,9 @@ function setInputAlojamiento(datos){
   if(datos.Wifi!=null)$('#InputWifi').attr('checked',true);
 }
 function setInputActividadesInfantiles(datos){
+  if(datos.Tipo!=null)$('#TipoDetallado').val(datos.Tipo);
+}
+function setInputTransporte(datos){
   if(datos.Tipo!=null)$('#TipoDetallado').val(datos.Tipo);
 }
 function setInputActividadesNocturnas(datos){
