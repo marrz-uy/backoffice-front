@@ -61,6 +61,16 @@ function FormularioGeneralPuntoDeInteres(){
       main.innerHTML=data;
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});  
   }
+  function FormularioDePaseos(){
+    $.ajax({
+      url: './Formularios/PaseosAlta.html',
+      type:'GET',
+      dataType: 'text ',
+  }).done(function(data){
+      main.innerHTML='';
+      main.innerHTML=data;
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});  
+  }
   function FormularioDeEspectaculos(){
     $.ajax({
       url: './Formularios/EspectaculosAlta.html',

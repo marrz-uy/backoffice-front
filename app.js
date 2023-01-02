@@ -108,6 +108,7 @@ $('#btnSiguiente').click(function (e) {
   if($('#TipoCategoria').val()==='Espectaculos'){FormularioDeEspectaculos();}
   if($('#TipoCategoria').val()==='Servicios_Esenciales'){FormularioDeServiciosEscenciales();}
   if($('#TipoCategoria').val()==='transporte'){FormularioDeTransporte();}
+  if($('#TipoCategoria').val()==='paseos'){FormularioDePaseos();}
   if($('#TipoCategoria').val()==='Alojamiento'){FormularioDeAlojamiento();}
   if($('#TipoCategoria').val()==='gastronomicos'){FormularioDeGastronomico();}
   if($('#TipoCategoria').val()==='Actividades_Infantiles'){FormularioDeActividadesInfantiles();}
@@ -151,6 +152,10 @@ function AltaDeEspectaculos(){
 }
 function AltaDeTransporte() {
   getInputTransporte();
+  RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
+}
+function AltaDePaseos() {
+  getInputPaseos();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
 function AltaDeAlojamiento() {
@@ -295,6 +300,7 @@ function CargarModalPuntosDeInteres(id,Categoria,Opcion) {
     if(Categoria==='gastronomicos')setInputGastronomico(respuestaHTTP);
     if(Categoria==='actividades_infantiles')setInputActividadesInfantiles(respuestaHTTP);
     if(Categoria==='transporte')setInputTransporte(respuestaHTTP);
+    if(Categoria==='paseos')setInputPaseos(respuestaHTTP);
   },1000)
 }
 function ModificarPuntosDeInteres(id,InformacionPuntoDeInteres) {
@@ -319,6 +325,7 @@ $('#btnModificarPuntosInteres').click(function (e) {
   if(Categoria==="'actividades_infantiles'")getInputActividadesInfantiles();
   if(Categoria==="'actividades_nocturnas'")getInputActividadesNocturnas();
   if(Categoria==="'transporte'")getInputTransporte();
+  if(Categoria==="'paseos'")getInputPaseos();
   ModificarPuntosDeInteres(IdModificarPuntoDeInteres,InformacionPuntoDeInteres);
 });
 //FUNCIONES AUXILIARES------------------------------------------------------------------------------------------------------------------->
@@ -363,6 +370,10 @@ function setInputActividadesInfantiles(datos){
 }
 function setInputTransporte(datos){
   if(datos.Tipo!=null)$('#TipoDetallado').val(datos.Tipo);
+}
+function setInputPaseos(datos){
+  if(datos.Tipo!=null)$('#TipoDetallado').val(datos.Tipo);
+  if(datos.Recomendaciones!=null)$('#RecomendacionesPaseos').val(datos.Recomendaciones);
 }
 function setInputActividadesNocturnas(datos){
   if(datos.Tipo!=null)$('#TipoDetallado').val(datos.Tipo);
@@ -427,6 +438,16 @@ function getInputTransporte(){
   InformacionDetalladaPuntoDeInteres = {
     Tipo: $('#TipoDetallado').val(),
     Op: 'transporte'
+  }
+  InformacionDetalladaPuntoDeInteres = JSON.stringify(InformacionDetalladaPuntoDeInteres);
+  InformacionPuntoDeInteres.InformacionDetalladaPuntoDeInteres = InformacionDetalladaPuntoDeInteres;
+  console.log(InformacionPuntoDeInteres);
+}
+function getInputPaseos(){
+  InformacionDetalladaPuntoDeInteres = {
+    Tipo: $('#TipoDetallado').val(),
+    Recomendaciones: $('#RecomendacionesPaseos').val(),
+    Op: 'Paseos'
   }
   InformacionDetalladaPuntoDeInteres = JSON.stringify(InformacionDetalladaPuntoDeInteres);
   InformacionPuntoDeInteres.InformacionDetalladaPuntoDeInteres = InformacionDetalladaPuntoDeInteres;
