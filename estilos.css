@@ -14,8 +14,10 @@
 
 .tamano img {
    max-width: 100%;
+   border-radius: 5px;
 }
 
 .messi {
    overflow-y: scroll;
+   border-radius: 5px;
 }
