@@ -58,6 +58,27 @@ function Logout() {
     //localStorage.removeItem('Token');
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
+//IMAGENES------------------------------------------------------------------------------------------------------------------------------------>
+function NuevaImagen(){
+  const formData=new FormData();
+  formData.append('file',$('#imagenes')[0].files[0]);
+  formData.append('image_description','file');
+  console.log(formData.get('imagen1'));
+  console.log(formData.get('image_description'));
+  $.ajax({
+      url: 'http://127.0.0.1:8000/api/cargarImagen',
+      type: 'POST',
+      data: formData,
+      dataType:'json',
+      cache:false,
+      contentType:false,
+      processData:false,
+      headers:{'Accept':'*/*','Content-Encoding':'multipart/form-data','Access-Control-Allow-Origin':"*/*"},
+    }).done(function (data) {
+      console.log(data);
+     
+    }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
 //ALTA --------------------------------------------------------------------------------------------------------------------------------------->
 $('#btnRegistrarPuntosInteres').click(function (e) {
   e.preventDefault();
