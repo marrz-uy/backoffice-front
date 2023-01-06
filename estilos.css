@@ -1,21 +1,21 @@
-.pointer{
-    cursor:pointer;
+.pointer {
+   cursor: pointer;
 }
 
-.img-container{
-   background-color: white;
-   z-index: 1;
-   border: 1px solid red;
-}
-
-.messi{
+.img-container {
    display: flex;
-   overflow-y: scroll;
    flex-wrap: wrap;
-   border:1px solid red;
 }
 
-.tamano{
-   max-width: 33%;
+.tamano {
+   max-width: 30%;
+   margin: 8px;
+}
 
+.tamano img {
+   max-width: 100%;
+}
+
+.messi {
+   overflow-y: scroll;
 }
