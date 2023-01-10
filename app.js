@@ -480,7 +480,6 @@ function getInputActividadesNocturnas(){
   InformacionPuntoDeInteres.InformacionDetalladaPuntoDeInteres = InformacionDetalladaPuntoDeInteres;
   console.log(InformacionPuntoDeInteres);
 }
-
 function getInputTransporte(){
   InformacionDetalladaPuntoDeInteres = {
     Tipo: $('#TipoDetallado').val(),
