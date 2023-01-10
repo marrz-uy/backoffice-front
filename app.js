@@ -8,7 +8,8 @@ var InformacionDetalladaPuntoDeInteres;
 var respuestaHTTP;
 var boton = document.getElementById('btnRegistrarPuntosInteres');
 var categoria = 'PuntosDeInteres';
-
+//var datos=['https://res.cloudinary.com/dioeqw1za/image/upload/v1673026711/feeluy/pkeyencgrtsvdh8nhc7d.jpg','https://res.cloudinary.com/dioeqw1za/image/upload/v1673026728/feeluy/viw5r6mlfg8h5ku8pgfi.jpg ','https://res.cloudinary.com/dioeqw1za/image/upload/v1673026734/feeluy/utsjwutbfpwwdw2msolk.jpg'];
+var datos;
 function sendError(errorText){alert(errorText);}
 function ErrorHandler(jqXHR, textStatus){
   if (jqXHR.status === 0)  return sendError('Not connect: Verify Network');
@@ -76,9 +77,33 @@ function NuevaImagen(){
       headers:{'Accept':'*/*','Content-Encoding':'multipart/form-data','Access-Control-Allow-Origin':"*/*"},
     }).done(function (data) {
       console.log(data);
-     
+      $('#ModalDeAviso').modal('show');
+      ConsultarImagenes();
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
+function ConsultarImagenes(){
+  $.ajax({
+    url: 'http://127.0.0.1:8000/api/showImages',
+    type: 'GET',
+    dataType:'json',
+  }).done(function (data) {
+    $('#imagen-container').html('');
+    for(i=0;i<data.length;i++){
+      $('#imagen-container').append(`<div class="tamano">
+      <img onclick="ImagenCompleta('${data[i].url}');" class="pointer" id="imagen${i}"
+        src="${data[i].url}"
+        alt="imagen${i}">
+      </div>`);
+    }
+    
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+function ImagenCompleta(url) {
+$('#ModalDeImagenesGrandes').modal('show');  
+$('#ImagenCompletaDiv').html('');
+$('#ImagenCompletaDiv').append(`<img src="${url}" alt="imagen${url}">`)
+}
+
 //ALTA --------------------------------------------------------------------------------------------------------------------------------------->
 $('#btnRegistrarPuntosInteres').click(function (e) {
   e.preventDefault();
@@ -315,6 +340,7 @@ function CargarModalPuntosDeInteres(id,Categoria,Opcion) {
   ModalConsulta(Categoria);
   setTimeout(function(){
     setInputPuntoDeInteres(respuestaHTTP.Nombre,respuestaHTTP.Departamento,respuestaHTTP.Ciudad,respuestaHTTP.Direccion,respuestaHTTP.Facebook,respuestaHTTP.Instagram,respuestaHTTP.HoraDeApertura,respuestaHTTP.HoraDeCierre,respuestaHTTP.Descripcion,respuestaHTTP.Latitud,respuestaHTTP.Longitud);
+    ConsultarImagenes();
     ConsultarTelefonosPuntoDeInteres(id);
     if(Categoria==='espectaculos')setInputEspectaculo(respuestaHTTP.Artista,respuestaHTTP.PrecioEntrada);
     if(Categoria==='alojamientos')setInputAlojamiento(respuestaHTTP);

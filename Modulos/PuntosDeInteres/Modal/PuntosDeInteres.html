@@ -43,11 +43,11 @@
               <div class="accordion-body">
                 <div class="mb-3">
                   <input type="number" class="form-control" id="TelefonoPuntoDeInteres0" name="TelefonoPuntoDeInteres0"
-                    placeholder="Telefono" required>
+                    placeholder="Telefono" >
                 </div>
                 <div class="mb-3">
                   <input type="number" class="form-control" id="TelefonoPuntoDeInteres1" name="CelularPuntoDeInteres1"
-                    placeholder="Celular" required>
+                    placeholder="Celular" >
                 </div>
                 <div class="mb-3">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -71,7 +71,7 @@
 
         </div>
       </div>
-      <!--GESTION DE IMAGENES-->
+      <!--GESTION DE IMAGENES------------------------------------------------------------------------------------>
       <div class="mb-3">
         <div class="accordion" id="accordionExample">
           <div class="accordion-item">
@@ -87,59 +87,10 @@
 
                 <div class="row border mb-3 messi" style="height: 30vh;">
                   <div class="messi">
-                    <div class="img-container">
+                    <div id="imagen-container" class="img-container">
 
-                      <div class="tamano">
-                        <img id="imagen1"
-                          src="https://res.cloudinary.com/dioeqw1za/image/upload/v1672888607/feeluy/teo8lbaqem0xeu3rlkrf.jpg"
-                          alt="messi">
-                      </div>
-                      <div class="tamano">
-                        <img id="imagen1"
-                          src="https://res.cloudinary.com/dioeqw1za/image/upload/v1672888607/feeluy/teo8lbaqem0xeu3rlkrf.jpg"
-                          alt="messi">
-                      </div>
-                      <div class="tamano">
-                        <img id="imagen1"
-                          src="https://res.cloudinary.com/dioeqw1za/image/upload/v1672888607/feeluy/teo8lbaqem0xeu3rlkrf.jpg"
-                          alt="messi">
-                      </div>
-                      <div class="tamano">
-                        <img id="imagen1"
-                          src="https://res.cloudinary.com/dioeqw1za/image/upload/v1672888607/feeluy/teo8lbaqem0xeu3rlkrf.jpg"
-                          alt="messi">
-                      </div>
-                      <div class="tamano">
-                        <img id="imagen1"
-                          src="https://res.cloudinary.com/dioeqw1za/image/upload/v1672888607/feeluy/teo8lbaqem0xeu3rlkrf.jpg"
-                          alt="messi">
-                      </div>
-                      <div class="tamano">
-                        <img id="imagen1"
-                          src="https://res.cloudinary.com/dioeqw1za/image/upload/v1672888607/feeluy/teo8lbaqem0xeu3rlkrf.jpg"
-                          alt="messi">
-                      </div>
-                      <div class="tamano">
-                        <img id="imagen1"
-                          src="https://res.cloudinary.com/dioeqw1za/image/upload/v1672888607/feeluy/teo8lbaqem0xeu3rlkrf.jpg"
-                          alt="messi">
-                      </div>
-                      <div class="tamano">
-                        <img id="imagen1"
-                          src="https://res.cloudinary.com/dioeqw1za/image/upload/v1672888607/feeluy/teo8lbaqem0xeu3rlkrf.jpg"
-                          alt="messi">
-                      </div>
-                      <div class="tamano">
-                        <img id="imagen1"
-                          src="https://res.cloudinary.com/dioeqw1za/image/upload/v1672888607/feeluy/teo8lbaqem0xeu3rlkrf.jpg"
-                          alt="messi">
-                      </div>
-
-
-
+                      
                     </div>
-
-
                   </div>
 
                 </div>
@@ -150,7 +101,9 @@
                     <input id="imagenes" type="file">
                   </div>
                   <div class="col ">
-                    <button onclick="NuevaImagen();" class="btn btn-success">Agregar</button>
+                    <input onclick="NuevaImagen();" type="button" class="btn btn-success" value="Agregar Imagen">
+                    
+                    
                   </div>
 
                 </div>
