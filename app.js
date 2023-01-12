@@ -60,12 +60,14 @@ function Logout() {
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 //IMAGENES------------------------------------------------------------------------------------------------------------------------------------>
-function NuevaImagen(){
+function NuevaImagen(id){
   const formData=new FormData();
   formData.append('file',$('#imagenes')[0].files[0]);
   formData.append('image_description','file');
+  formData.append('puntosinteres_id',id);
   console.log(formData.get('imagen1'));
   console.log(formData.get('image_description'));
+  console.log(formData.get('puntosinteres_id'));
   $.ajax({
       url: 'http://127.0.0.1:8000/api/cargarImagen',
       type: 'POST',
@@ -78,7 +80,7 @@ function NuevaImagen(){
     }).done(function (data) {
       console.log(data);
       $('#ModalDeAviso').modal('show');
-      ConsultarImagenes();
+      ConsultarImagenes(id);
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function ConsultarImagenes(id){
@@ -337,10 +339,12 @@ function CargarModalPuntosDeInteres(id,Categoria,Opcion) {
   IdModificarPuntoDeInteres=id;
   ConsultarUnPuntoDeInteres(id,Categoria,Opcion);
   $('#PuntosDeInteres').modal('show');
+  
   ModalConsulta(Categoria);
   setTimeout(function(){
     setInputPuntoDeInteres(respuestaHTTP.Nombre,respuestaHTTP.Departamento,respuestaHTTP.Ciudad,respuestaHTTP.Direccion,respuestaHTTP.Facebook,respuestaHTTP.Instagram,respuestaHTTP.HoraDeApertura,respuestaHTTP.HoraDeCierre,respuestaHTTP.Descripcion,respuestaHTTP.Latitud,respuestaHTTP.Longitud);
     ConsultarImagenes(id);
+    $('#divBotonImagen').append(`<input onclick="NuevaImagen(${id});" type="button" class="btn btn-success" value="Agregar Imagen">`);
     ConsultarTelefonosPuntoDeInteres(id);
     if(Categoria==='espectaculos')setInputEspectaculo(respuestaHTTP.Artista,respuestaHTTP.PrecioEntrada);
     if(Categoria==='alojamientos')setInputAlojamiento(respuestaHTTP);
@@ -449,6 +453,9 @@ function getInputPuntoDeInteres() {
     Imagen: $('#Imagen').val(),
     Latitud: $('#Latitud').val(),
     Longitud: $('#Longitud').val(),
+    TipoDeLugar: $('#TipoDeLugar').val(),
+    RestriccionDeEdad: $('#RestriccionDeEdad').val(),
+    EnfoqueDePersonas: $('#EnfoqueDePersonas').val(),
     Op: 'PuntoDeInteres'
   }
   return JSON.stringify(InformacionPuntoDeInteres);
