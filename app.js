@@ -81,9 +81,9 @@ function NuevaImagen(){
       ConsultarImagenes();
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
-function ConsultarImagenes(){
+function ConsultarImagenes(id){
   $.ajax({
-    url: 'http://127.0.0.1:8000/api/showImages',
+    url: `http://127.0.0.1:8000/api/showImages/${id}`,
     type: 'GET',
     dataType:'json',
   }).done(function (data) {
@@ -340,7 +340,7 @@ function CargarModalPuntosDeInteres(id,Categoria,Opcion) {
   ModalConsulta(Categoria);
   setTimeout(function(){
     setInputPuntoDeInteres(respuestaHTTP.Nombre,respuestaHTTP.Departamento,respuestaHTTP.Ciudad,respuestaHTTP.Direccion,respuestaHTTP.Facebook,respuestaHTTP.Instagram,respuestaHTTP.HoraDeApertura,respuestaHTTP.HoraDeCierre,respuestaHTTP.Descripcion,respuestaHTTP.Latitud,respuestaHTTP.Longitud);
-    ConsultarImagenes();
+    ConsultarImagenes(id);
     ConsultarTelefonosPuntoDeInteres(id);
     if(Categoria==='espectaculos')setInputEspectaculo(respuestaHTTP.Artista,respuestaHTTP.PrecioEntrada);
     if(Categoria==='alojamientos')setInputAlojamiento(respuestaHTTP);
