@@ -517,15 +517,15 @@ function getInputEspectaculos() {
   InformacionPuntoDeInteres.InformacionDetalladaPuntoDeInteres = InformacionDetalladaPuntoDeInteres;
 }
 function getInputAlojamiento() {
-  $('#InputPiscina').prop('checked')?Piscina='Piscina':Piscina=null;
-  $('#InputTvcable').prop('checked')?Tv='TvCable':Tv=null;
-  $('#InputWifi').prop('checked')?Wifi='Wifi':Wifi=null;
-  $('#InputAireAcondicionado').prop('checked')?AireAcondicionado='AireAcondicionado':AireAcondicionado=null;
-  $('#InputBanoPrivado').prop('checked')?BanoPrivado='BanoPrivado':BanoPrivado=null;
-  $('#InputBar').prop('checked')?Bar='Bar':Bar=null;
-  $('#InputCasino').prop('checked')?Casino='Casino':Casino=null;
-  $('#InputDesayuno').prop('checked')?Desayuno='Desayuno':Desayuno=null;
-  $('#InputRestaurante').prop('checked')?Restaurante='Restaurante':Restaurante=null;
+  $('#InputPiscina').prop('checked')?Piscina=1:Piscina=0;
+  $('#InputTvcable').prop('checked')?Tv=1:Tv=0;
+  $('#InputWifi').prop('checked')?Wifi=1:Wifi=0;
+  $('#InputAireAcondicionado').prop('checked')?AireAcondicionado=1:AireAcondicionado=0;
+  $('#InputBanoPrivado').prop('checked')?BanoPrivado=1:BanoPrivado=0;
+  $('#InputBar').prop('checked')?Bar=1:Bar=0;
+  $('#InputCasino').prop('checked')?Casino=1:Casino=0;
+  $('#InputDesayuno').prop('checked')?Desayuno=1:Desayuno=0;
+  $('#InputRestaurante').prop('checked')?Restaurante=1:Restaurante=0;
   InformacionDetalladaPuntoDeInteres = {
     Tipo: $('#TipoDetallado').val(),
     Habitaciones:$('#InputHabitaciones').val(),
