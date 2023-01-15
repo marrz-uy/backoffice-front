@@ -65,9 +65,6 @@ function NuevaImagen(id){
   formData.append('file',$('#imagenes')[0].files[0]);
   formData.append('image_description','file');
   formData.append('puntosinteres_id',id);
-  console.log(formData.get('imagen1'));
-  console.log(formData.get('image_description'));
-  console.log(formData.get('puntosinteres_id'));
   $.ajax({
       url: 'http://127.0.0.1:8000/api/cargarImagen',
       type: 'POST',
@@ -92,7 +89,7 @@ function ConsultarImagenes(id){
     $('#imagen-container').html('');
     for(i=0;i<data.length;i++){
       $('#imagen-container').append(`<div class="tamano">
-      <img onclick="ImagenCompleta('${data[i].url}');" class="pointer" id="imagen${i}"
+      <img onclick="ImagenCompleta('${data[i].url}',${id});" class="pointer" id="imagen${i}"
         src="${data[i].url}"
         alt="imagen${i}">
       </div>`);
@@ -100,12 +97,26 @@ function ConsultarImagenes(id){
     
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
-function ImagenCompleta(url) {
-$('#ModalDeImagenesGrandes').modal('show');  
+function ImagenCompleta(url,id) {
+$('#ModalDeImagenesGrandes').modal('show');
+$('#divImagenGrande').html('');
+$('#divImagenGrande').append(`<input type="button" onclick="EliminarImagen('${url}',${id});" class="btn btn-danger" value="Eliminar">`);  
+$('#divImagenGrande').append(`<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>`);
 $('#ImagenCompletaDiv').html('');
 $('#ImagenCompletaDiv').append(`<img src="${url}" alt="imagen${url}">`)
 }
-
+function EliminarImagen(url,id) {
+  $.ajax({
+    url: 'http://127.0.0.1:8000/api/EliminarImagen',
+    type: 'POST',
+    data: {url:url},
+    dataType:'json',
+  }).done(function (data) {
+    console.log(data);
+    $('#ModalDeAviso').modal('show');
+    ConsultarImagenes(id);
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+  }
 //ALTA --------------------------------------------------------------------------------------------------------------------------------------->
 $('#btnRegistrarPuntosInteres').click(function (e) {
   e.preventDefault();
@@ -342,16 +353,19 @@ function CargarModalPuntosDeInteres(id,Categoria,Opcion) {
   
   ModalConsulta(Categoria);
   setTimeout(function(){
-    setInputPuntoDeInteres(respuestaHTTP.Nombre,respuestaHTTP.Departamento,respuestaHTTP.Ciudad,respuestaHTTP.Direccion,respuestaHTTP.Facebook,respuestaHTTP.Instagram,respuestaHTTP.HoraDeApertura,respuestaHTTP.HoraDeCierre,respuestaHTTP.Descripcion,respuestaHTTP.Latitud,respuestaHTTP.Longitud);
+    setInputPuntoDeInteres(respuestaHTTP.Nombre,respuestaHTTP.Departamento,respuestaHTTP.Ciudad,respuestaHTTP.Direccion,respuestaHTTP.Facebook,respuestaHTTP.Instagram,respuestaHTTP.HoraDeApertura,respuestaHTTP.HoraDeCierre,respuestaHTTP.Descripcion,respuestaHTTP.Latitud,respuestaHTTP.Longitud,respuestaHTTP.TipoDeLugar,respuestaHTTP.RestriccionDeEdad,respuestaHTTP.EnfoqueDePersonas);
     ConsultarImagenes(id);
+    console.log(id);
     $('#divBotonImagen').append(`<input onclick="NuevaImagen(${id});" type="button" class="btn btn-success" value="Agregar Imagen">`);
     ConsultarTelefonosPuntoDeInteres(id);
-    if(Categoria==='espectaculos')setInputEspectaculo(respuestaHTTP.Artista,respuestaHTTP.PrecioEntrada);
+    if(Categoria==='espectaculos')setInputEspectaculo(respuestaHTTP);
     if(Categoria==='alojamientos')setInputAlojamiento(respuestaHTTP);
     if(Categoria==='gastronomicos')setInputGastronomico(respuestaHTTP);
     if(Categoria==='actividades_infantiles')setInputActividadesInfantiles(respuestaHTTP);
+    if(Categoria==='actividades_nocturnas')setInputActividadesNocturnas(respuestaHTTP);
     if(Categoria==='transporte')setInputTransporte(respuestaHTTP);
     if(Categoria==='paseos')setInputPaseos(respuestaHTTP);
+    if(Categoria==='servicios_esenciales')setInputServicioEsencial(respuestaHTTP);
   },1000)
 }
 function ModificarPuntosDeInteres(id,InformacionPuntoDeInteres) {
@@ -377,10 +391,12 @@ $('#btnModificarPuntosInteres').click(function (e) {
   if(Categoria==="'actividades_nocturnas'")getInputActividadesNocturnas();
   if(Categoria==="'transporte'")getInputTransporte();
   if(Categoria==="'paseos'")getInputPaseos();
+  if(Categoria==="'espectaculos'")getInputEspectaculos();
+  if(Categoria==="'servicios_esenciales'")getInputServicioEsencial();
   ModificarPuntosDeInteres(IdModificarPuntoDeInteres,InformacionPuntoDeInteres);
 });
 //FUNCIONES AUXILIARES------------------------------------------------------------------------------------------------------------------->
-function setInputPuntoDeInteres(Nombre,Departamento,Ciudad,Direccion,Facebook,Instagram,HoraDeApertura,HoraDeCierre,Descripcion,Latitud,Longitud){
+function setInputPuntoDeInteres(Nombre,Departamento,Ciudad,Direccion,Facebook,Instagram,HoraDeApertura,HoraDeCierre,Descripcion,Latitud,Longitud,TipoDeLugar,RestriccionDeEdad,EnfoqueDePersonas){
   console.log(respuestaHTTP);
   console.log(Direccion);
   Direccion=Direccion.split(' ');
@@ -397,10 +413,12 @@ function setInputPuntoDeInteres(Nombre,Departamento,Ciudad,Direccion,Facebook,In
   $('#DescripcionPuntoDeInteres').val(Descripcion);
   $('#Latitud').val(Latitud);
   $('#Longitud').val(Longitud);
+  $('#TipoDeLugar').val(TipoDeLugar);
+  $('#RestriccionDeEdad').val(RestriccionDeEdad);
+  $('#EnfoqueDePersonas').val(EnfoqueDePersonas);
 }
-function setInputEspectaculo(Artista,PrecioEntrada){
-$('#NombreDeArtista').val(Artista);
-$('#PrecioEntrada').val(PrecioEntrada);
+function setInputEspectaculo(datos){
+  if(datos.Tipo!=null)$('#TipoDetallado').val(datos.Tipo);
 }
 function setInputAlojamiento(datos){
   if(datos.Tipo!=null)$('#TipoDetallado').val(datos.Tipo);
@@ -429,13 +447,17 @@ function setInputPaseos(datos){
 function setInputActividadesNocturnas(datos){
   if(datos.Tipo!=null)$('#TipoDetallado').val(datos.Tipo);
 }
+function setInputServicioEsencial(datos){
+  console.log(datos);
+  if(datos.Tipo!=null)$('#TipoDetallado').val(datos.Tipo);
+}
 function setInputGastronomico(datos){
     if(datos.Tipo!=null)$('#TipoDetallado').val(datos.Tipo);
     if(datos.ComidaVegge!=0)$('#InputComidaVegge').attr('checked',true);
     if(datos.Comida!=0)$('#InputComida').attr('checked',true);
     if(datos.Alcohol!=0)$('#InputAlcohol').attr('checked',true);
     if(datos.MenuInfantil!=0)$('#InputMenuInfantil').attr('checked',true);
-    }
+}
 function getInputPuntoDeInteres() {
   let Direccion=`${$('#DireccionPuntoDeInteres1').val()} ${$('#DireccionPuntoDeInteres2').val()} ${$('#DireccionPuntoDeInteres3').val()}`;
   InformacionPuntoDeInteres = {
@@ -509,8 +531,6 @@ function getInputPaseos(){
 function getInputEspectaculos() {
   InformacionDetalladaPuntoDeInteres = {
     Tipo: $('#TipoDetallado').val(),
-    Artista: $('#NombreDeArtista').val(),
-    PrecioEntrada: $('#PrecioEntrada').val(),
     Op: 'Espectaculos'
   }
   InformacionDetalladaPuntoDeInteres = JSON.stringify(InformacionDetalladaPuntoDeInteres);

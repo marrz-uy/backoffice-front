@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
-    <div class="col-sm-6 mt-3">
+  <div class="col-sm-6 mt-3">
         <form id="FormularioPuntoDeInteres" action="" method="POST">
-            <h3 class="text-center">REGISTRO DE PUNTOS DE INTERES</h3>
+            <h3 class="text-center">MODIFICAR ESPECTACULO</h3>
             <div class="mb-3">
                 <input type="text" class="form-control" id="NombrePuntoDeInteres" name="NombrePuntoDeInteres"  placeholder="Nombre" required>
             </div>
@@ -20,6 +20,46 @@
               </div>
             </div>
            
+            <div class="input-group mb-3">
+              <input type="text" class="form-control me-1" id="Latitud" placeholder="Latitud">
+              <input type="text" class="form-control ms-1" id="Longitud" placeholder="Longitud">
+          </div>
+          <div class="input-group mb-3">
+            <select id="TipoDeLugar" class="form-select" aria-label="Default select example">
+                <option selected>Tipo De Lugar</option>
+                <option value="Espacio cerrado">Espacio cerrado</option>
+                <option value="Al aire libre">Al aire libre</option>
+                <option value="Ambos">Ambos</option>
+            </select>
+        </div>
+        <div class="input-group mb-3">
+            <select id="RestriccionDeEdad" class="form-select" aria-label="Default select example">
+                <option selected>Restriccion De Edad</option>
+                <option value="Todas">Todas</option>
+                <option value="Mayores">Mayores</option>
+            </select>
+        </div>
+        <div class="input-group mb-3">
+            <select id="EnfoqueDePersonas" class="form-select" aria-label="Default select example">
+                <option selected>Enfoque De Personas</option>
+                <option value="Grupo">Grupo</option>
+                <option value="Familia">Familia</option>
+                <option value="Pareja">Pareja</option>
+                <option value="Individual">Individual</option>
+                <option value="Sin restriccion">Sin restriccion</option>
+            </select>
+        </div>
+          <div class="mb-3">
+         </div>
+         <div class="mb-3">
+            <select id="TipoDetallado" class="form-select" aria-label="Default select example">
+                <option selected>Seleccionar Tipo</option>
+                <option value="Cine">Cine</option>
+                <option value="Carnaval">Carnaval</option>
+                <option value="Teatro">Teatro</option>
+                <option value="EventoDeportivo">Evento Deportivo</option>
+            </select>
+          </div>
             <div class="mb-3">
                 <div class="accordion" id="accordionExample">
                     <div class="accordion-item">
@@ -29,7 +69,7 @@
                         </button>
                       </h2>
                       <div id="contactos" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#contactos">
-                        <div class="accordion-body">
+                      <div class="accordion-body">
                             <div class="mb-3">
                                 <input type="number" class="form-control" id="TelefonoPuntoDeInteres0" name="TelefonoPuntoDeInteres0" placeholder="Telefono" required>
                             </div>
@@ -52,8 +92,49 @@
                       </div>
                     </div>
                   
-                  </div>
+                </div>
             </div>
+           
+  <!--GESTION DE IMAGENES------------------------------------------------------------------------------------>
+  <div class="mb-3">
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button form-control" type="button" data-bs-toggle="collapse"
+            data-bs-target="#accordion-imagenes" aria-expanded="true" aria-controls="collapseOne">
+            Gestion de Imagenes
+          </button>
+        </h2>
+        <div id="accordion-imagenes" class="accordion-collapse collapse" aria-labelledby="headingOne"
+          data-bs-parent="#accordion-imagenes">
+          <div style="height: 40vh;" class="accordion-body">
+  
+            <div class="row border mb-3 messi" style="height: 30vh;">
+              <div class="messi">
+                <div id="imagen-container" class="img-container">
+  
+                  
+                </div>
+              </div>
+  
+            </div>
+  
+            <div class="row border">
+  
+              <div class="col ">
+                <input id="imagenes" type="file">
+              </div>
+              <div id="divBotonImagen" class="col ">
+                
+              </div>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>
              <!--HORARIO--------------------------------------------------------------------------------------------------->
              <div class="mb-3">
                 <div class="accordion" id="accordionExample">
@@ -79,23 +160,9 @@
                   </div>
             </div>
             <div class="mb-3">
-                <input class="form-control" type="file" id="Imagen" name="Imagen">
-              </div>
-            <div class="mb-3">
                 <textarea class="form-control" id="DescripcionPuntoDeInteres" name="DescripcionPuntoDeInteres" rows="3"></textarea>
             </div>
         </form>
-        
-      </div>
-    <div class="col-sm-6 mt-3">
-        <form action="" method="POST">
-            <h3 class="text-center">Detalles del Espectaculo</h3>
-            <div class="mb-3">
-                <input type="text" class="form-control" id="NombreDeArtista" placeholder="Nombre del Artista" required>
-            </div>
-            <div class="mb-3">
-                <input type="text" class="form-control" id="PrecioEntrada" placeholder="Precio de Entrada" required>
-            </div>
-        </form>                  
-    </div>
+      </div>   
+    
 </div> 
