@@ -421,6 +421,7 @@ function setInputEspectaculo(datos){
   if(datos.Tipo!=null)$('#TipoDetallado').val(datos.Tipo);
 }
 function setInputAlojamiento(datos){
+  console.log(datos);
   if(datos.Tipo!=null)$('#TipoDetallado').val(datos.Tipo);
   if(datos.Calificaciones!=null)$('#InputCalificaciones').val(datos.Calificaciones);
   if(datos.Habitaciones!=null)$('#InputHabitaciones').val(datos.Habitaciones);
@@ -554,7 +555,7 @@ function getInputAlojamiento() {
     TvCable:Tv,
     Wifi:Wifi,
     AireAcondicionado:AireAcondicionado,
-    BanoPrivado:BanoPrivado,
+    BanoPrivad:BanoPrivado,
     Bar:Bar,
     Casino:Casino,
     Desayuno:Desayuno,
