@@ -309,14 +309,18 @@
 </div>
     <!-- MODAL DE Lugares -------------------------------------------------------------------------->
     <div class="modal fade" id="ModalDeLugares" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-xl" role="document">
           <div class="modal-content">
             <div class="modal-header">
                 <div class="row w-100 justify-content-between">
-                    <div class="col-8">
+                    <div class="col">
                         <h5 class="modal-title" id="exampleModalLabel">Lugares de Eventos</h5>
                     </div>
-                    <div class="col-3">
+                    <div class="col">
+                        <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">
+                        <input type="button" class="btn btn-secondary" onclick="ConsultarPuntosDeInteres('PuntosDeInteres');" value="Limpiar Filtros">                        
+                    </div>
+                    <div class="col">
                         <input type="button" onclick="window.location='PuntosInteresAlta.html';" class="ms-5 btn btn-success" value="Agregar Sitio">
                     </div>
                 </div>

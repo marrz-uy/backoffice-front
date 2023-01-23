@@ -17,30 +17,7 @@
                         <div class="col-sm">
                            <a href="../../index.html"><img src="../../mars-NyN.png" alt="Logo" width="50px"></a>
                         </div>
-                        <div class="col-3">
-                        <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
-                        </div>
-                        <div class="col-auto">
-                            <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">
-                            <input type="button" class="btn btn-secondary" onclick="ConsultarPuntosDeInteres();" value="Limpiar Filtros">                        
-                        </div>
-                        <div class="col-auto">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                  Seleccionar Categoria
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                  <li><a onclick="FormularioDeAlojamiento();" class="dropdown-item text-white bg-secondary" href="#">Alojamiento</a></li>
-                                  <li><a onclick="FormularioDeGastronomia();" class="dropdown-item text-white bg-secondary" href="#">Gastronomia</a></li>
-                                  <li><a onclick="FormularioDeEspectaculos();" class="dropdown-item text-white bg-secondary" href="#">Espectaculos</a></li>
-                                  <li><a onclick="FormularioDeActivdadesAlAireLibre();" class="dropdown-item text-white bg-secondary" href="#">Actividades al Aire Libre</a></li>
-                                  <li><a onclick="FormularioDeActividadesNocturnas();" class="dropdown-item text-white bg-secondary " href="#">Actividades Nocturnas</a></li>
-                                  <li><a class="dropdown-item text-white bg-secondary" href="#">Transporte</a></li>
-                                  <li><a onclick="FormularioDeActividadesInfantiles();" class="dropdown-item text-white bg-secondary" href="#">Actividades Infantiles</a></li>
-                                  <li><a onclick="FormularioDeServiciosEscenciales();" class="dropdown-item text-white bg-secondary" href="#">Servicios Escenciales</a></li>
-                                </ul>
-                              </div>
-                        </div>
+                       
                        
                     </form>
                   
@@ -74,7 +51,7 @@
                             </button>  
                         </li>
                         <li class="mb-1">
-                            <button class="btn btn-toggle  d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                            <button class="btn d-inline-flex align-items-center rounded border-0" >
                                 <a href="./TourShow.html" class="link-dark text-decoration-none">Gestion de Tours</a>
                             </button>
                            

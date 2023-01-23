@@ -30,7 +30,7 @@ function ConsultarTour() {
         }
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
   }
-function FormularioTour () {
+function FormularioTour() {
     $('#contenido-tour').html('');
     $('#contenido-tour').append(`
     <form id="FormularioTourPredefinido" method="POST" enctype="multipart/formdata">
@@ -89,6 +89,34 @@ function FormularioTour () {
  </div>`);
  ConsultarTour();
 }
-function prueba(){
-    console.log('eee');
+function ConsultarPuntosDeInteresParaTour(categoria) {
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/PuntosInteres/${categoria}`,
+    type: 'GET',
+    dataType: 'json',
+  }).done(function (data) {
+    var js = data.data;
+    console.log(js);
+    respuestaHTTP=data;
+    pagination(respuestaHTTP,'PuntosInteres/PuntosDeInteres?page=');
+    $('#tbody').html('');
+    for (var i = 0; i < js.length; i++) {
+      if(categoria==='PuntosDeInteres'){
+        $('#tbody').append(`<tr class="table-active">
+        <th scope="row">${js[i].Nombre}</th>
+        <td>${js[i].Departamento}</td>
+        <td>${js[i].Ciudad}</td>
+        <td>${js[i].Direccion}</td>
+        <td>
+              <svg onclick="getInputLugarDelEvento('${js[i].id}','${js[i].Nombre}');" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
+              </svg>
+        </td>
+        </tr>`);
+       
+      }
+      
+    }
+    
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
