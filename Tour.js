@@ -1,4 +1,6 @@
 var respuestaHTTP;
+var puntosdeInteresTour=[];
+var InformacionTour={};
 function sendError(errorText){alert(errorText);}
 function ErrorHandler(jqXHR, textStatus){
   if (jqXHR.status === 0)  return sendError('Not connect: Verify Network');
@@ -108,7 +110,7 @@ function ConsultarPuntosDeInteresParaTour(categoria) {
         <td>${js[i].Ciudad}</td>
         <td>${js[i].Direccion}</td>
         <td>
-              <svg onclick="getInputLugarDelEvento('${js[i].id}','${js[i].Nombre}');" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+              <svg onclick="getDataTour('${js[i].id}','${js[i].Nombre}','${js[i].Direccion}');" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
                   <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
               </svg>
         </td>
@@ -118,5 +120,39 @@ function ConsultarPuntosDeInteresParaTour(categoria) {
       
     }
     
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+function getDataTour(id,Nombre,Direccion) {
+$('#tbody-tourPreview').append(`
+<tr class="table-active">
+<th scope="row">${Nombre}</th>
+<td>'${Direccion}'</td>
+<td><i onclick="EliminarEvento(${id});" class="bi bi-trash pointer" ></i></td>
+</tr>
+`);
+puntosdeInteresTour.push(id);
+}
+function getInputTour(){
+  InformacionTour={
+    nombreTourPredefinido:$('#nombreTourPredefinido').val(),
+    horaDeInicioTourPredefinido:$('#horaDeInicioTourPredefinido').val(),
+    descripcionTourPredefinido:$('#descripcionTourPredefinido').val()
+  };
+  console.log(InformacionTour);
+  return InformacionTour;
+}
+function AltaDeTour(){
+  puntosdeInteresTour=puntosdeInteresTour.toString();
+  InformacionTour.puntosdeInteresTour=puntosdeInteresTour;
+  console.log(InformacionTour);
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/tourPredefinido`,
+    type: 'POST',
+    dataType: 'json',
+    data:InformacionTour
+  }).done(function (data) {
+      console.log(data.Message);
+      alert(data.Message);
+      location.reload();
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
