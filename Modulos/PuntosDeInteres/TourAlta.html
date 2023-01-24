@@ -79,8 +79,8 @@
                                 <!--DIV PARA NOMBRE DEL TOUR-->
                                 <div style="height: 50vh;" class="col">
                                   <form id="FormularioTourPredefinido" method="POST" enctype="multipart/formdata">
-                                    <h3 class="text-center">Nuevo Tour</h3>
-                                    
+                                    <h2 class="text-center">Nuevo Tour</h2>
+                                    <br>
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" id="nombreTourPredefinido" placeholder="Nombre del Tour Predefinido" required>
                                         <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
@@ -105,15 +105,46 @@
                                     
                                 </form>
                                 </div>
-                                <!--DIV PARA VER ANTES DE GUARDAR-->
+                                <!--DIV PARA BUSCAR PUNTOS-->
                                 <div style="height: 50vh;" class="col border-start border-5">
-                                  <h3>Preview</h3>
+                                  <div class="row justify-content-center ">
+                                    
+                                    <div class="input-group w-75">
+                                      <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
+                                      <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">
+                                                            
+                                  </div>
+                                  </div>
+                                  <br>
                                   <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
                                     <table class="table table-hover table-bordered table-striped">
                                     <thead>
                                       <tr>
                                         <th scope="col">Nombre</th>
-                                        <th scope="col">Direccion</th>   
+                                        <th scope="col">Departamento</th> 
+                                        <th scope="col">Agregar</th>               
+                                      </tr>
+                                    </thead>
+                                    <tbody id="tbody">
+                                      
+                                    </tbody>
+                                    </table>
+                                          </div>
+                                              
+                              </div>
+                              <!--DIV PARA VER ANTES DE GUARDAR-->
+                              
+                              <div class="row">
+                                        <div style="height: 50vh;" class="col border-top border-5">
+                                          <br>
+                                          <h3 id="titulo-tabla-tour">Preview</h3>
+                                  <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
+                                    <table class="table table-hover table-bordered table-striped">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Departamento</th>   
+                                        <th scope="col">Direccion</th>
                                         <th scope="col">Eliminar</th>               
                                       </tr>
                                     </thead>
@@ -126,35 +157,7 @@
                                     <input type="button" value="Registrar Tour" onclick="AltaDeTour();" class="btn mt-3 btn-success form-control w-50">
                                     </div>
                                 </div>
-                              </div>
-                              <!--DIV PARA BUSCAR PUNTOS-->
-                              <div class="row">
-                                <div style="height: 50vh;" class="col border-top border-5">
-                                  <br>
-                                  <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
-                                    <table class="table table-hover table-bordered table-striped">
-                                    <thead>
-                                      <tr>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Departamento</th>
-                                        <th scope="col">Ciudad</th>  
-                                        <th scope="col">Direccion</th>   
-                                        <th scope="col">Agregar</th>               
-                                      </tr>
-                                    </thead>
-                                    <tbody id="tbody">
-                                      
-                                    </tbody>
-                                    </table>
-                                </div>
-                                    <div class="row justify-content-center ">
-                                      <div class="input-group w-50">
-                                        <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
-                                        <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">
-                                                               
-                                    </div>
-                                    </div>
-                                </div>
+                                          </div>
                               </div>
                         </div>
                     </div>
