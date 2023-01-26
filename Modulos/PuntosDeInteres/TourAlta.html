@@ -13,7 +13,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <title>Document</title>
 </head>
-<body onload="ConsultarPuntosDeInteresParaTour('PuntosDeInteres');">
+<body onload="ConsultarPuntosDeInteresParaTour('PuntosDeInteres');botonBusqueda();">
     <!--Contenedor -->
     <div  class="container-fluid">
         <div class="row ">
@@ -100,20 +100,22 @@
                                       <textarea class="form-control" id="descripcionTourPredefinido" name="DescripcionPuntoDeInteres" rows="3"></textarea>
                                     </div>
                                     <div class="row justify-content-center">
+                                      
                                     <input type="button" value="Guardar Nombre" onclick="getInputTour();" class="btn mt-3 btn-primary form-control w-50">
+                                    <div style="position: relative;height: 60px;" class="mt-3" id="div-mensaje">
+                                      
                                     </div>
+                                  </div>
                                     
                                 </form>
                                 </div>
                                 <!--DIV PARA BUSCAR PUNTOS-->
                                 <div style="height: 50vh;" class="col border-start border-5">
                                   <div class="row justify-content-center ">
+                                    <div class="row justify-content-center " id="div-busqueda">
+                                      
+                                    </div>
                                     
-                                    <div class="input-group w-75">
-                                      <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
-                                      <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">
-                                                            
-                                  </div>
                                   </div>
                                   <br>
                                   <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
@@ -207,7 +209,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Se realizo correctamente</h5>
+        <h5 class="modal-title text-center" id="Modal-Mensaje">Se realizo correctamente</h5>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>

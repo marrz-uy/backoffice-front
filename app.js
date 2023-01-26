@@ -295,7 +295,7 @@ function ConsultarPuntosDeInteres(categoria) {
     }
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
-function ConsultarUnPuntoDeInteres(id,Categoria,Opcion) {
+function PuntoDeInteres(id,Categoria,Opcion) {
   $.ajax({
     url: `http://127.0.0.1:8000/api/PuntosInteres/${Categoria}`,
     type: 'GET',

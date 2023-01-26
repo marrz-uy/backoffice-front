@@ -22,12 +22,13 @@ function ConsultarTour() {
     }).done(function (data) {
         data=data[0];
         respuestaHTTP=data[0];
+        $('#tbody-Tour').html('');
         for(i=0;i<data.length;i++){
             $('#tbody-Tour').append(`<tr class="table-active">
           <th scope="row">${data[i].nombreTourPredefinido}</th>
           <td>${data[i].horaDeInicioTourPredefinido}</td>
           <td>${data[i].descripcionTourPredefinido}</td>
-          <td><i onclick="EliminarEvento(${data[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalEvento(${data[i].id});" class="bi bi-gear ms-2 pointer"></i></td>
+          <td><i onclick="EliminarTourPredefinido(${data[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalEvento(${data[i].id});" class="bi bi-gear ms-2 pointer"></i></td>
           </tr>`);
         }
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
@@ -66,7 +67,9 @@ function FormularioTour() {
   }
   function ConsultaTourHtml() {
     $('#contenido-tour').html('');
-    $('#contenido-tour').append(`<div class="table-responsive">
+    $('#contenido-tour').append(`
+    
+    <div class="table-responsive">
     <table class="table table-hover">
     <thead>
       <tr>
@@ -75,7 +78,7 @@ function FormularioTour() {
         <th scope="col">Descripcion</th>  
         <th>
             <button type="button" class="btn btn-success">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
                     <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"></path>
                     <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
                 </svg>
@@ -84,13 +87,28 @@ function FormularioTour() {
         </th>
       </tr>
     </thead>
+    
     <tbody id="tbody-Tour">
       
     </tbody>
     </table>
  </div>`);
+
  ConsultarTour();
+ $('#div-busqueda').append(`<div class="input-group w-75">
+ <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
+ <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">
+                       
+</div>`);
+
 }
+function botonBusqueda(){
+$('#div-busqueda').append(`<div class="input-group w-75">
+<input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
+<input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">
+                      
+</div>`);
+};
 function ConsultarPuntosDeInteresParaTour(categoria) {
   $.ajax({
     url: `http://127.0.0.1:8000/api/PuntosInteres/${categoria}`,
@@ -140,6 +158,7 @@ function getInputTour(){
   };
   console.log(InformacionTour);
   $('#titulo-tabla-tour').text(`Preview - ${$('#nombreTourPredefinido').val()}`);
+  textoSuccess();
   return InformacionTour;
 }
 function AltaDeTour(){
@@ -153,7 +172,57 @@ function AltaDeTour(){
     data:InformacionTour
   }).done(function (data) {
       console.log(data.Message);
-      alert(data.Message);
+      Alert(data.Message);
       location.reload();
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+function EliminarTourPredefinido(id){
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/tourPredefinido/${id}`,
+    type: 'DELETE',
+    dataType: 'json',
+  }).done(function (data) {
+   console.log(data.respuesta);
+   Avisos(data.respuesta);
+    ConsultarTour();
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+function BuscarUnPuntoDeInteres(){
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/PuntosInteres/PuntosDeInteres`,
+    type: 'GET',
+    dataType: 'json',
+    data:{
+      "Opcion":"BusquedaPorNombre",
+      "Nombre":$('#txt-buscar').val()
+    }
+  }).done(function (data) {
+      mostrarPunto(data[0]);
+      if (typeof  data[0]==undefined){return 'funciona'}
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+function mostrarPunto(datos){
+  $('#tbody').html('');
+  $('#tbody').append(`<tr class="table-active">
+  <th scope="row">${datos.Nombre}</th>
+  <td>${datos.Departamento}</td>
+ 
+  <td>
+        <svg onclick="getDataTour('${datos.id}','${datos.Nombre}','${datos.Departamento}','${datos.Direccion}');" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
+        </svg>
+  </td>
+  </tr>`);
+}
+function Avisos(mensaje){
+  $('#ModalDeAviso').modal('show');
+  $('#Modal-Mensaje').text(mensaje);
+}
+//setTimeout(success(),4000);
+function success(){
+
+}
+function textoSuccess() {
+  $('#div-mensaje').append('<p class="text-center fs-5 success">Se guardo correctamente</p>');
+  setTimeout(function(){$('#div-mensaje').empty();},3000);
 }
