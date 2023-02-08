@@ -48,7 +48,7 @@
                         </li>     
                     <li class="mb-1">
                         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
-                        Puntos de Interes
+                        <a href="./PuntosInteresShow.html" class="link-dark text-decoration-none">Puntos de Interes</a> 
                         </button>
                     </li>
                     <li class="mb-1">
@@ -82,15 +82,7 @@
                             
                             
                         
-                        <div class="row justify-content-center">
-                            <div class="col-sm-3">
-                                <nav aria-label="Page navigation example">
-                                  <ul id="pagination" class="pagination">
-                                  
-                                  </ul>
-                                </nav>
-                            </div>
-                        </div>
+                        
                         </div>
                         
                     </div>
@@ -101,20 +93,111 @@
             
         
     </div>
-<!-- MODAL GENERAL DE PUNTO DE INTERES --------------------------------------------------------------------------------------->
-<div class="modal fade" id="PuntosDeInteres" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- MODAL MODIFICAR TOUR --------------------------------------------------------------------------------------->
+<div class="modal fade" id="Modal-Tour" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div id="ModalSize" class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="ModalTitle">PUNTOS DE INTERES</h5>
+          <h5 class="modal-title" id="ModalTitle">MODIFICACION DE TOUR</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div  class="modal-body">
             <div id="ModalBody" class="row justify-content-center">
-                
+              <div class="row justify-content-center">
+                <div class="col-11 mt-3">
+                    
+                    <div id="contenido-tour">
+                          <div class="row">
+                            <!--DIV PARA NOMBRE DEL TOUR-->
+                            <div style="height: 50vh;" class="col">
+                              <form id="FormularioTourPredefinido" method="POST" enctype="multipart/formdata">
+                                <h2 class="text-center">Nombre Tour</h2>
+                                <br>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="nombreTourPredefinido" placeholder="Nombre del Tour Predefinido" required>
+                                    <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                                    <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                                            El campo es obligatorio
+                                    </div>
+                                </div>
+                                
+                                <div  class="input-group mb-3">
+                                    <input type="text" class="form-control" id="horaDeInicioTourPredefinido" placeholder="Hora de Inicio" required>
+                                    <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                                    <div id="campoRequerido1" class="ms-2 invalid-feedback">
+                                        El campo es obligatorio
+                              </div>
+                                </div>
+                                <div class="mb-3">
+                                  <textarea class="form-control" id="descripcionTourPredefinido" name="DescripcionPuntoDeInteres" rows="3"></textarea>
+                                </div>
+                                <div class="row justify-content-center">
+                                  
+                                <input type="button" value="Guardar Nombre" onclick="getInputTour();" class="btn mt-3 btn-primary form-control w-50">
+                                <div style="position: relative;height: 60px;" class="mt-3" id="div-mensaje">
+                                  
+                                </div>
+                              </div>
+                                
+                            </form>
+                            </div>
+                            <!--DIV PARA BUSCAR PUNTOS-->
+                            <div style="height: 50vh;" class="col border-start border-5">
+                              <div class="row justify-content-center ">
+                                <div class="row justify-content-center " id="div-busqueda">
+                                  
+                                </div>
+                                
+                              </div>
+                              <br>
+                              <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
+                                <table class="table table-hover table-bordered table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Departamento</th> 
+                                    <th scope="col">Agregar</th>               
+                                  </tr>
+                                </thead>
+                                <tbody id="tbody">
+                                  
+                                </tbody>
+                                </table>
+                                      </div>
+                                          
+                          </div>
+                          <!--DIV PARA VER ANTES DE GUARDAR-->
+                          
+                          <div class="row">
+                                    <div style="height: 50vh;" class="col border-top border-5">
+                                      <br>
+                                      <h3 id="titulo-tabla-tour">Preview</h3>
+                              <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
+                                <table class="table table-hover table-bordered table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Departamento</th>   
+                                    <th scope="col">Direccion</th>
+                                    <th scope="col">Eliminar</th>               
+                                  </tr>
+                                </thead>
+                                <tbody id="tbody-tourPreview">
+                                  
+                                </tbody>
+                                </table>
+                              </div>
+                              
+                            </div>
+                          </div>
+                          </div>
+                    </div>
+                </div>
+                    
+            </div>
             </div>
               <div class="row mb-3 justify-content-center">
-                <input type="button" class="w-50 btn btn-primary form-control" id="btnModificarPuntosInteres" value="Modificar">
+                <input type="button" class="w-50 btn btn-primary form-control" id="btnModificarTour" value="Modificar">
               </div>
         </div>
       </div>
@@ -170,5 +253,7 @@
     <script src="../../Tour.js"></script>
     <script src="../../bootstrap/js/bootstrap.bundle.js"></script>
     <script src="../../formularios.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
 </body>
 </html>

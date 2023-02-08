@@ -295,6 +295,22 @@ function ConsultarPuntosDeInteres(categoria) {
     }
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
+function ConsultarUnPuntoDeInteres(id,Categoria,Opcion) {
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/PuntosInteres/${Categoria}`,
+    type: 'GET',
+    dataType: 'json',
+    data:{
+      id:id,
+      Opcion:Opcion
+    }
+  }).done(function (data) {
+    if(Categoria==='PuntosDeInteres'){
+      return respuestaHTTP=data;
+    }
+    return respuestaHTTP=data[0];
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
 function PuntoDeInteres(id,Categoria,Opcion) {
   $.ajax({
     url: `http://127.0.0.1:8000/api/PuntosInteres/${Categoria}`,
