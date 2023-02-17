@@ -19,6 +19,8 @@ function ConsultarTour() {
       type: 'GET',
       dataType: 'json',
     }).done(function (data) {
+      console.log(data[0]);
+      pagination(data[0]);
         $('#tbody-Tour').html('');
         for(i=0;i<data[0].data.length;i++){
             $('#tbody-Tour').append(`<tr class="table-active">
@@ -29,6 +31,25 @@ function ConsultarTour() {
           </tr>`);
         }
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+function ConsultarPorPagina(endpoint,pagina) {
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/tourPredefinido?page=${pagina}`,
+    type: 'GET',
+    dataType: 'json',
+  }).done(function (data) {
+    console.log(data[0]);
+    pagination(data[0]);
+      $('#tbody-Tour').html('');
+      for(i=0;i<data[0].data.length;i++){
+          $('#tbody-Tour').append(`<tr class="table-active">
+        <th scope="row">${data[0].data[i].nombreTourPredefinido}</th>
+        <td>${data[0].data[i].horaDeInicioTourPredefinido}</td>
+        <td>${data[0].data[i].descripcionTourPredefinido}</td>
+        <td><i onclick="EliminarTourPredefinido(${data[0].data[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarTour(${data[0].data[i].id});" class="bi bi-gear ms-2 pointer"></i></td>
+        </tr>`);
+      }
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function ConsultarUnSoloTour(id){
   $.ajax({
@@ -250,7 +271,7 @@ function AltaDeTour(){
     data:InformacionTour
   }).done(function (data) {
       console.log(data.Message);
-      Alert(data.Message);
+      alert('Se registro Correctamente');
       location.reload();
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
@@ -307,6 +328,7 @@ function success(){
 
 }
 function textoSuccess() {
+  $('#div-mensaje').html('');
   $('#div-mensaje').append('<p class="text-center fs-5 success">Se guardo correctamente</p>');
   setTimeout(function(){$('#div-mensaje').empty();},3000);
 }

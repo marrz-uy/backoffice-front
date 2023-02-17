@@ -61,12 +61,11 @@ function ConsultarEventos() {
     dataType: 'json',
   }).done(function (data) {
     var js = data.data;
-    console.log(data);
     console.log(js);
     $('#TablaEventos').html('');
     for (var i = 0; i < js.length; i++) {
       $('#TablaEventos').append(`<tr class="table-active">
-      <th scope="row">${js[i].Nombre}</th>
+      <th scope="row">${js[i].NombreEvento}</th>
       <td>${js[i].FechaInicio}</td>
       <td>${js[i].HoraInicio}</td>
       <td>${js[i].Tipo}</td>
@@ -201,7 +200,7 @@ $('#pagination').append(`<li onclick="ConsultarPorPagina('${EndPoint}','${respue
 }
 function getInputEvento(){
   InformacionDelEvento = {
-    Nombre:$('#NombreDelEvento').val(),
+    NombreEvento:$('#NombreDelEvento').val(),
     LugarDelEvento:InformacionLugar.id,
     LugarDeVentaDeEntradas:$('#LugarDeVentaDeEntradas').val(),
     FechaInicio:$('#FechaDeApertura').val(),
