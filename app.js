@@ -311,6 +311,38 @@ function ConsultarUnPuntoDeInteres(id,Categoria,Opcion) {
     return respuestaHTTP=data[0];
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
+function BuscarUnPuntoDeInteres(){
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/PuntosInteres/PuntosDeInteres`,
+    type: 'GET',
+    dataType: 'json',
+    data:{
+      "Opcion":"BusquedaPorNombre",
+      "Nombre":$('#txt-buscar').val()
+    }
+  }).done(function (data) {
+    console.log(data);
+    if($('#txt-buscar').val()===''){
+      return ConsultarPuntosDeInteres('PuntosDeInteres');
+    }
+    if(data.Mensaje==='No hubo resultado'){
+      Avisos(data.Mensaje);
+      ConsultarPuntosDeInteres('PuntosDeInteres');
+    }
+      mostrarPunto(data[0]);
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+function mostrarPunto(datos){
+  $('#tbody').html('');
+  $('#tbody').append(`
+  <tr class="table-active">
+  <th scope="row">${datos.Nombre}</th>
+  <td>${datos.Departamento}</td>
+  <td>${datos.Ciudad}</td>
+  <td>${datos.Direccion}</td>
+  <td><i onclick="EliminarPuntoDeInteres(${datos.puntosinteres_id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalPuntosDeInteres(${datos.puntosinteres_id},${localStorage.getItem('Categoria')},'Unico');" style="cursor:pointer;" class="bi bi-gear ms-2"></i></td>
+  </tr>`);
+}
 function PuntoDeInteres(id,Categoria,Opcion) {
   $.ajax({
     url: `http://127.0.0.1:8000/api/PuntosInteres/${Categoria}`,
@@ -565,7 +597,6 @@ function getInputAlojamiento() {
   $('#InputRestaurante').prop('checked')?Restaurante=1:Restaurante=0;
   InformacionDetalladaPuntoDeInteres = {
     Tipo: $('#TipoDetallado').val(),
-    Habitaciones:$('#InputHabitaciones').val(),
     Calificaciones:$('#InputCalificaciones').val(),
     Piscina:Piscina,
     TvCable:Tv,
@@ -639,3 +670,19 @@ function ConsultarPorPagina(EndPoint,Pagina){
     }
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
+//DASHBOARD------------------------------------------------------------------------------------------------------------------------------------>
+$(function($){
+  $('#grafica').highcharts({
+    title:{text:'Registro del 2023'},
+    xAxis:{categories:['Usuarios','Puntos de Interes','Eventos']},
+    yAxis:{title:'Porcentaje %'},plotLines:[{value:0,width:1,color:'#808080'}],
+    tooltip:{valueSuffix:'%'},
+    legend:{layout:'vertical',align:'right',verticalAlign:'middle',borderWidth:0},
+    series:[
+    {type:'column',name:'Backoffice',data:[25,30,21]},
+    {type:'column',name:'Backoffice',data:[25,30,21]},
+    {type:'column',name:'Backoffice',data:[25,30,21]}
+  
+  ]
+  });
+});

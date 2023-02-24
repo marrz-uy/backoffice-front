@@ -19,31 +19,8 @@
                         <div class="col-sm">
                           <a href="../../index.html"><img src="../../mars-NyN.png" alt="Logo" width="50px"></a>
                         </div>
-                        <div class="col-3">
-                        <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
-                        </div>
-                        <div class="col-auto">
-                            <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">
-                            <input type="button" class="btn btn-secondary" onclick="ConsultarPuntosDeInteres('PuntosDeInteres');" value="Limpiar Filtros">                        
-                        </div>
-                        <div class="col-auto">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                  Seleccionar Categoria
-                                </button>
-                                <ul class="dropdown-menu col" aria-labelledby="dropdownMenuButton1">
-                                    <li><a onclick="FormularioDeAlojamiento();" class="dropdown-item text-white bg-secondary" href="#">Alojamiento</a></li>
-                                    <li><a onclick="FormularioDeGastronomia();" class="dropdown-item text-white bg-secondary" href="#">Gastronomia</a></li>
-                                    <li><a onclick="ConsultarPuntosDeInteres('espectaculos');CargarCategoria('espectaculos');" class="dropdown-item text-white bg-secondary" href="#">Espectaculos</a></li>
-                                    <li><a onclick="FormularioDeActivdadesAlAireLibre();" class="dropdown-item text-white bg-secondary" href="#">Actividades al Aire Libre</a></li>
-                                    <li><a onclick="FormularioDeActividadesNocturnas();" class="dropdown-item text-white bg-secondary " href="#">Actividades Nocturnas</a></li>
-                                    <li><a class="dropdown-item text-white bg-secondary" href="#">Transporte</a></li>
-                                    <li><a onclick="FormularioDeActividadesInfantiles();" class="dropdown-item text-white bg-secondary" href="#">Actividades Infantiles</a></li>
-                                    <li><a onclick="ConsultarPuntosDeInteres('servicios_esenciales');CargarCategoria('servicios_esenciales');" class="dropdown-item text-white bg-secondary" href="#">Servicios Escenciales</a></li>
-                                    <li><a onclick="ConsultarPuntosDeInteres('PuntosDeInteres');CargarCategoria('PuntosDeInteres');" class="dropdown-item text-white bg-secondary" href="#">Mostar Todos</a></li>
-                                </ul>
-                              </div>
-                        </div>
+                        
+                        
                        
                     </form>
                   
@@ -77,9 +54,7 @@
                         </button>  
                     </li>
                     <li class="mb-1">
-                        <button class="btn btn-toggle  d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-                        Gestion de Tours
-                        </button>
+                        <a href="./TourShow.html" class="link-dark text-decoration-none btn btn-toggle  d-inline-flex align-items-center rounded border-0 collapsed">Gestion de Tours</a> 
                     </li>
                     
                     <li class="border-top my-3"></li>
@@ -90,8 +65,17 @@
             <main class="col-sm-9 col-md-9 col-lg-9 rounded" style="border:2px solid black;">
                 <div class="row justify-content-center">
                     <div class="col-11 mt-3">
-                        <div>
+                        <div class="row">
                             <h2>EVENTOS</h2>
+                            <div class="row">
+                                <div class="col-6">
+                                    <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
+                                    </div>
+                                    <div class="col-3">
+                                        <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary w-50" value="Buscar">                       
+                                    </div>
+                            </div>
+                            
                         </div>
                         <div class="table-responsive">
                             <table class="table table-hover">
@@ -197,23 +181,7 @@
                                    El campo es requerido
                           </div>
                       </div>
-                      <div class="row mb-3">
-                          
-                          <div class="col-10">
-                              <input type="text" class="form-control" id="ArtistaDelEvento" name="ArtistaDelEvento"  placeholder="Agregar artista al evento">
-                          </div>
-                          <div class="col-2">
-                              <button id="btnConsultarArtista" type="button" class="btn btn-success btn-toggle">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
-                                      <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"></path>
-                                  </svg>        
-                              </button>
-                          </div>
-                         
-                          <div id="campoRequerido0" class="ms-2 invalid-feedback">
-                                   El campo es requerido
-                          </div>
-                      </div>
+                      
                       <div class="mb-3">
                           <div class="mb-3">
                               <select id="LugarDeVentaDeEntradas" class="form-select" aria-label="Default select example">
@@ -278,6 +246,46 @@
                             
                             </div>
                       </div>
+                      <!--GESTION DE IMAGENES------------------------------------------------------------------------------------>
+      <div class="mb-3">
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button form-control" type="button" data-bs-toggle="collapse"
+                data-bs-target="#accordion-imagenes" aria-expanded="true" aria-controls="collapseOne">
+                Gestion de Imagenes
+              </button>
+            </h2>
+            <div id="accordion-imagenes" class="accordion-collapse collapse" aria-labelledby="headingOne"
+              data-bs-parent="#accordion-imagenes">
+              <div style="height: 40vh;" class="accordion-body">
+
+                <div class="row border mb-3 messi" style="height: 30vh;">
+                  <div class="messi">
+                    <div id="imagen-container" class="img-container">
+
+                      
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row border">
+
+                  <div class="col ">
+                    <input id="imagenes" type="file">
+                  </div>
+                  <div id="divBotonImagen" class="col ">
+                    
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
                       <div class="mb-3">
                           <input type="text" class="form-control" id="TipoDeEvento" name="TipoDeEvento"  placeholder="Indicar Tipo de Evento" required>
                           <div id="campoRequerido0" class="ms-2 invalid-feedback">

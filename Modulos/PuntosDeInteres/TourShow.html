@@ -47,9 +47,9 @@
                             <a class="link-dark d-inline-flex text-decoration-none rounded" href="./Dashboard.html">Dashboard</a>
                         </li>     
                     <li class="mb-1">
-                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
-                        <a href="./PuntosInteresShow.html" class="link-dark text-decoration-none">Puntos de Interes</a> 
-                        </button>
+                        
+                        <a href="./PuntosInteresShow.html" class="link-dark text-decoration-none btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed">Puntos de Interes</a> 
+
                     </li>
                     <li class="mb-1">
                       <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
@@ -71,8 +71,16 @@
                 <div class="row justify-content-center">
                     <div class="col-11 mt-3">
                         <div>
-                          <h2>GESTION DE TOUR PREDEFINIDOS</h2>
+                          <h2>TOUR PREDEFINIDOS</h2>
                         </div>
+                        <div class="row">
+                          <div class="col-6">
+                              <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
+                              </div>
+                              <div class="col-3">
+                                  <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary w-50" value="Buscar">                       
+                              </div>
+                      </div>
                         <div id="contenido-tour">
                               
                         </div>

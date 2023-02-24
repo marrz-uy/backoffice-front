@@ -53,7 +53,6 @@ function ConsultarPuntosDeInteres(categoria) {
       
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
-
 function ConsultarEventos() {
   $.ajax({
     url: `http://127.0.0.1:8000/api/Eventos`,
@@ -68,8 +67,8 @@ function ConsultarEventos() {
       <th scope="row">${js[i].NombreEvento}</th>
       <td>${js[i].FechaInicio}</td>
       <td>${js[i].HoraInicio}</td>
-      <td>${js[i].Tipo}</td>
-      <td><i onclick="EliminarEvento(${js[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalEvento(${js[i].id});" class="bi bi-gear ms-2 pointer"></i></td>
+      <td>${js[i].TipoEvento}</td>
+      <td><i onclick="EliminarEvento(${js[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalEvento(${js[i].Eventos_id});" class="bi bi-gear ms-2 pointer"></i></td>
       </tr>`);
     }
     respuestaHTTP=data;
@@ -82,14 +81,14 @@ function ConsultarEvento(id){
     type: 'GET',
     dataType: 'json',
     data:{
-      id:id,
+      Eventos_id:id,
       Opcion:'Unico'
     }
   }).done(function (data) {
-    return respuestaHTTP=data;
+    console.log(data[0]);
+    return respuestaHTTP=data[0];
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
-
 //ALTAS--------------------------------------------------------------------------------------------------------------------------------------->
 function RegistrarEvento(InformacionDelEvento){
   $.ajax({
@@ -131,8 +130,10 @@ function CargarModalEvento(id){
   CleanInput();
   $('#mensaje').text('');
   ConsultarEvento(id);
+  $('#divBotonImagen').append(`<input onclick="NuevaImagen(${id});" type="button" class="btn btn-success" value="Agregar Imagen">`);
   setTimeout(function(){
-    setInputEvento(respuestaHTTP.Nombre,'',respuestaHTTP.LugarDeVentaDeEntradas,respuestaHTTP.FechaInicio,respuestaHTTP.FechaFin,respuestaHTTP.HoraInicio,respuestaHTTP.HoraFin,respuestaHTTP.Tipo)
+    setInputEvento(respuestaHTTP.NombreEvento,'',respuestaHTTP.LugarDeVentaDeEntradas,respuestaHTTP.FechaInicio,respuestaHTTP.FechaFin,respuestaHTTP.HoraInicio,respuestaHTTP.HoraFin,respuestaHTTP.TipoEvento)
+    getInputLugarDelEvento(respuestaHTTP.puntosinteres_id,'');
     ConsultarUnPuntoDeInteres(respuestaHTTP.puntosinteres_id,'PuntosDeInteres','Unico');
     setTimeout(function(){console.log($('#LugarDelEvento').val(respuestaHTTP.Nombre))},1000);
   },1000);
@@ -195,7 +196,7 @@ $('#pagination').append(`<li onclick="ConsultarPorPagina('${EndPoint}','${respue
       }
       JSON.stringify(InformacionLugar);
       $('#LugarDelEvento').val(nombre);
-      $('#mensaje').text('Se agrego correctamente');
+      //$('#mensaje').text('Se agrego correctamente');
       return InformacionLugar;
 }
 function getInputEvento(){
