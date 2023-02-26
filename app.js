@@ -429,6 +429,17 @@ function ModificarPuntosDeInteres(id,InformacionPuntoDeInteres) {
     //console.log(data);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
+function ModalConsulta(Categoria){
+  $.ajax({
+    url: `./Modal/${Categoria}.html`,
+    type:'GET',
+    dataType: 'text ',
+}).done(function(data){
+    $('#ModalBody').html('');
+    $('#ModalBody').html(data);
+    
+}).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);}); 
+}
 $('#btnModificarPuntosInteres').click(function (e) {
   e.preventDefault();
   let Categoria=localStorage.getItem('Categoria');
@@ -628,18 +639,12 @@ function getInputGastronomico() {
   InformacionDetalladaPuntoDeInteres = JSON.stringify(InformacionDetalladaPuntoDeInteres);
   InformacionPuntoDeInteres.InformacionDetalladaPuntoDeInteres = InformacionDetalladaPuntoDeInteres;
 }
-function CargarCategoria(categoria){localStorage.setItem('Categoria',`'${categoria}'`);};
-function ModalConsulta(Categoria){
-  $.ajax({
-    url: `./Modal/${Categoria}.html`,
-    type:'GET',
-    dataType: 'text ',
-}).done(function(data){
-    $('#ModalBody').html('');
-    $('#ModalBody').html(data);
-    
-}).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);}); 
+function Avisos(mensaje){
+  $('#ModalDeAviso').modal('show');
+  $('#Modal-Mensaje').text(mensaje);
 }
+function CargarCategoria(categoria){localStorage.setItem('Categoria',`'${categoria}'`);};
+
 function pagination(respuestaHTTP) {
   $('#pagination').html('');
   $('#pagination').append(`<li class="page-item"><a class="page-link" href="#">Anterior</a></li>`);  
@@ -674,14 +679,12 @@ function ConsultarPorPagina(EndPoint,Pagina){
 $(function($){
   $('#grafica').highcharts({
     title:{text:'Registro del 2023'},
-    xAxis:{categories:['Usuarios','Puntos de Interes','Eventos']},
-    yAxis:{title:'Porcentaje %'},plotLines:[{value:0,width:1,color:'#808080'}],
+    xAxis:{categories:['Enero','Febrero','Marzo','Abril']},
+    yAxis:{title:'Porcentaje %'},plotLines:[{value:0,width:1}],
     tooltip:{valueSuffix:'%'},
     legend:{layout:'vertical',align:'right',verticalAlign:'middle',borderWidth:0},
     series:[
-    {type:'column',name:'Backoffice',data:[25,30,21]},
-    {type:'column',name:'Backoffice',data:[25,30,21]},
-    {type:'column',name:'Backoffice',data:[25,30,21]}
+    {type:'column',name:'Usuarios',data:[25,30,21,50],color:'#2874A6'}
   
   ]
   });

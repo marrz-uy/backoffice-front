@@ -54,6 +54,7 @@ function ConsultarPuntosDeInteres(categoria) {
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function ConsultarEventos() {
+  $('#txt-buscar').val('');
   $.ajax({
     url: `http://127.0.0.1:8000/api/Eventos`,
     type: 'GET',
@@ -87,6 +88,35 @@ function ConsultarEvento(id){
   }).done(function (data) {
     console.log(data[0]);
     return respuestaHTTP=data[0];
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+function BuscarEventoPorNombre(){
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/Eventos`,
+    type: 'GET',
+    dataType: 'json',
+    data:{
+      "Opcion":"BusquedaPorNombre",
+      "Nombre":$('#txt-buscar').val()
+    }
+  }).done(function (data) {
+    console.log(data);
+    if($('#txt-buscar').val()===''){
+      return ConsultarEventos();
+    }
+    if(data.Mensaje==='No hubo resultado'){
+      
+      Avisos(data.Mensaje);
+      return ConsultarEventos();
+    }
+    $('#TablaEventos').html('');
+    $('#TablaEventos').append(`<tr class="table-active">
+      <th scope="row">${data[0].NombreEvento}</th>
+      <td>${data[0].FechaInicio}</td>
+      <td>${data[0].HoraInicio}</td>
+      <td>${data[0].TipoEvento}</td>
+      <td><i onclick="EliminarEvento(${data[0].id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalEvento(${data[0].Eventos_id});" class="bi bi-gear ms-2 pointer"></i></td>
+      </tr>`);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 //ALTAS--------------------------------------------------------------------------------------------------------------------------------------->
@@ -231,4 +261,8 @@ function CleanInput() {
     $('#HoraDeApertura').val('');
     $('#HoraDeCierre').val('');
     $('#TipoDeEvento').val('');  
+}
+function Avisos(mensaje){
+  $('#ModalDeAviso').modal('show');
+  $('#Modal-Mensaje').text(mensaje);
 }
