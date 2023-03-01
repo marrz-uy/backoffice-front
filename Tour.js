@@ -1,6 +1,7 @@
 var respuestaHTTP;
 var puntosdeInteresTour=[];
 var InformacionTour={};
+var id;
 function sendError(errorText){alert(errorText);}
 function ErrorHandler(jqXHR, textStatus){
   if (jqXHR.status === 0)  return sendError('Not connect: Verify Network');
@@ -97,7 +98,7 @@ function FormularioTour() {
 </form>
     `)
 }
-  function ConsultaTourHtml() {
+function ConsultaTourHtml() {
     $('#contenido-tour').html('');
     $('#contenido-tour').append(`
     
@@ -146,11 +147,13 @@ function FormularioTour() {
 
 }
 function botonBusqueda(){
+  $('#divBotonImagen').append(`<input onclick="NuevaImagen(${id});" type="button" class="btn btn-success" value="Agregar Imagen">`);
 $('#div-busqueda').append(`<div class="input-group w-75">
 <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
 <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">
                       
 </div>`);
+
 };
 function ConsultarPuntosDeInteresParaTour(categoria) {
   $.ajax({
@@ -258,8 +261,6 @@ $('#btnModificarTour').click(function (e) {
   modificarPuntosDeInteresTourDG();
   ModificarTourHTTP();
 });
-
-
 function AltaDeTour(){
   puntosdeInteresTour=puntosdeInteresTour.toString();
   InformacionTour.puntosdeInteresTour=puntosdeInteresTour;
@@ -396,4 +397,25 @@ function BuscarTourPorNombre(){
       <td><i onclick="EliminarEvento(${data[0].id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalEvento(${data[0].Eventos_id});" class="bi bi-gear ms-2 pointer"></i></td>
       </tr>`);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+//IMAGENES------------------------------------------------------------------------------------------------------------------------------------>
+function NuevaImagen(id){
+  const formData=new FormData();
+  formData.append('file',$('#imagenes')[0].files[0]);
+  formData.append('image_description','file');
+  formData.append('puntosinteres_id',id);
+  $.ajax({
+      url: 'http://127.0.0.1:8000/api/cargarImagen',
+      type: 'POST',
+      data: formData,
+      dataType:'json',
+      cache:false,
+      contentType:false,
+      processData:false,
+      headers:{'Accept':'*/*','Content-Encoding':'multipart/form-data','Access-Control-Allow-Origin':"*/*"},
+    }).done(function (data) {
+      console.log(data);
+      $('#ModalDeAviso').modal('show');
+      ConsultarImagenes(id);
+    }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }

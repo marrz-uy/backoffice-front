@@ -266,3 +266,24 @@ function Avisos(mensaje){
   $('#ModalDeAviso').modal('show');
   $('#Modal-Mensaje').text(mensaje);
 }
+//IMAGENES------------------------------------------------------------------------------------------------------------------------------------>
+function NuevaImagen(id){
+  const formData=new FormData();
+  formData.append('file',$('#imagenes')[0].files[0]);
+  formData.append('image_description','file');
+  formData.append('puntosinteres_id',id);
+  $.ajax({
+      url: 'http://127.0.0.1:8000/api/cargarImagen',
+      type: 'POST',
+      data: formData,
+      dataType:'json',
+      cache:false,
+      contentType:false,
+      processData:false,
+      headers:{'Accept':'*/*','Content-Encoding':'multipart/form-data','Access-Control-Allow-Origin':"*/*"},
+    }).done(function (data) {
+      console.log(data);
+      $('#ModalDeAviso').modal('show');
+      ConsultarImagenes(id);
+    }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}

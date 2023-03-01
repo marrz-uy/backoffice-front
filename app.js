@@ -326,6 +326,7 @@ function BuscarUnPuntoDeInteres(){
       return ConsultarPuntosDeInteres('PuntosDeInteres');
     }
     if(data.Mensaje==='No hubo resultado'){
+      console.log(data.Mensaje);
       Avisos(data.Mensaje);
       ConsultarPuntosDeInteres('PuntosDeInteres');
     }

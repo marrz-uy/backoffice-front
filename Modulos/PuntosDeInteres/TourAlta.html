@@ -46,11 +46,12 @@
                         <li class="mb-1">
                             <a class="link-dark d-inline-flex text-decoration-none rounded" href="./Dashboard.html">Dashboard</a>
                         </li>     
-                    <li class="mb-1">
-                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
-                       <a href="./PuntosInteresShow.html" class="link-dark text-decoration-none">Puntos de Interes</a> 
-                        </button>
-                    </li>
+                        <li class="mb-1">
+                          <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
+                          <a href="./PuntosInteresShow.html" class="link-dark text-decoration-none">Puntos de Interes</a>
+                          </button>
+                       
+                      </li>
                     <li class="mb-1">
                       <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
                       <a href="./EventosShow.html" class="link-dark text-decoration-none">Eventos</a>
@@ -100,13 +101,22 @@
                                         <textarea class="form-control" id="descripcionTourPredefinido" name="DescripcionPuntoDeInteres" rows="3"></textarea>
                                       </div>
                                       <div class="row justify-content-center">
-                                        
+                                        <div class="row border">
+
+                                          <div class="col ">
+                                            <input id="imagenes" type="file">
+                                          </div>
+                                          <div id="divBotonImagen" class="col ">
+                                            
+                                          </div>
+                        
+                                        </div>
                                       <input type="button" value="Guardar Nombre" onclick="getInputTour();" class="btn mt-3 btn-primary form-control w-50">
                                       <div style="position: relative;height: 60px;" class="mt-3" id="div-mensaje">
                                         
                                       </div>
                                     </div>
-                                      
+                                    
                                   </form>
                                   </div>
                                   <!--DIV PARA BUSCAR PUNTOS-->
