@@ -147,7 +147,7 @@ function ConsultaTourHtml() {
 
 }
 function botonBusqueda(){
-  $('#divBotonImagen').append(`<input onclick="NuevaImagen(${id});" type="button" class="btn btn-success" value="Agregar Imagen">`);
+  $('#divBotonImagen').append(`<input onclick="NuevaImagen(${id});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
 $('#div-busqueda').append(`<div class="input-group w-75">
 <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
 <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">
@@ -324,10 +324,7 @@ function Avisos(mensaje){
   $('#ModalDeAviso').modal('show');
   $('#Modal-Mensaje').text(mensaje);
 }
-//setTimeout(success(),4000);
-function success(){
 
-}
 function textoSuccess() {
   $('#div-mensaje').html('');
   $('#div-mensaje').append('<p class="text-center fs-5 success">Se guardo correctamente</p>');

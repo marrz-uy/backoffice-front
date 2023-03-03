@@ -405,7 +405,7 @@ function CargarModalPuntosDeInteres(id,Categoria,Opcion) {
     setInputPuntoDeInteres(respuestaHTTP.Nombre,respuestaHTTP.Departamento,respuestaHTTP.Ciudad,respuestaHTTP.Direccion,respuestaHTTP.Facebook,respuestaHTTP.Instagram,respuestaHTTP.HoraDeApertura,respuestaHTTP.HoraDeCierre,respuestaHTTP.Descripcion,respuestaHTTP.Latitud,respuestaHTTP.Longitud,respuestaHTTP.TipoDeLugar,respuestaHTTP.RestriccionDeEdad,respuestaHTTP.EnfoqueDePersonas);
     ConsultarImagenes(id);
     console.log(id);
-    $('#divBotonImagen').append(`<input onclick="NuevaImagen(${id});" type="button" class="btn btn-success" value="Agregar Imagen">`);
+    $('#divBotonImagen').append(`<input onclick="NuevaImagen(${id});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
     ConsultarTelefonosPuntoDeInteres(id);
     if(Categoria==='espectaculos')setInputEspectaculo(respuestaHTTP);
     if(Categoria==='alojamientos')setInputAlojamiento(respuestaHTTP);

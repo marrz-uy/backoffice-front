@@ -2,6 +2,7 @@ var InformacionLugar;
 var idEvento;
 var respuestaHTTP;
 var EndPoint='Eventos?page=';
+var id;
 function sendError(errorText){alert(errorText);}
 function ErrorHandler(jqXHR, textStatus){
   if (jqXHR.status === 0)  return sendError('Not connect: Verify Network');
@@ -286,4 +287,8 @@ function NuevaImagen(id){
       $('#ModalDeAviso').modal('show');
       ConsultarImagenes(id);
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+
+function Arreglos(){
+  $('#divBotonImagen').append(`<input onclick="NuevaImagen(${id});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
 }
