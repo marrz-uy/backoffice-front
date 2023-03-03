@@ -5,6 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta http-equiv="Pragma" content="no-cache">
     <title>Document</title>
 </head>
 <body>
@@ -51,16 +55,15 @@
                      
                     </li>
                     <li class="mb-1">
-                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-                        Gestion de Tours
-                        </button>
-                        <div class="collapse" id="dashboard-collapse">
-                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Agregar Nuevo</a></li>
-                            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Mostrar Todos</a></li>
-                        </ul>
-                        </div>
+                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
+                        <a href="./EventosShow.html" class="link-dark text-decoration-none">Eventos</a>
+                        </button>  
                     </li>
+                    <li class="mb-1">
+                        
+                        <a href="./TourShow.html" class="link-dark text-decoration-none btn btn-toggle d-inline-flex align-items-center rounded border-0 ">Gestion de Tours</a> 
+                        
+                     </li>
                     
                     <li class="border-top my-3"></li>
                     
@@ -70,19 +73,68 @@
             <main id="main" class="col-9 rounded" style="border:2px solid black;">
                 <div class="row justify-content-center">
                     <div class="col-sm-6 mt-3">
-                        <form id="FormularioPuntoDeInteres" action="" method="POST">
+                        <form id="FormularioPuntoDeInteres" method="POST" enctype="multipart/formdata">
                             <h3 class="text-center">REGISTRO DE PUNTOS DE INTERES</h3>
-                            <div class="mb-3">
+                            
+                            <div class="input-group mb-3">
                                 <input type="text" class="form-control" id="NombrePuntoDeInteres" name="NombrePuntoDeInteres"  placeholder="Nombre" required>
+                                <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                                <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                                         El campo es obligatorio
+                                </div>
                             </div>
-                            <div class="mb-3">
+                            
+                            <div  class="input-group mb-3">
                                 <input type="text" class="form-control" id="DepartamentoPuntoDeInteres" name="DepartamentoPuntoDeInteres" placeholder="Departamento" required>
+                                <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                                <div id="campoRequerido1" class="ms-2 invalid-feedback">
+                                    El campo es obligatorio
+                           </div>
                             </div>
-                            <div class="mb-3">
+                            <div class="input-group mb-3">
                                 <input type="text" class="form-control" id="CiudadPuntoDeInteres" name="CiudadPuntoDeInteres" placeholder="Ciudad" required>
+                                <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                                <div id="campoRequerido2" class="ms-2 invalid-feedback">
+                                    El campo es obligatorio
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <input type="text" class="form-control" id="DireccionPuntoDeInteres" name="DireccionPuntoDeInteres" placeholder="Direccion" required>
+                            <div class="input-group mb-3">
+                                <input type="number" class="form-control me-1" id="Latitud" placeholder="Latitud">
+                                <input type="number" class="form-control ms-1" id="Longitud" placeholder="Longitud">
+                            </div>
+                            <div class="input-group mb-3">
+                                <select id="TipoDeLugar" class="form-select" aria-label="Default select example">
+                                    <option selected>Tipo De Lugar</option>
+                                    <option value="Espacio cerrado">Espacio cerrado</option>
+                                    <option value="Al aire libre">Al aire libre</option>
+                                    <option value="Ambos">Ambos</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <select id="RestriccionDeEdad" class="form-select" aria-label="Default select example">
+                                    <option selected>Restriccion De Edad</option>
+                                    <option value="Todas">Todas</option>
+                                    <option value="Mayores">Mayores</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <select id="EnfoqueDePersonas" class="form-select" aria-label="Default select example">
+                                    <option selected>Enfoque De Personas</option>
+                                    <option value="Grupo">Grupo</option>
+                                    <option value="Familia">Familia</option>
+                                    <option value="Pareja">Pareja</option>
+                                    <option value="Individual">Individual</option>
+                                    <option value="Sin restriccion">Sin restriccion</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="DireccionPuntoDeInteres1" name="DireccionPuntoDeInteres" placeholder="Direccion" >
+                                <input type="text" class="form-control ms-2" id="DireccionPuntoDeInteres2" name="DireccionPuntoDeInteres" placeholder="N° de puerta" >
+                                <input type="text" class="form-control ms-2" id="DireccionPuntoDeInteres3" name="DireccionPuntoDeInteres" placeholder="Esquina" >
+
+                                <div id="campoRequerido3" class="ms-2 invalid-feedback">
+                                    El campo es obligatorio
+                           </div>
                             </div>
                            
                             <div class="mb-3">
@@ -144,15 +196,25 @@
                                   </div>
                             </div>
                             <div class="mb-3">
-                                <input class="form-control" type="file" id="Imagen" name="Imagen">
-                              </div>
-                            <div class="mb-3">
                                 <textarea class="form-control" id="DescripcionPuntoDeInteres" name="DescripcionPuntoDeInteres" rows="3"></textarea>
                             </div>
                             <div class="mb-3">
-                                
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary form-control dropdown-toggle" type="submit" id="btnRegistrarPuntosInteres" data-bs-toggle="dropdown" aria-expanded="false">Seleccionar Punto De Interes</button>
+                                <div class="mb-3">
+                                    <select id="TipoCategoria" class="form-select" aria-label="Default select example">
+                                        <option selected>Seleccionar Categoria</option>
+                                        <option value="Alojamiento">Alojamiento</option>
+                                        <option value="transporte">Transporte</option>
+                                        <option value="paseos">Paseos</option>
+                                        <option value="gastronomicos">Gastronomia</option>
+                                        <option value="Espectaculos">Espectaculos</option>
+                                        <option value="Actividades_al_Aire_Libre">Actividades al Aire Libre</option>
+                                        <option value="Actividades_Nocturnas">Actividades Nocturnas</option>
+                                        <option value="Actividades_Infantiles">Actividades Infantiles</option>
+                                        <option value="Servicios_Esenciales">Servicios Esenciales</option>
+                                    </select>
+                                </div>
+                                <div hidden class="dropdown">
+                                    <button class="btn btn-secondary form-control dropdown-toggle" type="submit" id="btnRegistrarPuntosInteres" data-bs-toggle="dropdown" aria-expanded="false">Seleccionar Categoria</button>
                                     <div class="row">
                                         <ul class="dropdown-menu col" aria-labelledby="dropdownMenuButton1">
                                             <li><a onclick="FormularioDeAlojamiento();" class="dropdown-item text-white bg-secondary" href="#">Alojamiento</a></li>
@@ -165,8 +227,10 @@
                                             <li><a onclick="FormularioDeServiciosEscenciales();" class="dropdown-item text-white bg-secondary" href="#">Servicios Escenciales</a></li>
                                           </ul>
                                     </div>
-                                    <button class="btn mt-3 btn-primary form-control">Siguiente</button>
-                                  </div>
+                                    
+                                    
+                                </div>
+                                <button id="btnSiguiente" class="btn mt-3 btn-primary form-control">Siguiente</button>
                             </div>
                         </form>
                         

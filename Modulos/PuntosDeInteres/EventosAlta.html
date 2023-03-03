@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
+    <title>Document</title>
+</head>
+<body onload="Arreglos();">
+    <!--Contenedor -->
+    <div  class="container-fluid">
+        <div class="row ">
+            <header class="rounded  " style="border:2px solid black">
+                <div class="col-sm m-2">
+                    <form class="row justify-content-center" method="POST">
+                        <div class="col-sm">
+                            <img src="../../mars-NyN.png" alt="Logo" width="50px">
+                        </div>
+                        <div class="col-3">
+                        <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
+                        </div>
+                        <div class="col-auto">
+                            <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">
+                            <input type="button" class="btn btn-secondary" onclick="ConsultarPuntosDeInteres();" value="Limpiar Filtros">                        
+                        </div>
+                
+                       
+                    </form>
+                  
+                </div>
+                
+            </header>    
+        </div>     
+        <!--Aside y Main -->
+        <div style="height: 90vh;" class="row">
+            <aside class="col-3 rounded" style="border:2px solid black;">
+                <div class="flex-shrink-0 p-3 ms-3 bg-white" style="width: 280px;">
+                    <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+                    <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+                    <span class="fs-5 fw-semibold">Menu Gestor Turistico</span>
+                    </a>
+                    <ul class="list-unstyled ps-0">
+                    <li class="mb-1">
+                        <a class="link-dark d-inline-flex text-decoration-none rounded" href="./Dashboard.html">Dashboard</a>
+                    </li>
+                       
+                    <li class="mb-1">
+                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
+                        <a href="./PuntosInteresShow.html" class="link-dark text-decoration-none">Puntos de Interes</a>
+                        </button>
+                     
+                    </li>
+                    <li class="mb-1">
+                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
+                        <a href="./EventosShow.html" class="link-dark text-decoration-none">Eventos</a>
+                        </button>  
+                    </li> 
+                    <li class="mb-1">
+                        <a href="./TourShow.html" class="link-dark text-decoration-none btn btn-toggle  d-inline-flex align-items-center rounded border-0 collapsed">Gestion de Tours</a> 
+                    </li>
+                    
+                    <li class="border-top my-3"></li>
+                    
+                    </ul>
+                </div>
+            </aside>
+            <main id="main" class="col-9 rounded" style="border:2px solid black;">
+                <div class="row justify-content-center">
+                    <div class="col-sm-6 mt-3">
+                        <form id="FormularioEventos" action="" method="POST">
+                            <h3 class="text-center">REGISTRO DE EVENTOS</h3>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="NombreDelEvento" name="NombreDeEvento"  placeholder="Nombre" required>
+                                <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                                         El campo es requerido
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                
+                                <div class="col-10">
+                                    <input type="text" class="form-control" id="LugarDelEvento" name="LugarDelEvento"  placeholder="Agregar sitio del evento">
+                                </div>
+                                <div class="col-2">
+                                    <button id="btnConsultarLugar" type="button" class="btn btn-success btn-toggle">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                                            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"></path>
+                                        </svg>        
+                                    </button>
+                                </div>
+                               
+                                <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                                         El campo es requerido
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="mb-3">
+                                    <select id="LugarDeVentaDeEntradas" class="form-select" aria-label="Default select example">
+                                        <option selected>Ventas de Entradas</option>
+                                        <option value="Abitab">Abitab</option>
+                                        <option value="RedPagos">RedPagos</option>
+                                        <option value="TickAntel">TickAntel</option>
+                                        <option value="Lugar Del Evento">Lugar Del Evento</option>
+                                        <option value="AccesoYa">AccesoYa</option>
+                                        <option value="RedTicket">RedTicket</option>
+                                    </select>
+                                </div>
+                                <div id="campoRequerido1" class="ms-2 invalid-feedback">
+                                    El campo es requerido
+                            </div>
+                            </div>
+                            <!--Fecha--------------------------------------------------------------------------------------------------->
+                            <div class="mb-3">
+                                <div class="accordion" id="accordionExample">
+                                    <div class="accordion-item">
+                                      <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button form-control" type="button" data-bs-toggle="collapse" data-bs-target="#fechas" aria-expanded="true" aria-controls="collapseOne">
+                                          Fechas
+                                        </button>
+                                      </h2>
+                                      <div id="fechas" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#fechas">
+                                        <div class="accordion-body">
+                                            <div class="mb-3">
+                                                <input type="date" class="form-control" id="FechaDeApertura" name="FechaDeApertura" placeholder="Fecha de Apertura">
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="date" class="form-control" id="FechaDeCierre" name="FechaDeCierre" placeholder="Fecha de Cierre">
+                                            </div>
+                                        
+                                        </div>
+                                      </div>
+                                    </div>
+                                  
+                                  </div>
+                            </div>   
+                            <!--HORARIO--------------------------------------------------------------------------------------------------->
+                            <div class="mb-3">
+                                <div class="accordion" id="accordionExample">
+                                    <div class="accordion-item">
+                                      <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button form-control" type="button" data-bs-toggle="collapse" data-bs-target="#horarios" aria-expanded="true" aria-controls="collapseOne">
+                                          Horario
+                                        </button>
+                                      </h2>
+                                      <div id="horarios" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#horarios">
+                                        <div class="accordion-body">
+                                            <div class="mb-3">
+                                                <input type="time" class="form-control" id="HoraDeApertura" name="HoraApertura" placeholder="Horario de Apertura">
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="time" class="form-control" id="HoraDeCierre" name="HoraCierre" placeholder="Horario de Cierre">
+                                            </div>
+                                        
+                                        </div>
+                                      </div>
+                                    </div>
+                                  
+                                  </div>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="TipoDeEvento" name="TipoDeEvento"  placeholder="Indicar Tipo de Evento" required>
+                                <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                                         El campo es requerido
+                                </div>
+                            </div> 
+                            <div class="row border">
+
+                                <div class="col ">
+                                  <input id="imagenes" type="file">
+                                </div>
+                                <div id="divBotonImagen" class="col ">
+                                  
+                                </div>
+              
+                              </div>
+                            <div class="mb-3">
+                                <input type="button" class="form-control btn btn-primary" id="btnRegistrarEvento" name="btnRegistrarEvento"  value="Registrar Evento">
+                            </div>                       
+                        </form>
+                        
+                    </div>
+                    
+                </div>
+            </main>
+        </div>
+            
+    <!-- MODAL DE Lugares -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalDeLugares" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+            <div class="row w-100 justify-content-between">
+                <div class="col-8">
+                    <h5 class="modal-title" id="exampleModalLabel">Lugares de Eventos</h5>
+                </div>
+                <div class="col-3">
+                    <input type="button" onclick="window.location='PuntosInteresAlta.html';" class="ms-5 btn btn-success" value="Agregar Sitio">
+                </div>
+            </div>
+        </div>
+        <div  class="modal-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Departamento</th>
+                    <th scope="col">Ciudad</th>  
+                    <th scope="col">Direccion</th>   
+                    <th scope="col">Gestion</th>               
+                  </tr>
+                </thead>
+                <tbody id="tbody">
+                  
+                </tbody>
+                </table>
+            </div>
+            <div class="row justify-content-center">
+                <div  class="col-sm-3">
+                  <nav aria-label="Page navigation example">
+                    <ul id="pagination" class="pagination">
+                      
+                    </ul>
+                  </nav>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="row w-100 justify-content-between">
+                <div class="col-8">
+                    <p id="mensaje" style="color:rgb(31, 102, 31)"></p>
+                </div>
+                <div class="col-2">
+                    <button type="button" onclick="$('#ModalDeLugares').modal('hide');" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+</div>
+<!-- MODAL DE EVENTOS -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalDeEventos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+            <div class="row w-100 justify-content-between">
+                <div class="col-8">
+                    <h5 class="modal-title" id="exampleModalLabel">Lugares de Eventos</h5>
+                </div>
+                <div class="col-3">
+                    <input type="button" onclick="window.location='PuntosInteresAlta.html';" class="ms-5 btn btn-success" value="Agregar Sitio">
+                </div>
+            </div>
+        </div>
+        <div  class="modal-body">
+            <div class="row justify-content-center">
+                <div class="col-sm-6 mt-3">
+                    <form id="FormularioEventos" action="" method="POST">
+                        <h3 class="text-center">REGISTRO DE EVENTOS</h3>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="NombreDelEvento" name="NombreDeEvento"  placeholder="Nombre" required>
+                            <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                                     El campo es requerido
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            
+                            <div class="col-10">
+                                <input type="text" class="form-control" id="LugarDelEvento" name="LugarDelEvento"  placeholder="Agregar sitio del evento">
+                            </div>
+                            <div class="col-2">
+                                <button id="btnConsultarLugar" type="button" class="btn btn-success btn-toggle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"></path>
+                                    </svg>        
+                                </button>
+                            </div>
+                           
+                            <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                                     El campo es requerido
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="mb-3">
+                                <select id="LugarDeVentaDeEntradas" class="form-select" aria-label="Default select example">
+                                    <option selected>Ventas de Entradas</option>
+                                    <option value="Abitab">Abitab</option>
+                                    <option value="RedPagos">RedPagos</option>
+                                    <option value="TickAntel">TickAntel</option>
+                                    <option value="Lugar Del Evento">Lugar Del Evento</option>
+                                    <option value="AccesoYa">AccesoYa</option>
+                                    <option value="RedTicket">RedTicket</option>
+                                </select>
+                            </div>
+                            <div id="campoRequerido1" class="ms-2 invalid-feedback">
+                                El campo es requerido
+                        </div>
+                        </div>
+                        <!--Fecha--------------------------------------------------------------------------------------------------->
+                        <div class="mb-3">
+                            <div class="accordion" id="accordionExample">
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button form-control" type="button" data-bs-toggle="collapse" data-bs-target="#fechas" aria-expanded="true" aria-controls="collapseOne">
+                                      Fechas
+                                    </button>
+                                  </h2>
+                                  <div id="fechas" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#fechas">
+                                    <div class="accordion-body">
+                                        <div class="mb-3">
+                                            <input type="date" class="form-control" id="FechaDeApertura" name="FechaDeApertura" placeholder="Fecha de Apertura">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="date" class="form-control" id="FechaDeCierre" name="FechaDeCierre" placeholder="Fecha de Cierre">
+                                        </div>
+                                    
+                                    </div>
+                                  </div>
+                                </div>
+                              
+                              </div>
+                        </div>   
+                        <!--HORARIO--------------------------------------------------------------------------------------------------->
+                        <div class="mb-3">
+                            <div class="accordion" id="accordionExample">
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button form-control" type="button" data-bs-toggle="collapse" data-bs-target="#horarios" aria-expanded="true" aria-controls="collapseOne">
+                                      Horario
+                                    </button>
+                                  </h2>
+                                  <div id="horarios" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#horarios">
+                                    <div class="accordion-body">
+                                        <div class="mb-3">
+                                            <input type="time" class="form-control" id="HoraDeApertura" name="HoraApertura" placeholder="Horario de Apertura">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="time" class="form-control" id="HoraDeCierre" name="HoraCierre" placeholder="Horario de Cierre">
+                                        </div>
+                                    
+                                    </div>
+                                  </div>
+                                </div>
+                              
+                              </div>
+                        </div>
+                        <!--GESTION DE IMAGENES------------------------------------------------------------------------------------>
+      <div class="mb-3">
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button form-control" type="button" data-bs-toggle="collapse"
+                data-bs-target="#accordion-imagenes" aria-expanded="true" aria-controls="collapseOne">
+                Gestion de Imagenes
+              </button>
+            </h2>
+            <div id="accordion-imagenes" class="accordion-collapse collapse" aria-labelledby="headingOne"
+              data-bs-parent="#accordion-imagenes">
+              <div style="height: 40vh;" class="accordion-body">
+
+                <div class="row border mb-3 messi" style="height: 30vh;">
+                  <div class="messi">
+                    <div id="imagen-container" class="img-container">
+
+                      
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row border">
+
+                  <div class="col ">
+                    <input id="imagenes" type="file">
+                  </div>
+                  <div id="divBotonImagen" class="col ">
+                    
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="TipoDeEvento" name="TipoDeEvento"  placeholder="Indicar Tipo de Evento" required>
+                            <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                                     El campo es requerido
+                            </div>
+                        </div> 
+                        <div class="mb-3">
+                            <input type="button" class="form-control btn btn-primary" id="btnRegistrarEvento" name="btnRegistrarEvento"  value="Registrar Evento">
+                        </div>                       
+                    </form>
+                    
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="row w-100 justify-content-between">
+                <div class="col-8">
+                    <p style="color:rgb(31, 102, 31)">Se agrego correctamente</p>
+                </div>
+                <div class="col-2">
+                    <button type="button" onclick="$('#ModalDeLugares').modal('hide');" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+</div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="../../formularios.js"></script>
+    <script src="../../app.js"></script>
+    <script src="../../Eventos.js"></script>
+    <script src="../../bootstrap/js/bootstrap.bundle.js"></script>
+</body>
+</html>
