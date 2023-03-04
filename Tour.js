@@ -2,6 +2,7 @@ var respuestaHTTP;
 var puntosdeInteresTour=[];
 var InformacionTour={};
 var id;
+var idTour;
 function sendError(errorText){alert(errorText);}
 function ErrorHandler(jqXHR, textStatus){
   if (jqXHR.status === 0)  return sendError('Not connect: Verify Network');
@@ -147,7 +148,7 @@ function ConsultaTourHtml() {
 
 }
 function botonBusqueda(){
-  $('#divBotonImagen').append(`<input onclick="NuevaImagen(${id});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
+ // $('#divBotonImagen').append(`<input onclick="NuevaImagen(${id});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
 $('#div-busqueda').append(`<div class="input-group w-75">
 <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
 <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">
@@ -341,6 +342,7 @@ function pagination(respuestaHTTP) {
 function CargarTour(id){
   $('#Modal-Tour').modal('show');
   $('#tbody-tourPreview').html('');
+  $('#divBotonImagen').append(`<input onclick="ModificarImagen(${id});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
   ConsultarPuntosDeInteresParaTour('PuntosDeInteres');
   ConsultarUnSoloTour(id);
   
@@ -415,4 +417,29 @@ function NuevaImagen(id){
       $('#ModalDeAviso').modal('show');
       ConsultarImagenes(id);
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+function ModificarImagen(idTour){
+  const formData=new FormData();
+  formData.append('file',$('#imagenes')[0].files[0]);
+  formData.append('image_description','file');
+  formData.append('puntosinteres_id',id);
+  $.ajax({
+      url: `http://127.0.0.1:8000/tourPredefinido/${idTour}`,
+      type: 'POST',
+      data: formData,
+      dataType:'json',
+      cache:false,
+      contentType:false,
+      processData:false,
+      mode: "no-cors",
+      headers:{'Accept':'*/*','Content-Encoding':'multipart/form-data','Access-Control-Allow-Origin':"*"},
+      
+    }).done(function (data) {
+      console.log(data);
+      // $('#ModalDeAviso').modal('show');
+      // ConsultarImagenes(id);
+    }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+function Arreglos(){
+  $('#divBotonImagen').append(`<input onclick="ModificaImagen(${idTour});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
 }

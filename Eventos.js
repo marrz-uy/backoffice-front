@@ -136,6 +136,7 @@ function RegistrarEvento(InformacionDelEvento){
 $('#btnRegistrarEvento').click(function (e) { 
   e.preventDefault();
   getInputEvento();
+  return InformacionDelEvento;
   RegistrarEvento(InformacionDelEvento);
 });
 //BAJAS------------------------------------------------------------------------------------------------------------------------------------>
@@ -161,7 +162,7 @@ function CargarModalEvento(id){
   CleanInput();
   $('#mensaje').text('');
   ConsultarEvento(id);
-  $('#divBotonImagen').append(`<input onclick="NuevaImagen(${id});" type="button" class="btn btn-success" value="Agregar Imagen">`);
+  $('#divBotonImagen').append(`<input onclick="ModificarImagen(${idEvento});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
   setTimeout(function(){
     setInputEvento(respuestaHTTP.NombreEvento,'',respuestaHTTP.LugarDeVentaDeEntradas,respuestaHTTP.FechaInicio,respuestaHTTP.FechaFin,respuestaHTTP.HoraInicio,respuestaHTTP.HoraFin,respuestaHTTP.TipoEvento)
     getInputLugarDelEvento(respuestaHTTP.puntosinteres_id,'');
@@ -288,7 +289,26 @@ function NuevaImagen(id){
       ConsultarImagenes(id);
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
-
+function ModificarImagen(idEvento){
+  const formData=new FormData();
+  formData.append('file',$('#imagenes')[0].files[0]);
+  $.ajax({
+      url: `http://127.0.0.1:8000/Eventos/${idEvento}`,
+      type: 'POST',
+      data: formData,
+      dataType:'json',
+      cache:false,
+      contentType:false,
+      processData:false,
+      mode: "no-cors",
+      headers:{'Accept':'*/*','Content-Encoding':'multipart/form-data','Access-Control-Allow-Origin':"*"},
+      
+    }).done(function (data) {
+      console.log(data);
+      // $('#ModalDeAviso').modal('show');
+      // ConsultarImagenes(id);
+    }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
 function Arreglos(){
-  $('#divBotonImagen').append(`<input onclick="NuevaImagen(${id});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
+  $('#divBotonImagen').append(`<input onclick="ModificaImagen(${idEvento});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
 }

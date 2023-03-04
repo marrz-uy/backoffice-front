@@ -238,25 +238,7 @@ function RegistrarPuntoDeInteres(InformacionPuntoDeInteres) {
     //console.log(data);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
-function ConsultaDeRespuestasHTTP() {
-  var imagen=document.getElementById('Imagen');
-  console.log(imagen.files[0]);
-  imagen=imagen.files[0];
-  //console.log($('#Imagen').file);
-  $.ajax({
-    url: 'http://127.0.0.1:8000/api/PuntosInteres',
-    type: 'POST',
-    dataType: 'text',
-    processData: false,
-    contentType: false,
-    headers:{'Accept':'*/*','Accept-Encoding':'multipart/form-data','Content-Encoding':'multipart/form-data'},
-    data: imagen
-  }).done(function (data) {
-    // alert(data.respuesta);
-    // location.reload(); 
-    console.log(data);
-  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
- }
+
 //CONSULTA --------------------------------------------------------------------------------------------------------------------------------------->
 function ConsultarPuntosDeInteres(categoria) {
   $.ajax({

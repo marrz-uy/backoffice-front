@@ -102,11 +102,11 @@
         
     </div>
 <!-- MODAL MODIFICAR TOUR --------------------------------------------------------------------------------------->
-<div class="modal fade" id="Modal-Tour" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div id="ModalSize" class="modal-dialog modal-xl">
-      <div class="modal-content">
+<div class="modal fade w-100" id="Modal-Tour" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div style="max-width: none;" id="ModalSize" class="modal-dialog modal-xl w-100">
+      <div  class="modal-content w-100">
         <div class="modal-header">
-          <h5 class="modal-title" id="ModalTitle">MODIFICACION DE TOUR</h5>
+          <h2 class="modal-title text-center" id="ModalTitle">MODIFICACION DE TOUR</h2>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div  class="modal-body">
@@ -117,7 +117,7 @@
                     <div id="contenido-tour">
                           <div class="row">
                             <!--DIV PARA NOMBRE DEL TOUR-->
-                            <div style="height: 50vh;" class="col">
+                            <div style="height: 50vh;" class="col-sm">
                               <form id="FormularioTourPredefinido" method="POST" enctype="multipart/formdata">
                                 <h2 class="text-center">Nombre Tour</h2>
                                 <br>
@@ -139,8 +139,17 @@
                                 <div class="mb-3">
                                   <textarea class="form-control" id="descripcionTourPredefinido" name="DescripcionPuntoDeInteres" rows="3"></textarea>
                                 </div>
+                                <div class="row border">
+
+                                  <div class="col ">
+                                    <input id="imagenes" type="file">
+                                  </div>
+                                  <div id="divBotonImagen" class="col ">
+                                    
+                                  </div>
+                
+                                </div>
                                 <div class="row justify-content-center">
-                                  
                                 <input type="button" value="Guardar Nombre" onclick="getInputTour();" class="btn mt-3 btn-primary form-control w-50">
                                 <div style="position: relative;height: 60px;" class="mt-3" id="div-mensaje">
                                   
@@ -150,7 +159,7 @@
                             </form>
                             </div>
                             <!--DIV PARA BUSCAR PUNTOS-->
-                            <div style="height: 50vh;" class="col border-start border-5">
+                            <div style="height: 50vh;" class="col-sm">
                               <div class="row justify-content-center ">
                                 <div class="row justify-content-center " id="div-busqueda">
                                   
@@ -176,8 +185,8 @@
                           </div>
                           <!--DIV PARA VER ANTES DE GUARDAR-->
                           
-                          <div class="row">
-                                    <div style="height: 50vh;" class="col border-top border-5">
+                          <div class="col-sm">
+                                    <div style="height: 50vh;" class="col">
                                       <br>
                                       <h3 id="titulo-tabla-tour">Preview</h3>
                               <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
