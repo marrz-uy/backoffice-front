@@ -62,7 +62,6 @@ function ConsultarEventos() {
     dataType: 'json',
   }).done(function (data) {
     var js = data.data;
-    console.log(js);
     $('#TablaEventos').html('');
     for (var i = 0; i < js.length; i++) {
       $('#TablaEventos').append(`<tr class="table-active">

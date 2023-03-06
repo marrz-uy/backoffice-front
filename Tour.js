@@ -15,32 +15,71 @@ function ErrorHandler(jqXHR, textStatus){
   return sendError('Uncaught Error: ' + jqXHR.responseText);
 
 }
-function ConsultarTour() {
-    $.ajax({
-      url: `http://127.0.0.1:8000/api/tourPredefinido`,
-      type: 'GET',
-      dataType: 'json',
-    }).done(function (data) {
-      console.log(data[0]);
-      pagination(data[0]);
-        $('#tbody-Tour').html('');
-        for(i=0;i<data[0].data.length;i++){
-            $('#tbody-Tour').append(`<tr class="table-active">
-          <th scope="row">${data[0].data[i].nombreTourPredefinido}</th>
-          <td>${data[0].data[i].horaDeInicioTourPredefinido}</td>
-          <td>${data[0].data[i].descripcionTourPredefinido}</td>
-          <td><i onclick="EliminarTourPredefinido(${data[0].data[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarTour(${data[0].data[i].id});" class="bi bi-gear ms-2 pointer"></i></td>
-          </tr>`);
-        }
-    }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
-}
-function ConsultarPorPagina(endpoint,pagina) {
+
+/*ALTA-------------------------------------------------------------------------------------------------------------------------------------- */
+function AltaDeTour(){
+  puntosdeInteresTour=puntosdeInteresTour.toString();
+  InformacionTour.puntosdeInteresTour=puntosdeInteresTour;
+  console.log(InformacionTour);
   $.ajax({
-    url: `http://127.0.0.1:8000/api/tourPredefinido?page=${pagina}`,
+    url: `http://127.0.0.1:8000/api/tourPredefinido`,
+    type: 'POST',
+    dataType: 'json',
+    data:InformacionTour
+  }).done(function (data) {
+      console.log(data.Message);
+      alert('Se registro Correctamente');
+      location.reload();
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+/*BAJA-------------------------------------------------------------------------------------------------------------------------------------- */
+function EliminarTourPredefinido(id){
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/tourPredefinido/${id}`,
+    type: 'DELETE',
+    dataType: 'json',
+  }).done(function (data) {
+   console.log(data.respuesta);
+   Avisos(data.respuesta);
+   ConsultarTour();
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+/*MODIFICACION-------------------------------------------------------------------------------------------------------------------------------------- */
+function ModificarTourHTTP(){
+
+  $.ajax({
+  url: `http://127.0.0.1:8000/api/tourPredefinido`,
+  type: 'PATCH',
+  dataType: 'json',
+  data:{
+    nombreTourPredefinido:InformacionTour.nombreTourPredefinido,
+    horaDeInicioTourPredefinido:InformacionTour.horaDeInicioTourPredefinido,
+    descripcionTourPredefinido:InformacionTour.descripcionTourPredefinido,
+    id:InformacionTour.id,
+    puntosdeInteresTour:puntosdeInteresTour.toString()
+  }
+}).done(function (data) {
+    alert(data.Message);
+    location.reload();
+}).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+$('#btnModificarTour').click(function (e) { 
+e.preventDefault();
+modificarPuntosDeInteresTourDG();
+ModificarTourHTTP();
+});
+function modificarPuntosDeInteresTourDG(){
+  puntosdeInteresTour=[];
+  var lista=$('#tbody-tourPreview').children();
+  for(i=0;i<lista.length;i++){puntosdeInteresTour.push(lista[i].id)}
+}
+/*CONSULTA-------------------------------------------------------------------------------------------------------------------------------------- */
+function ConsultarTour() {
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/tourPredefinido`,
     type: 'GET',
     dataType: 'json',
   }).done(function (data) {
-    console.log(data[0]);
     pagination(data[0]);
       $('#tbody-Tour').html('');
       for(i=0;i<data[0].data.length;i++){
@@ -53,20 +92,166 @@ function ConsultarPorPagina(endpoint,pagina) {
       }
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
+function ConsultarPorPagina(endpoint,pagina) {
+$.ajax({
+  url: `http://127.0.0.1:8000/api/tourPredefinido?page=${pagina}`,
+  type: 'GET',
+  dataType: 'json',
+}).done(function (data) {
+  console.log(data[0]);
+  pagination(data[0]);
+    $('#tbody-Tour').html('');
+    for(i=0;i<data[0].data.length;i++){
+        $('#tbody-Tour').append(`<tr class="table-active">
+      <th scope="row">${data[0].data[i].nombreTourPredefinido}</th>
+      <td>${data[0].data[i].horaDeInicioTourPredefinido}</td>
+      <td>${data[0].data[i].descripcionTourPredefinido}</td>
+      <td><i onclick="EliminarTourPredefinido(${data[0].data[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarTour(${data[0].data[i].id});" class="bi bi-gear ms-2 pointer"></i></td>
+      </tr>`);
+    }
+}).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
 function ConsultarUnSoloTour(id){
+$.ajax({
+  url: `http://127.0.0.1:8000/api/tourPredefinido`,
+  type: 'GET',
+  data:{
+    Opcion:"Unico",
+    id:id
+  },
+  dataType: 'json',
+}).done(function (data) {
+    console.log(data[0]);
+    return respuestaHTTP=data[0];
+}).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+function ConsultaTourHtml() {
+  $('#contenido-tour').html('');
+  $('#contenido-tour').append(`
+  
+  <div class="table-responsive">
+  <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Nombre del Tour</th>
+      <th scope="col">Hora de Inicio</th>
+      <th scope="col">Descripcion</th>  
+      <th>
+          <button type="button" class="btn btn-success">
+              <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                  <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"></path>
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
+              </svg>
+              <a href="./TourAlta.html" class="text-white text-decoration-none">Agregar nuevo</a>
+          </button>
+      </th>
+    </tr>
+  </thead>
+  
+  <tbody id="tbody-Tour">
+    
+  </tbody>
+  
+  </table>
+</div>
+
+<div class="row justify-content-center">
+                          <div class="col-sm-3">
+                              <nav aria-label="Page navigation example">
+                                <ul id="pagination" class="pagination">
+                                
+                                </ul>
+                              </nav>
+                          </div>
+                      </div>`);
+
+ConsultarTour();
+$('#div-busqueda').append(`<div class="input-group w-75">
+<input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
+<input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">
+                     
+</div>`);
+
+}
+function ConsultarPuntosDeInteresParaTour(categoria) {
   $.ajax({
-    url: `http://127.0.0.1:8000/api/tourPredefinido`,
+    url: `http://127.0.0.1:8000/api/PuntosInteres/${categoria}`,
     type: 'GET',
-    data:{
-      Opcion:"Unico",
-      id:id
-    },
     dataType: 'json',
   }).done(function (data) {
-      console.log(data[0]);
-      return respuestaHTTP=data[0];
+    var js = data.data;
+    respuestaHTTP=data;
+    //pagination(respuestaHTTP,'PuntosInteres/PuntosDeInteres?page=');
+    $('#tbody').html('');
+    for (var i = 0; i < js.length; i++) {
+      if(categoria==='PuntosDeInteres'){
+        $('#tbody').append(`<tr class="table-active">
+        <th scope="row">${js[i].Nombre}</th>
+        <td>${js[i].Departamento}</td>
+       
+        <td>
+              <svg onclick="getDataTour('${js[i].id}','${js[i].Nombre}','${js[i].Departamento}','${js[i].Direccion}');" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill pointer" viewBox="0 0 16 16">
+                  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
+              </svg>
+        </td>
+        </tr>`);
+       
+      }
+      
+    }
+    
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
+function BuscarUnPuntoDeInteres(){
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/PuntosInteres/PuntosDeInteres`,
+    type: 'GET',
+    dataType: 'json',
+    data:{
+      "Opcion":"BusquedaPorNombre",
+      "Nombre":$('#txt-buscar').val()
+    }
+  }).done(function (data) {
+    if($('#txt-buscar').val()===''){
+      return ConsultarPuntosDeInteresParaTour('PuntosDeInteres');
+    }
+    if(data.Mensaje==='No hubo resultado'){
+      Avisos(data.Mensaje);
+      ConsultarPuntosDeInteresParaTour('PuntosDeInteres');
+    }
+      mostrarPunto(data[0]);
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+function BuscarTourPorNombre(){
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/Eventos`,
+    type: 'GET',
+    dataType: 'json',
+    data:{
+      "Opcion":"BusquedaPorNombre",
+      "Nombre":$('#txt-buscar').val()
+    }
+  }).done(function (data) {
+    console.log(data);
+    if($('#txt-buscar').val()===''){
+      return ConsultarEventos();
+    }
+    if(data.Mensaje==='No hubo resultado'){
+      
+      Avisos(data.Mensaje);
+      return ConsultarEventos();
+    }
+    $('#TablaEventos').html('');
+    $('#TablaEventos').append(`<tr class="table-active">
+      <th scope="row">${data[0].NombreEvento}</th>
+      <td>${data[0].FechaInicio}</td>
+      <td>${data[0].HoraInicio}</td>
+      <td>${data[0].TipoEvento}</td>
+      <td><i onclick="EliminarEvento(${data[0].id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalEvento(${data[0].Eventos_id});" class="bi bi-gear ms-2 pointer"></i></td>
+      </tr>`);
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+/*AUXILIARES-------------------------------------------------------------------------------------------------------------------------------------- */
 function FormularioTour() {
     $('#contenido-tour').html('');
     $('#contenido-tour').append(`
@@ -99,54 +284,6 @@ function FormularioTour() {
 </form>
     `)
 }
-function ConsultaTourHtml() {
-    $('#contenido-tour').html('');
-    $('#contenido-tour').append(`
-    
-    <div class="table-responsive">
-    <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">Nombre del Tour</th>
-        <th scope="col">Hora de Inicio</th>
-        <th scope="col">Descripcion</th>  
-        <th>
-            <button type="button" class="btn btn-success">
-                <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
-                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"></path>
-                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
-                </svg>
-                <a href="./TourAlta.html" class="text-white text-decoration-none">Agregar nuevo</a>
-            </button>
-        </th>
-      </tr>
-    </thead>
-    
-    <tbody id="tbody-Tour">
-      
-    </tbody>
-    
-    </table>
- </div>
- 
- <div class="row justify-content-center">
-                            <div class="col-sm-3">
-                                <nav aria-label="Page navigation example">
-                                  <ul id="pagination" class="pagination">
-                                  
-                                  </ul>
-                                </nav>
-                            </div>
-                        </div>`);
-
- ConsultarTour();
- $('#div-busqueda').append(`<div class="input-group w-75">
- <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
- <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">
-                       
-</div>`);
-
-}
 function botonBusqueda(){
  // $('#divBotonImagen').append(`<input onclick="NuevaImagen(${id});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
 $('#div-busqueda').append(`<div class="input-group w-75">
@@ -156,35 +293,6 @@ $('#div-busqueda').append(`<div class="input-group w-75">
 </div>`);
 
 };
-function ConsultarPuntosDeInteresParaTour(categoria) {
-  $.ajax({
-    url: `http://127.0.0.1:8000/api/PuntosInteres/${categoria}`,
-    type: 'GET',
-    dataType: 'json',
-  }).done(function (data) {
-    var js = data.data;
-    respuestaHTTP=data;
-    //pagination(respuestaHTTP,'PuntosInteres/PuntosDeInteres?page=');
-    $('#tbody').html('');
-    for (var i = 0; i < js.length; i++) {
-      if(categoria==='PuntosDeInteres'){
-        $('#tbody').append(`<tr class="table-active">
-        <th scope="row">${js[i].Nombre}</th>
-        <td>${js[i].Departamento}</td>
-       
-        <td>
-              <svg onclick="getDataTour('${js[i].id}','${js[i].Nombre}','${js[i].Departamento}','${js[i].Direccion}');" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill pointer" viewBox="0 0 16 16">
-                  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
-              </svg>
-        </td>
-        </tr>`);
-       
-      }
-      
-    }
-    
-  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
-}
 function getDataTour(id,Nombre,Departamento,Direccion) {
 $('#tbody-tourPreview').append(`
 <tr id='${id}' class="table-active">
@@ -200,11 +308,6 @@ function removeDataTour(id){
 var posicion=puntosdeInteresTour.indexOf(id);
 puntosdeInteresTour.splice(posicion,1);
 $(`#${id}`).remove();
-}
-function modificarPuntosDeInteresTourDG(){
-  puntosdeInteresTour=[];
-  var lista=$('#tbody-tourPreview').children();
-  for(i=0;i<lista.length;i++){puntosdeInteresTour.push(lista[i].id)}
 }
 function getInputTour(){
   InformacionTour={
@@ -239,75 +342,6 @@ function setItemsInputTour(respuestaHTTP){
     getDataTour(respuestaHTTP.tour_items[i].puntos_interes.id,respuestaHTTP.tour_items[i].puntos_interes.Nombre,respuestaHTTP.tour_items[i].puntos_interes.Departamento,respuestaHTTP.tour_items[i].puntos_interes.Direccion);
   }
 }
-function ModificarTourHTTP(){
-
-    $.ajax({
-    url: `http://127.0.0.1:8000/api/tourPredefinido`,
-    type: 'PATCH',
-    dataType: 'json',
-    data:{
-      nombreTourPredefinido:InformacionTour.nombreTourPredefinido,
-      horaDeInicioTourPredefinido:InformacionTour.horaDeInicioTourPredefinido,
-      descripcionTourPredefinido:InformacionTour.descripcionTourPredefinido,
-      id:InformacionTour.id,
-      puntosdeInteresTour:puntosdeInteresTour.toString()
-    }
-  }).done(function (data) {
-      alert(data.Message);
-      location.reload();
-  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
-}
-$('#btnModificarTour').click(function (e) { 
-  e.preventDefault();
-  modificarPuntosDeInteresTourDG();
-  ModificarTourHTTP();
-});
-function AltaDeTour(){
-  puntosdeInteresTour=puntosdeInteresTour.toString();
-  InformacionTour.puntosdeInteresTour=puntosdeInteresTour;
-  console.log(InformacionTour);
-  $.ajax({
-    url: `http://127.0.0.1:8000/api/tourPredefinido`,
-    type: 'POST',
-    dataType: 'json',
-    data:InformacionTour
-  }).done(function (data) {
-      console.log(data.Message);
-      alert('Se registro Correctamente');
-      location.reload();
-  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
-}
-function EliminarTourPredefinido(id){
-  $.ajax({
-    url: `http://127.0.0.1:8000/api/tourPredefinido/${id}`,
-    type: 'DELETE',
-    dataType: 'json',
-  }).done(function (data) {
-   console.log(data.respuesta);
-   Avisos(data.respuesta);
-   ConsultarTour();
-  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
-}
-function BuscarUnPuntoDeInteres(){
-  $.ajax({
-    url: `http://127.0.0.1:8000/api/PuntosInteres/PuntosDeInteres`,
-    type: 'GET',
-    dataType: 'json',
-    data:{
-      "Opcion":"BusquedaPorNombre",
-      "Nombre":$('#txt-buscar').val()
-    }
-  }).done(function (data) {
-    if($('#txt-buscar').val()===''){
-      return ConsultarPuntosDeInteresParaTour('PuntosDeInteres');
-    }
-    if(data.Mensaje==='No hubo resultado'){
-      Avisos(data.Mensaje);
-      ConsultarPuntosDeInteresParaTour('PuntosDeInteres');
-    }
-      mostrarPunto(data[0]);
-  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
-}
 function mostrarPunto(datos){
   $('#tbody').html('');
   $('#tbody').append(`<tr class="table-active">
@@ -325,7 +359,6 @@ function Avisos(mensaje){
   $('#ModalDeAviso').modal('show');
   $('#Modal-Mensaje').text(mensaje);
 }
-
 function textoSuccess() {
   $('#div-mensaje').html('');
   $('#div-mensaje').append('<p class="text-center fs-5 success">Se guardo correctamente</p>');
@@ -368,34 +401,8 @@ function DraggAndDrop(){
     });
   });
 }
-function BuscarTourPorNombre(){
-  $.ajax({
-    url: `http://127.0.0.1:8000/api/Eventos`,
-    type: 'GET',
-    dataType: 'json',
-    data:{
-      "Opcion":"BusquedaPorNombre",
-      "Nombre":$('#txt-buscar').val()
-    }
-  }).done(function (data) {
-    console.log(data);
-    if($('#txt-buscar').val()===''){
-      return ConsultarEventos();
-    }
-    if(data.Mensaje==='No hubo resultado'){
-      
-      Avisos(data.Mensaje);
-      return ConsultarEventos();
-    }
-    $('#TablaEventos').html('');
-    $('#TablaEventos').append(`<tr class="table-active">
-      <th scope="row">${data[0].NombreEvento}</th>
-      <td>${data[0].FechaInicio}</td>
-      <td>${data[0].HoraInicio}</td>
-      <td>${data[0].TipoEvento}</td>
-      <td><i onclick="EliminarEvento(${data[0].id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalEvento(${data[0].Eventos_id});" class="bi bi-gear ms-2 pointer"></i></td>
-      </tr>`);
-  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+function Arreglos(){
+  $('#divBotonImagen').append(`<input onclick="ModificaImagen(${idTour});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
 }
 //IMAGENES------------------------------------------------------------------------------------------------------------------------------------>
 function NuevaImagen(id){
@@ -421,8 +428,7 @@ function NuevaImagen(id){
 function ModificarImagen(idTour){
   const formData=new FormData();
   formData.append('file',$('#imagenes')[0].files[0]);
-  formData.append('image_description','file');
-  formData.append('puntosinteres_id',id);
+  
   $.ajax({
       url: `http://127.0.0.1:8000/tourPredefinido/${idTour}`,
       type: 'POST',
@@ -432,6 +438,8 @@ function ModificarImagen(idTour){
       contentType:false,
       processData:false,
       mode: "no-cors",
+      crossDomain: true,
+      "Access-Control-Allow-Origin":"*",
       headers:{'Accept':'*/*','Content-Encoding':'multipart/form-data','Access-Control-Allow-Origin':"*"},
       
     }).done(function (data) {
@@ -439,7 +447,4 @@ function ModificarImagen(idTour){
       // $('#ModalDeAviso').modal('show');
       // ConsultarImagenes(id);
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
-}
-function Arreglos(){
-  $('#divBotonImagen').append(`<input onclick="ModificaImagen(${idTour});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
 }

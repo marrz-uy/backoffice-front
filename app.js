@@ -659,16 +659,18 @@ function ConsultarPorPagina(EndPoint,Pagina){
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 //DASHBOARD------------------------------------------------------------------------------------------------------------------------------------>
-$(function($){
-  $('#grafica').highcharts({
-    title:{text:'Registro del 2023'},
-    xAxis:{categories:['Enero','Febrero','Marzo','Abril']},
-    yAxis:{title:'Porcentaje %'},plotLines:[{value:0,width:1}],
-    tooltip:{valueSuffix:'%'},
-    legend:{layout:'vertical',align:'right',verticalAlign:'middle',borderWidth:0},
-    series:[
-    {type:'column',name:'Usuarios',data:[25,30,21,50],color:'#2874A6'}
-  
-  ]
+function dasbhoardChart(){
+  $(function($){
+    $('#grafica').highcharts({
+      title:{text:'Registro del 2023'},
+      xAxis:{categories:['Enero','Febrero','Marzo','Abril']},
+      yAxis:{title:'Porcentaje %'},plotLines:[{value:0,width:1}],
+      tooltip:{valueSuffix:'%'},
+      legend:{layout:'vertical',align:'right',verticalAlign:'middle',borderWidth:0},
+      series:[
+      {type:'column',name:'Usuarios',data:[25,30,21,50],color:'#2874A6'}
+    
+    ]
+    });
   });
-});
+}
