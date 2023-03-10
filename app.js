@@ -157,12 +157,29 @@ $('#btnSiguiente').click(function (e) {
     $('#CiudadPuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
   }
 
-  if ($('#DireccionPuntoDeInteres').val() == '') {
-    return $('#DireccionPuntoDeInteres').addClass('is-invalid');
+  if ($('#Latitud').val().length == 0) {
+    return $('#Latitud').addClass('is-invalid');
   }
-  if ($('#DireccionPuntoDeInteres').val() != '') {
-    $('#DireccionPuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
+  if ($('#Latitud').val().length != 0) {
+    return $('#Latitud').removeClass('is-invalid').addClass('is-valid');
   }
+  if ($('#Longitud').val().length == 0) {
+    return $('#Longitud').addClass('is-invalid');
+  }
+  if ($('#Longitud').val().length != 0) {
+    return $('#Longitud').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#TipoDeLugar').val() === 'Tipo De Lugar') {
+    return 'tipo de lugar';
+    $('#TipoDeLugar').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#RestriccionDeEdad').val() == 'Restriccion De Edad ') {
+    return $('#RestriccionDeEdad').addClass('is-invalid');
+  }
+  if ($('#EnfoqueDePersonas').val() == 'Enfoque De Personas') {
+    $('#EnfoqueDePersonas').removeClass('is-invalid').addClass('is-valid');
+  }
+  
   getInputPuntoDeInteres();
   if($('#TipoCategoria').val()==='Espectaculos'){FormularioDeEspectaculos();}
   if($('#TipoCategoria').val()==='Servicios_Esenciales'){FormularioDeServiciosEscenciales();}
@@ -662,7 +679,7 @@ function ConsultarPorPagina(EndPoint,Pagina){
 function dasbhoardChart(){
   $(function($){
     $('#grafica').highcharts({
-      title:{text:'Registro del 2023'},
+      title:{text:'Registro de Usuarios del 2023'},
       xAxis:{categories:['Enero','Febrero','Marzo','Abril']},
       yAxis:{title:'Porcentaje %'},plotLines:[{value:0,width:1}],
       tooltip:{valueSuffix:'%'},

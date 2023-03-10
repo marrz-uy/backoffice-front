@@ -299,7 +299,7 @@ function ModificarImagen(idEvento){
       cache:false,
       contentType:false,
       processData:false,
-      mode: "no-cors",
+      mode: "cors",
       headers:{'Accept':'*/*','Content-Encoding':'multipart/form-data','Access-Control-Allow-Origin':"*"},
       
     }).done(function (data) {
