@@ -157,13 +157,31 @@ $('#btnSiguiente').click(function (e) {
     $('#CiudadPuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
   }
 
-  if ($('#DireccionPuntoDeInteres').val() == '') {
-    return $('#DireccionPuntoDeInteres').addClass('is-invalid');
+  if ($('#Latitud').val().length == 0) {
+    return $('#Latitud').addClass('is-invalid');
   }
-  if ($('#DireccionPuntoDeInteres').val() != '') {
-    $('#DireccionPuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
+  if ($('#Latitud').val().length != 0) {
+    return $('#Latitud').removeClass('is-invalid').addClass('is-valid');
   }
+  if ($('#Longitud').val().length == 0) {
+    return $('#Longitud').addClass('is-invalid');
+  }
+  if ($('#Longitud').val().length != 0) {
+    return $('#Longitud').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#TipoDeLugar').val() === 'Tipo De Lugar') {
+    return 'tipo de lugar';
+    $('#TipoDeLugar').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#RestriccionDeEdad').val() == 'Restriccion De Edad ') {
+    return $('#RestriccionDeEdad').addClass('is-invalid');
+  }
+  if ($('#EnfoqueDePersonas').val() == 'Enfoque De Personas') {
+    $('#EnfoqueDePersonas').removeClass('is-invalid').addClass('is-valid');
+  }
+  
   getInputPuntoDeInteres();
+  
   if($('#TipoCategoria').val()==='Espectaculos'){FormularioDeEspectaculos();}
   if($('#TipoCategoria').val()==='Servicios_Esenciales'){FormularioDeServiciosEscenciales();}
   if($('#TipoCategoria').val()==='transporte'){FormularioDeTransporte();}
@@ -238,25 +256,7 @@ function RegistrarPuntoDeInteres(InformacionPuntoDeInteres) {
     //console.log(data);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
-function ConsultaDeRespuestasHTTP() {
-  var imagen=document.getElementById('Imagen');
-  console.log(imagen.files[0]);
-  imagen=imagen.files[0];
-  //console.log($('#Imagen').file);
-  $.ajax({
-    url: 'http://127.0.0.1:8000/api/PuntosInteres',
-    type: 'POST',
-    dataType: 'text',
-    processData: false,
-    contentType: false,
-    headers:{'Accept':'*/*','Accept-Encoding':'multipart/form-data','Content-Encoding':'multipart/form-data'},
-    data: imagen
-  }).done(function (data) {
-    // alert(data.respuesta);
-    // location.reload(); 
-    console.log(data);
-  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
- }
+
 //CONSULTA --------------------------------------------------------------------------------------------------------------------------------------->
 function ConsultarPuntosDeInteres(categoria) {
   $.ajax({
@@ -399,7 +399,6 @@ function CargarModalPuntosDeInteres(id,Categoria,Opcion) {
   IdModificarPuntoDeInteres=id;
   ConsultarUnPuntoDeInteres(id,Categoria,Opcion);
   $('#PuntosDeInteres').modal('show');
-  
   ModalConsulta(Categoria);
   setTimeout(function(){
     setInputPuntoDeInteres(respuestaHTTP.Nombre,respuestaHTTP.Departamento,respuestaHTTP.Ciudad,respuestaHTTP.Direccion,respuestaHTTP.Facebook,respuestaHTTP.Instagram,respuestaHTTP.HoraDeApertura,respuestaHTTP.HoraDeCierre,respuestaHTTP.Descripcion,respuestaHTTP.Latitud,respuestaHTTP.Longitud,respuestaHTTP.TipoDeLugar,respuestaHTTP.RestriccionDeEdad,respuestaHTTP.EnfoqueDePersonas);
@@ -407,14 +406,14 @@ function CargarModalPuntosDeInteres(id,Categoria,Opcion) {
     console.log(id);
     $('#divBotonImagen').append(`<input onclick="NuevaImagen(${id});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
     ConsultarTelefonosPuntoDeInteres(id);
-    if(Categoria==='espectaculos')setInputEspectaculo(respuestaHTTP);
-    if(Categoria==='alojamientos')setInputAlojamiento(respuestaHTTP);
-    if(Categoria==='gastronomicos')setInputGastronomico(respuestaHTTP);
-    if(Categoria==='actividades_infantiles')setInputActividadesInfantiles(respuestaHTTP);
-    if(Categoria==='actividades_nocturnas')setInputActividadesNocturnas(respuestaHTTP);
-    if(Categoria==='transporte')setInputTransporte(respuestaHTTP);
-    if(Categoria==='paseos')setInputPaseos(respuestaHTTP);
-    if(Categoria==='servicios_esenciales')setInputServicioEsencial(respuestaHTTP);
+    if(Categoria==='espectaculos')setInputEspectaculo(respuestaHTTP),BotonImagen;
+    if(Categoria==='alojamientos')setInputAlojamiento(respuestaHTTP),BotonImagen;
+    if(Categoria==='gastronomicos')setInputGastronomico(respuestaHTTP),BotonImagen;
+    if(Categoria==='actividades_infantiles')setInputActividadesInfantiles(respuestaHTTP),BotonImagen;
+    if(Categoria==='actividades_nocturnas')setInputActividadesNocturnas(respuestaHTTP),BotonImagen;
+    if(Categoria==='transporte')setInputTransporte(respuestaHTTP),BotonImagen;
+    if(Categoria==='paseos')setInputPaseos(respuestaHTTP),BotonImagen;
+    if(Categoria==='servicios_esenciales')setInputServicioEsencial(respuestaHTTP),BotonImagen;
   },1000)
 }
 function ModificarPuntosDeInteres(id,InformacionPuntoDeInteres) {
@@ -677,16 +676,18 @@ function ConsultarPorPagina(EndPoint,Pagina){
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 //DASHBOARD------------------------------------------------------------------------------------------------------------------------------------>
-$(function($){
-  $('#grafica').highcharts({
-    title:{text:'Registro del 2023'},
-    xAxis:{categories:['Enero','Febrero','Marzo','Abril']},
-    yAxis:{title:'Porcentaje %'},plotLines:[{value:0,width:1}],
-    tooltip:{valueSuffix:'%'},
-    legend:{layout:'vertical',align:'right',verticalAlign:'middle',borderWidth:0},
-    series:[
-    {type:'column',name:'Usuarios',data:[25,30,21,50],color:'#2874A6'}
-  
-  ]
+function dasbhoardChart(){
+  $(function($){
+    $('#grafica').highcharts({
+      title:{text:'Registro de Usuarios del 2023'},
+      xAxis:{categories:['Enero','Febrero','Marzo','Abril']},
+      yAxis:{title:'Porcentaje %'},plotLines:[{value:0,width:1}],
+      tooltip:{valueSuffix:'%'},
+      legend:{layout:'vertical',align:'right',verticalAlign:'middle',borderWidth:0},
+      series:[
+      {type:'column',name:'Usuarios',data:[25,30,21,50],color:'#2874A6'}
+    
+    ]
+    });
   });
-});
+}
