@@ -181,6 +181,7 @@ $('#btnSiguiente').click(function (e) {
   }
   
   getInputPuntoDeInteres();
+  
   if($('#TipoCategoria').val()==='Espectaculos'){FormularioDeEspectaculos();}
   if($('#TipoCategoria').val()==='Servicios_Esenciales'){FormularioDeServiciosEscenciales();}
   if($('#TipoCategoria').val()==='transporte'){FormularioDeTransporte();}
@@ -398,7 +399,6 @@ function CargarModalPuntosDeInteres(id,Categoria,Opcion) {
   IdModificarPuntoDeInteres=id;
   ConsultarUnPuntoDeInteres(id,Categoria,Opcion);
   $('#PuntosDeInteres').modal('show');
-  
   ModalConsulta(Categoria);
   setTimeout(function(){
     setInputPuntoDeInteres(respuestaHTTP.Nombre,respuestaHTTP.Departamento,respuestaHTTP.Ciudad,respuestaHTTP.Direccion,respuestaHTTP.Facebook,respuestaHTTP.Instagram,respuestaHTTP.HoraDeApertura,respuestaHTTP.HoraDeCierre,respuestaHTTP.Descripcion,respuestaHTTP.Latitud,respuestaHTTP.Longitud,respuestaHTTP.TipoDeLugar,respuestaHTTP.RestriccionDeEdad,respuestaHTTP.EnfoqueDePersonas);
@@ -406,14 +406,14 @@ function CargarModalPuntosDeInteres(id,Categoria,Opcion) {
     console.log(id);
     $('#divBotonImagen').append(`<input onclick="NuevaImagen(${id});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
     ConsultarTelefonosPuntoDeInteres(id);
-    if(Categoria==='espectaculos')setInputEspectaculo(respuestaHTTP);
-    if(Categoria==='alojamientos')setInputAlojamiento(respuestaHTTP);
-    if(Categoria==='gastronomicos')setInputGastronomico(respuestaHTTP);
-    if(Categoria==='actividades_infantiles')setInputActividadesInfantiles(respuestaHTTP);
-    if(Categoria==='actividades_nocturnas')setInputActividadesNocturnas(respuestaHTTP);
-    if(Categoria==='transporte')setInputTransporte(respuestaHTTP);
-    if(Categoria==='paseos')setInputPaseos(respuestaHTTP);
-    if(Categoria==='servicios_esenciales')setInputServicioEsencial(respuestaHTTP);
+    if(Categoria==='espectaculos')setInputEspectaculo(respuestaHTTP),BotonImagen;
+    if(Categoria==='alojamientos')setInputAlojamiento(respuestaHTTP),BotonImagen;
+    if(Categoria==='gastronomicos')setInputGastronomico(respuestaHTTP),BotonImagen;
+    if(Categoria==='actividades_infantiles')setInputActividadesInfantiles(respuestaHTTP),BotonImagen;
+    if(Categoria==='actividades_nocturnas')setInputActividadesNocturnas(respuestaHTTP),BotonImagen;
+    if(Categoria==='transporte')setInputTransporte(respuestaHTTP),BotonImagen;
+    if(Categoria==='paseos')setInputPaseos(respuestaHTTP),BotonImagen;
+    if(Categoria==='servicios_esenciales')setInputServicioEsencial(respuestaHTTP),BotonImagen;
   },1000)
 }
 function ModificarPuntosDeInteres(id,InformacionPuntoDeInteres) {

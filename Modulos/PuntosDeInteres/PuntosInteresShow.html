@@ -70,7 +70,7 @@
                     <div class="col-11 mt-3">
                         <div class="row">
                           <div class="col-4">
-                            <h3>Puntos de Interes</h3>
+                            <h3 id="TituloCategorias">Puntos de Interes</h3>
                           </div>
                           <div class="row">
                             <div class="col-9 input-group w-50">
@@ -84,16 +84,16 @@
                                   Seleccionar Categoria
                                 </button>
                                 <ul class="dropdown-menu col" aria-labelledby="dropdownMenuButton1">
-                                    <li><a onclick="ConsultarPuntosDeInteres('alojamientos');CargarCategoria('alojamientos');" class="dropdown-item text-white bg-secondary" href="#">Alojamiento</a></li>
-                                    <li><a onclick="ConsultarPuntosDeInteres('gastronomicos');CargarCategoria('gastronomicos');" class="dropdown-item text-white bg-secondary" href="#">Gastronomia</a></li>
-                                    <li><a onclick="ConsultarPuntosDeInteres('espectaculos');CargarCategoria('espectaculos');" class="dropdown-item text-white bg-secondary" href="#">Espectaculos</a></li>
-                                    <li><a onclick="ConsultarPuntosDeInteres('actividades_infantiles');CargarCategoria('actividades_infantiles');" class="dropdown-item text-white bg-secondary" href="#">Actividades al Aire Libre</a></li>
-                                    <li><a onclick="ConsultarPuntosDeInteres('actividades_nocturnas');CargarCategoria('actividades_nocturnas');" class="dropdown-item text-white bg-secondary " href="#">Actividades Nocturnas</a></li>
-                                    <li><a onclick="ConsultarPuntosDeInteres('transporte');CargarCategoria('transporte');" class="dropdown-item text-white bg-secondary" href="#">Transporte</a></li>
-                                    <li><a onclick="ConsultarPuntosDeInteres('paseos');CargarCategoria('paseos');" class="dropdown-item text-white bg-secondary" href="#">Paseos</a></li>
-                                    <li><a onclick="ConsultarPuntosDeInteres('actividades_infantiles');CargarCategoria('actividades_infantiles');" class="dropdown-item text-white bg-secondary" href="#">Actividades Infantiles</a></li>
-                                    <li><a onclick="ConsultarPuntosDeInteres('servicios_esenciales');CargarCategoria('servicios_esenciales');" class="dropdown-item text-white bg-secondary" href="#">Servicios Escenciales</a></li>
-                                    <li><a onclick="ConsultarPuntosDeInteres('PuntosDeInteres');CargarCategoria('PuntosDeInteres');" class="dropdown-item text-white bg-secondary" href="#">Mostar Todos</a></li>
+                                    <li><a onclick="ConsultarPuntosDeInteres('alojamientos');CargarCategoria('alojamientos');$('#TituloCategorias').text('Alojamientos');" class="dropdown-item text-white bg-secondary" href="#">Alojamiento</a></li>
+                                    <li><a onclick="ConsultarPuntosDeInteres('gastronomicos');CargarCategoria('gastronomicos');$('#TituloCategorias').text('Gastronomia');" class="dropdown-item text-white bg-secondary" href="#">Gastronomia</a></li>
+                                    <li><a onclick="ConsultarPuntosDeInteres('espectaculos');CargarCategoria('espectaculos');$('#TituloCategorias').text('Espectaculos');" class="dropdown-item text-white bg-secondary" href="#">Espectaculos</a></li>
+                                    <li><a onclick="ConsultarPuntosDeInteres('actividades_infantiles');CargarCategoria('actividades_infantiles');$('#TituloCategorias').text('Actividades Infantiles');" class="dropdown-item text-white bg-secondary" href="#">Actividades al Aire Libre</a></li>
+                                    <li><a onclick="ConsultarPuntosDeInteres('actividades_nocturnas');CargarCategoria('actividades_nocturnas');$('#TituloCategorias').text('Actividades Nocturnas');" class="dropdown-item text-white bg-secondary " href="#">Actividades Nocturnas</a></li>
+                                    <li><a onclick="ConsultarPuntosDeInteres('transporte');CargarCategoria('transporte');$('#TituloCategorias').text('Transporte');" class="dropdown-item text-white bg-secondary" href="#">Transporte</a></li>
+                                    <li><a onclick="ConsultarPuntosDeInteres('paseos');CargarCategoria('paseos');$('#TituloCategorias').text('Paseos');" class="dropdown-item text-white bg-secondary" href="#">Paseos</a></li>
+                                    <li><a onclick="ConsultarPuntosDeInteres('actividades_infantiles');CargarCategoria('actividades_infantiles');$('#TituloCategorias').text('Actividades Infantiles');" class="dropdown-item text-white bg-secondary" href="#">Actividades Infantiles</a></li>
+                                    <li><a onclick="ConsultarPuntosDeInteres('servicios_esenciales');CargarCategoria('servicios_esenciales');$('#TituloCategorias').text('Servicios Esenciales');" class="dropdown-item text-white bg-secondary" href="#">Servicios Escenciales</a></li>
+                                    <li><a onclick="ConsultarPuntosDeInteres('PuntosDeInteres');CargarCategoria('PuntosDeInteres');$('#TituloCategorias').text('Puntos De Interes');" class="dropdown-item text-white bg-secondary" href="#">Mostar Todos</a></li>
                                 </ul>
                               </div>
                         </div>
