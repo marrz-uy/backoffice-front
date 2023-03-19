@@ -1,6 +1,6 @@
 var tbody = document.getElementById('tbody');
 var main = document.getElementById('main');
-var EndPoint='PuntosDeInteres?page';
+var EndPoint='PuntosDeInteres';
 var PuntosDeInteres = [];
 var IdModificarPuntoDeInteres;
 var InformacionPuntoDeInteres;
@@ -649,13 +649,18 @@ function pagination(respuestaHTTP) {
   $('#pagination').html('');
   $('#pagination').append(`<li class="page-item"><a class="page-link" href="#">Anterior</a></li>`);  
   for(i=respuestaHTTP.current_page;i<=respuestaHTTP.last_page;i++){
-  $('#pagination').append(`<li onclick="ConsultarPorPagina('${EndPoint}','${i}');" class="page-item"><a class="page-link" href="#">${i}</a></li>`)
-  }
-  $('#pagination').append(`<li onclick="ConsultarPuntosDeInteresPaginaSiguiente(2);" class="page-item"><a class="page-link" href="#">Siguiente</a></li>`)
+  $('#pagination').append(`<li onclick="ConsultarPorPagina(${localStorage.getItem('Categoria')},'${i}');" class="page-item"><a class="page-link" href="#">${i}</a></li>`)
+  
 }
-function ConsultarPorPagina(EndPoint,Pagina){
+  
+  let resultado=Math.trunc(respuestaHTTP.total/10);
+  console.log(resultado);
+  $('#pagination').append(`<li onclick="ConsultarPorPagina(${localStorage.getItem('Categoria')},'${respuestaHTTP.current_page+1}');" class="page-item"><a class="page-link" href="#">Pagina${resultado}</a></li>`)
+
+}
+function ConsultarPorPagina(categoria,Pagina){
   $.ajax({
-    url: `http://127.0.0.1:8000/api/PuntosInteres/${EndPoint}=${Pagina}`,
+    url: `http://127.0.0.1:8000/api/PuntosInteres/${categoria}?page=${Pagina}`,
     type: 'GET',
     dataType: 'json',
   }).done(function (data) {
@@ -673,7 +678,13 @@ function ConsultarPorPagina(EndPoint,Pagina){
       <td><i onclick="EliminarPuntoDeInteres(${js[i].id});" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(${js[i].id},${localStorage.getItem('Categoria')},'Unico');" class="bi bi-gear"></i></td>
       </tr>`;
     }
+    $('#TituloCategorias').text(`${categoria.toUpperCase()} - Página ${Pagina}`);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+function ArregloCategorias(categoria){
+  ConsultarPuntosDeInteres(categoria);
+  CargarCategoria(categoria);
+  $('#TituloCategorias').text(categoria.toUpperCase());
 }
 //DASHBOARD------------------------------------------------------------------------------------------------------------------------------------>
 function dasbhoardChart(){
