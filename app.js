@@ -647,20 +647,22 @@ function CargarCategoria(categoria){localStorage.setItem('Categoria',`'${categor
 
 function pagination(respuestaHTTP) {
   $('#pagination').html('');
-  $('#pagination').append(`<li class="page-item"><a class="page-link" href="#">Anterior</a></li>`);  
-  for(i=respuestaHTTP.current_page;i<=respuestaHTTP.last_page;i++){
-  $('#pagination').append(`<li onclick="ConsultarPorPagina(${localStorage.getItem('Categoria')},'${i}');" class="page-item"><a class="page-link" href="#">${i}</a></li>`)
+  if(respuestaHTTP.last_page==1){
+    return $('#pagination').html('');
+  }
+  if (respuestaHTTP.prev_page_url==null){
+   return $('#pagination').append(`<li id='PaginaSiguiente'; onclick="ConsultarPorPagina('${respuestaHTTP.next_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Siguiente</a></li>`);
+  }
+  if(respuestaHTTP.next_page_url==null){
+    return $('#pagination').append(`<li onclick="ConsultarPorPagina('${respuestaHTTP.prev_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Anterior</a></li>`);
+  }
   
+  $('#pagination').append(`<li onclick="ConsultarPorPagina('${respuestaHTTP.prev_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Anterior</a></li>`)
+  $('#pagination').append(`<li id='PaginaSiguiente'; onclick="ConsultarPorPagina('${respuestaHTTP.next_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Siguiente</a></li>`)
 }
-  
-  let resultado=Math.trunc(respuestaHTTP.total/10);
-  console.log(resultado);
-  $('#pagination').append(`<li onclick="ConsultarPorPagina(${localStorage.getItem('Categoria')},'${respuestaHTTP.current_page+1}');" class="page-item"><a class="page-link" href="#">Pagina${resultado}</a></li>`)
-
-}
-function ConsultarPorPagina(categoria,Pagina){
+function ConsultarPorPagina(UrlPagina){
   $.ajax({
-    url: `http://127.0.0.1:8000/api/PuntosInteres/${categoria}?page=${Pagina}`,
+    url:UrlPagina,
     type: 'GET',
     dataType: 'json',
   }).done(function (data) {
@@ -678,7 +680,8 @@ function ConsultarPorPagina(categoria,Pagina){
       <td><i onclick="EliminarPuntoDeInteres(${js[i].id});" class="bi bi-trash" ></i><i onclick="CargarModalPuntosDeInteres(${js[i].id},${localStorage.getItem('Categoria')},'Unico');" class="bi bi-gear"></i></td>
       </tr>`;
     }
-    $('#TituloCategorias').text(`${categoria.toUpperCase()} - Página ${Pagina}`);
+    $('#TituloCategorias').text(`${localStorage.getItem('Categoria').toUpperCase()} - Página ${data.current_page}`);
+    pagination(data);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function ArregloCategorias(categoria){
