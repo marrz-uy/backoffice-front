@@ -15,7 +15,6 @@ function ErrorHandler(jqXHR, textStatus){
   return sendError('Uncaught Error: ' + jqXHR.responseText);
 
 }
-
 /*ALTA-------------------------------------------------------------------------------------------------------------------------------------- */
 function AltaDeTour(){
   puntosdeInteresTour=puntosdeInteresTour.toString();
@@ -100,15 +99,7 @@ $.ajax({
 }).done(function (data) {
   console.log(data[0]);
   pagination(data[0]);
-    $('#tbody-Tour').html('');
-    for(i=0;i<data[0].data.length;i++){
-        $('#tbody-Tour').append(`<tr class="table-active">
-      <th scope="row">${data[0].data[i].nombreTourPredefinido}</th>
-      <td>${data[0].data[i].horaDeInicioTourPredefinido}</td>
-      <td>${data[0].data[i].descripcionTourPredefinido}</td>
-      <td><i onclick="EliminarTourPredefinido(${data[0].data[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarTour(${data[0].data[i].id});" class="bi bi-gear ms-2 pointer"></i></td>
-      </tr>`);
-    }
+    
 }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function ConsultarUnSoloTour(id){
@@ -136,7 +127,7 @@ function ConsultaTourHtml() {
       <th scope="col">Nombre del Tour</th>
       <th scope="col">Hora de Inicio</th>
       <th scope="col">Descripcion</th>  
-      <th>
+      <th style="text-align: right;">
           <button type="button" class="btn btn-success">
               <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
                   <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"></path>
@@ -252,6 +243,42 @@ function BuscarTourPorNombre(){
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 /*AUXILIARES-------------------------------------------------------------------------------------------------------------------------------------- */
+function pagination(respuestaHTTP) {
+  $('#pagination').html('');
+  if(respuestaHTTP.last_page==1){
+    return $('#pagination').html('');
+  }
+  if (respuestaHTTP.prev_page_url==null){
+   return $('#pagination').append(`<li id='PaginaSiguiente'; onclick="ConsultarPorPagina('${respuestaHTTP.next_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Siguiente</a></li>`);
+  }
+  if(respuestaHTTP.next_page_url==null){
+    return $('#pagination').append(`<li onclick="ConsultarPorPagina('${respuestaHTTP.prev_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Anterior</a></li>`);
+  }
+  $('#pagination').append(`<li onclick="ConsultarPorPagina('${respuestaHTTP.prev_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Anterior</a></li>`)
+  $('#pagination').append(`<li id='PaginaSiguiente'; onclick="ConsultarPorPagina('${respuestaHTTP.next_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Siguiente</a></li>`)
+}
+function ConsultarPorPagina(UrlPagina){
+  $.ajax({
+    url:UrlPagina,
+    type: 'GET',
+    dataType: 'json',
+  }).done(function (data) {
+    var js = data.data;
+    console.log(data);
+    console.log(js);
+    $('#tbody-Tour').html('');
+    for(i=0;i<data[0].data.length;i++){
+        $('#tbody-Tour').append(`<tr class="table-active">
+      <th scope="row">${data[0].data[i].nombreTourPredefinido}</th>
+      <td>${data[0].data[i].horaDeInicioTourPredefinido}</td>
+      <td>${data[0].data[i].descripcionTourPredefinido}</td>
+      <td><i onclick="EliminarTourPredefinido(${data[0].data[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarTour(${data[0].data[i].id});" class="bi bi-gear ms-2 pointer"></i></td>
+      </tr>`);
+    }
+    $('#TituloCategorias').text(`${localStorage.getItem('Categoria').toUpperCase()} - Página ${data.current_page}`);
+    pagination(data);
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
 function FormularioTour() {
     $('#contenido-tour').html('');
     $('#contenido-tour').append(`
@@ -363,14 +390,6 @@ function textoSuccess() {
   $('#div-mensaje').html('');
   $('#div-mensaje').append('<p class="text-center fs-5 success">Se guardo correctamente</p>');
   setTimeout(function(){$('#div-mensaje').empty();},3000);
-}
-function pagination(respuestaHTTP) {
-  $('#pagination').html('');
-  $('#pagination').append(`<li class="page-item"><a class="page-link" href="#">Anterior</a></li>`);  
-  for(i=respuestaHTTP.current_page;i<=respuestaHTTP.last_page;i++){
-  $('#pagination').append(`<li onclick="ConsultarPorPagina('${EndPoint}','${i}');" class="page-item"><a class="page-link" href="#">${i}</a></li>`)
-  }
-  $('#pagination').append(`<li onclick="ConsultarPuntosDeInteresPaginaSiguiente(2);" class="page-item"><a class="page-link" href="#">Siguiente</a></li>`)
 }
 function CargarTour(id){
   $('#Modal-Tour').modal('show');

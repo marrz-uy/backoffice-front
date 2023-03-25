@@ -644,7 +644,6 @@ function Avisos(mensaje){
   $('#Modal-Mensaje').text(mensaje);
 }
 function CargarCategoria(categoria){localStorage.setItem('Categoria',`'${categoria}'`);};
-
 function pagination(respuestaHTTP) {
   $('#pagination').html('');
   if(respuestaHTTP.last_page==1){
@@ -656,7 +655,6 @@ function pagination(respuestaHTTP) {
   if(respuestaHTTP.next_page_url==null){
     return $('#pagination').append(`<li onclick="ConsultarPorPagina('${respuestaHTTP.prev_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Anterior</a></li>`);
   }
-  
   $('#pagination').append(`<li onclick="ConsultarPorPagina('${respuestaHTTP.prev_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Anterior</a></li>`)
   $('#pagination').append(`<li id='PaginaSiguiente'; onclick="ConsultarPorPagina('${respuestaHTTP.next_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Siguiente</a></li>`)
 }
@@ -690,7 +688,7 @@ function ArregloCategorias(categoria){
   $('#TituloCategorias').text(categoria.toUpperCase());
 }
 //DASHBOARD------------------------------------------------------------------------------------------------------------------------------------>
-function dasbhoardChart(){
+function dashboardChart(){
   $(function($){
     $('#grafica').highcharts({
       title:{text:'Registro de Usuarios del 2023'},
@@ -705,3 +703,4 @@ function dasbhoardChart(){
     });
   });
 }
+

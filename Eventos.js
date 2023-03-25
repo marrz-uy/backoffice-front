@@ -135,7 +135,7 @@ function RegistrarEvento(InformacionDelEvento){
 $('#btnRegistrarEvento').click(function (e) { 
   e.preventDefault();
   getInputEvento();
-  return InformacionDelEvento;
+  //return InformacionDelEvento;
   RegistrarEvento(InformacionDelEvento);
 });
 //BAJAS------------------------------------------------------------------------------------------------------------------------------------>
@@ -145,6 +145,7 @@ function EliminarEvento(id) {
     $.ajax({
       url: `http://127.0.0.1:8000/api/Eventos/${id}`,
       type: 'DELETE',
+      data:{"Opcion":"EliminarEvento"},
       dataType: 'json',
     }).done(function (data) {
       console.log(data);
@@ -161,8 +162,10 @@ function CargarModalEvento(id){
   CleanInput();
   $('#mensaje').text('');
   ConsultarEvento(id);
-  $('#divBotonImagen').append(`<input onclick="ModificarImagen(${idEvento});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
-  setTimeout(function(){
+  ConsultarImagenes(id);
+  if($('#BotonAgregarImagen').length>0){$('#divBotonImagen').remove();}
+  $('#divBotonImagen').append(`<input onclick="ModificarImagen(${idEvento});" id="BotonAgregarImagen" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
+ setTimeout(function(){
     setInputEvento(respuestaHTTP.NombreEvento,'',respuestaHTTP.LugarDeVentaDeEntradas,respuestaHTTP.FechaInicio,respuestaHTTP.FechaFin,respuestaHTTP.HoraInicio,respuestaHTTP.HoraFin,respuestaHTTP.TipoEvento)
     getInputLugarDelEvento(respuestaHTTP.puntosinteres_id,'');
     ConsultarUnPuntoDeInteres(respuestaHTTP.puntosinteres_id,'PuntosDeInteres','Unico');
@@ -188,38 +191,43 @@ $('#btnModificarEvento').click(function (e) {
   ModificarEvento(InformacionDelEvento,idEvento);
 });
 //AUXILIARES---------------------------------------------------------------------------------------------------------------------------------->
-function pagination(respuestaHTTP,EndPoint) {
+function pagination(respuestaHTTP) {
   $('#pagination').html('');
-  $('#pagination').append(`<li class="page-item"><a class="page-link" href="#">Anterior</a></li>`);  
-  for(i=respuestaHTTP.current_page;i<=respuestaHTTP.last_page;i++){
-  $('#pagination').append(`<li onclick="ConsultarPorPagina('${EndPoint}','${i}')" class="page-item"><a class="page-link" href="#">${i}</a></li>`);
-  
+  if(respuestaHTTP.last_page==1){
+    return $('#pagination').html('');
+  }
+  if (respuestaHTTP.prev_page_url==null){
+   return $('#pagination').append(`<li id='PaginaSiguiente'; onclick="ConsultarPorPagina('${respuestaHTTP.next_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Siguiente</a></li>`);
+  }
+  if(respuestaHTTP.next_page_url==null){
+    return $('#pagination').append(`<li onclick="ConsultarPorPagina('${respuestaHTTP.prev_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Anterior</a></li>`);
+  }
+  $('#pagination').append(`<li onclick="ConsultarPorPagina('${respuestaHTTP.prev_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Anterior</a></li>`)
+  $('#pagination').append(`<li id='PaginaSiguiente'; onclick="ConsultarPorPagina('${respuestaHTTP.next_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Siguiente</a></li>`)
 }
-$('#pagination').append(`<li onclick="ConsultarPorPagina('${EndPoint}','${respuestaHTTP.current_page+1}');" class="page-item"><a class="page-link" href="#">Siguiente</a></li>`);
-  }
-  function ConsultarPorPagina(EndPoint,Pagina){
-    $.ajax({
-      url: `http://127.0.0.1:8000/api/${EndPoint}${Pagina}`,
-      type: 'GET',
-      dataType: 'json',
-    }).done(function (data) {
-      var js = data.data;
-      console.log(data);
-      console.log(js);
-      $('#TablaEventos').html('');
-      for (var i = 0; i < js.length; i++) {
-        $('#TablaEventos').append(`<tr class="table-active">
-        <th scope="row">${js[i].Nombre}</th>
-        <td>${js[i].FechaInicio}</td>
-        <td>${js[i].HoraInicio}</td>
-        <td>${js[i].Tipo}</td>
-        <td><i onclick="EliminarEvento(${js[i].id});" class="bi bi-trash" ></i><i onclick="CargarModalEvento(${js[i].id});" class="bi bi-gear"></i></td>
-        </tr>`);
-      }
-      // respuestaHTTP=data;
-      // pagination(respuestaHTTP);
-    }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
-  }
+function ConsultarPorPagina(UrlPagina){
+  $.ajax({
+    url:UrlPagina,
+    type: 'GET',
+    dataType: 'json',
+  }).done(function (data) {
+    var js = data.data;
+    console.log(data);
+    console.log(js[0]);
+    $('#TablaEventos').html('');
+    for (var i = 0; i < js.length; i++) {
+      $('#TablaEventos').append(`<tr class="table-active">
+      <th scope="row">${js[i].NombreEvento}</th>
+      <td>${js[i].FechaInicio}</td>
+      <td>${js[i].HoraInicio}</td>
+      <td>${js[i].TipoEvento}</td>
+      <td><i onclick="EliminarEvento(${js[i].Eventos_id});" class="bi bi-trash" ></i><i onclick="CargarModalEvento(${js[i].Eventos_id});" class="bi bi-gear"></i></td>
+      </tr>`);
+    }
+    $('#TituloCategorias').text(`${localStorage.getItem('Categoria').toUpperCase()} - Página ${data.current_page}`);
+    pagination(data);
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
   function getInputLugarDelEvento(id,nombre){
     InformacionLugar = {
         id: id,
@@ -239,7 +247,7 @@ function getInputEvento(){
     FechaFin:$('#FechaDeCierre').val(),
     HoraInicio:$('#HoraDeApertura').val(),
     HoraFin:$('#HoraDeCierre').val(),
-    TipoDeEvento:$('#TipoDeEvento').val()
+    TipoEvento:$('#TipoDeEvento').val()
   }
   return JSON.stringify(InformacionDelEvento);
 }
@@ -292,22 +300,67 @@ function ModificarImagen(idEvento){
   const formData=new FormData();
   formData.append('file',$('#imagenes')[0].files[0]);
   $.ajax({
-      url: `http://127.0.0.1:8000/Eventos/${idEvento}`,
+      url: `http://127.0.0.1:8000/api/Eventos/${idEvento}`,
       type: 'POST',
       data: formData,
       dataType:'json',
       cache:false,
       contentType:false,
       processData:false,
-      mode: "cors",
-      headers:{'Accept':'*/*','Content-Encoding':'multipart/form-data','Access-Control-Allow-Origin':"*"},
+      headers:{'Accept':'*/*','Content-Encoding':'multipart/form-data','Access-Control-Allow-Origin':"*/*"},
       
     }).done(function (data) {
       console.log(data);
-      // $('#ModalDeAviso').modal('show');
-      // ConsultarImagenes(id);
+      $('#ModalDeAviso').modal('show');
+      ConsultarImagenes(id);
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
+function ConsultarImagenes(id){
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/Eventos`,
+    type: 'GET',
+    data:{
+      "Opcion":"ImagenEvento",
+      "evento_id":id
+    },
+    dataType:'json',
+  }).done(function (data) {
+    let url=data[0].ImagenEvento;
+    $('#imagen-container').html('');
+      $('#imagen-container').append(`<div class="tamano">
+      <img  class="pointer" onclick="ImagenCompleta('${url}',${id});"
+        src="${url}"
+        alt="imagen${url}">
+      </div>`);
+    //
+    
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+function ImagenCompleta(url,id) {
+  $('#ModalDeImagenesGrandes').modal('show');
+  $('#divImagenGrande').html('');
+  $('#divImagenGrande').append(`<input type="button" onclick="EliminarImagenEvento('${url}',${id});" class="btn btn-danger" value="Eliminar">`);  
+  $('#divImagenGrande').append(`<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>`);
+  $('#ImagenCompletaDiv').html('');
+  $('#ImagenCompletaDiv').append(`<img src="${url}" alt="imagen${url}">`)
+  //"
+  }
+  function EliminarImagenEvento(id) {
+    $('#ModalConsultaEvento').modal('show');
+    $('#btnEliminarEvento').click(function (e) { 
+      $.ajax({
+        url: `http://127.0.0.1:8000/api/Eventos/${id}`,
+        type: 'DELETE',
+        data:{"Opcion":"EliminarImagen"},
+        dataType: 'json',
+      }).done(function (data) {
+        console.log(data);
+        $('#ModalDeAviso').modal('show');
+        ConsultarImagenes(id);
+      }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+    });
+  
+  }
 function Arreglos(){
   $('#divBotonImagen').append(`<input onclick="ModificaImagen(${idEvento});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
 }
