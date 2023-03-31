@@ -313,6 +313,7 @@ function ModificarImagen(idEvento){
       
     }).done(function (data) {
       console.log(data);
+      $('#imagenes').val('');
       $('#ModalDeAviso').modal('show');
       ConsultarImagenes(data.idEvento);
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
