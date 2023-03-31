@@ -15,7 +15,6 @@ function ErrorHandler(jqXHR, textStatus){
   return sendError('Uncaught Error: ' + jqXHR.responseText);
 
 }
-
 /*ALTA-------------------------------------------------------------------------------------------------------------------------------------- */
 function AltaDeTour(){
   puntosdeInteresTour=puntosdeInteresTour.toString();
@@ -100,15 +99,7 @@ $.ajax({
 }).done(function (data) {
   console.log(data[0]);
   pagination(data[0]);
-    $('#tbody-Tour').html('');
-    for(i=0;i<data[0].data.length;i++){
-        $('#tbody-Tour').append(`<tr class="table-active">
-      <th scope="row">${data[0].data[i].nombreTourPredefinido}</th>
-      <td>${data[0].data[i].horaDeInicioTourPredefinido}</td>
-      <td>${data[0].data[i].descripcionTourPredefinido}</td>
-      <td><i onclick="EliminarTourPredefinido(${data[0].data[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarTour(${data[0].data[i].id});" class="bi bi-gear ms-2 pointer"></i></td>
-      </tr>`);
-    }
+    
 }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function ConsultarUnSoloTour(id){
@@ -136,7 +127,7 @@ function ConsultaTourHtml() {
       <th scope="col">Nombre del Tour</th>
       <th scope="col">Hora de Inicio</th>
       <th scope="col">Descripcion</th>  
-      <th>
+      <th style="text-align: right;">
           <button type="button" class="btn btn-success">
               <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
                   <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"></path>
@@ -252,6 +243,42 @@ function BuscarTourPorNombre(){
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 /*AUXILIARES-------------------------------------------------------------------------------------------------------------------------------------- */
+function pagination(respuestaHTTP) {
+  $('#pagination').html('');
+  if(respuestaHTTP.last_page==1){
+    return $('#pagination').html('');
+  }
+  if (respuestaHTTP.prev_page_url==null){
+   return $('#pagination').append(`<li id='PaginaSiguiente'; onclick="ConsultarPorPagina('${respuestaHTTP.next_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Siguiente</a></li>`);
+  }
+  if(respuestaHTTP.next_page_url==null){
+    return $('#pagination').append(`<li onclick="ConsultarPorPagina('${respuestaHTTP.prev_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Anterior</a></li>`);
+  }
+  $('#pagination').append(`<li onclick="ConsultarPorPagina('${respuestaHTTP.prev_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Anterior</a></li>`)
+  $('#pagination').append(`<li id='PaginaSiguiente'; onclick="ConsultarPorPagina('${respuestaHTTP.next_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Siguiente</a></li>`)
+}
+function ConsultarPorPagina(UrlPagina){
+  $.ajax({
+    url:UrlPagina,
+    type: 'GET',
+    dataType: 'json',
+  }).done(function (data) {
+    var js = data.data;
+    console.log(data[0]);
+    console.log(js);
+    $('#tbody-Tour').html('');
+    for(i=0;i<data[0].data.length;i++){
+        $('#tbody-Tour').append(`<tr class="table-active">
+      <th scope="row">${data[0].data[i].nombreTourPredefinido}</th>
+      <td>${data[0].data[i].horaDeInicioTourPredefinido}</td>
+      <td>${data[0].data[i].descripcionTourPredefinido}</td>
+      <td><i onclick="EliminarTourPredefinido(${data[0].data[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarTour(${data[0].data[i].id});" class="bi bi-gear ms-2 pointer"></i></td>
+      </tr>`);
+    }
+    $('#TituloTablaTour').text(`TOUR PREDEFINIDOS - Página ${data[0].current_page}`);
+    pagination(data[0]);
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
 function FormularioTour() {
     $('#contenido-tour').html('');
     $('#contenido-tour').append(`
@@ -364,21 +391,14 @@ function textoSuccess() {
   $('#div-mensaje').append('<p class="text-center fs-5 success">Se guardo correctamente</p>');
   setTimeout(function(){$('#div-mensaje').empty();},3000);
 }
-function pagination(respuestaHTTP) {
-  $('#pagination').html('');
-  $('#pagination').append(`<li class="page-item"><a class="page-link" href="#">Anterior</a></li>`);  
-  for(i=respuestaHTTP.current_page;i<=respuestaHTTP.last_page;i++){
-  $('#pagination').append(`<li onclick="ConsultarPorPagina('${EndPoint}','${i}');" class="page-item"><a class="page-link" href="#">${i}</a></li>`)
-  }
-  $('#pagination').append(`<li onclick="ConsultarPuntosDeInteresPaginaSiguiente(2);" class="page-item"><a class="page-link" href="#">Siguiente</a></li>`)
-}
 function CargarTour(id){
   $('#Modal-Tour').modal('show');
+  $('#divBotonImagen').html('');
   $('#tbody-tourPreview').html('');
-  $('#divBotonImagen').append(`<input onclick="ModificarImagen(${id});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
+  $('#divBotonImagen').append(`<input onclick="ModificarImagenTour(${id});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
   ConsultarPuntosDeInteresParaTour('PuntosDeInteres');
   ConsultarUnSoloTour(id);
-  
+  ConsultarImagenes(id);
   setTimeout(function (){
     setInputTour(respuestaHTTP);
     setItemsInputTour(respuestaHTTP)
@@ -405,13 +425,13 @@ function Arreglos(){
   $('#divBotonImagen').append(`<input onclick="ModificaImagen(${idTour});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
 }
 //IMAGENES------------------------------------------------------------------------------------------------------------------------------------>
-function NuevaImagen(id){
+function ModificarImagenTour(idTour){
   const formData=new FormData();
   formData.append('file',$('#imagenes')[0].files[0]);
-  formData.append('image_description','file');
-  formData.append('puntosinteres_id',id);
+  formData.append('Opcion','AltaDeImagenTour');
+  formData.append('idTour',idTour);
   $.ajax({
-      url: 'http://127.0.0.1:8000/api/cargarImagen',
+      url: `http://127.0.0.1:8000/api/tourPredefinido`,
       type: 'POST',
       data: formData,
       dataType:'json',
@@ -419,32 +439,64 @@ function NuevaImagen(id){
       contentType:false,
       processData:false,
       headers:{'Accept':'*/*','Content-Encoding':'multipart/form-data','Access-Control-Allow-Origin':"*/*"},
-    }).done(function (data) {
-      console.log(data);
-      $('#ModalDeAviso').modal('show');
-      ConsultarImagenes(id);
-    }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
-}
-function ModificarImagen(idTour){
-  const formData=new FormData();
-  formData.append('file',$('#imagenes')[0].files[0]);
-  
-  $.ajax({
-      url: `http://127.0.0.1:8000/tourPredefinido/${idTour}`,
-      type: 'POST',
-      data: formData,
-      dataType:'json',
-      cache:false,
-      contentType:false,
-      processData:false,
-      mode: "no-cors",
-      crossDomain: true,
-      "Access-Control-Allow-Origin":"*",
-      headers:{'Accept':'*/*','Content-Encoding':'multipart/form-data','Access-Control-Allow-Origin':"*"},
       
     }).done(function (data) {
       console.log(data);
-      // $('#ModalDeAviso').modal('show');
-      // ConsultarImagenes(id);
+      $('#imagenes').val('');
+      $('#ModalDeAviso').modal('show');
+      ConsultarImagenes(data.idTour);
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
+function ConsultarImagenes(id){
+  console.log(id);
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/tourPredefinido`,
+    type: 'GET',
+    data:{
+      "Opcion":"ImagenTour",
+      "tour_id":id
+    },
+    dataType:'json',
+  }).done(function (data) {
+    console.log(data);
+    let url=data[0].imagen;
+    $('#imagen-container').html('');
+    if(url!=null){
+      $('#imagen-container').append(`<div class="tamano">
+      <img id="ImagenTour" class="pointer" onclick="ImagenCompleta('${url}',${id});"
+        src="${url}"
+        alt="imagen${url}">
+      </div>`);
+    }
+      
+    
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+function ImagenCompleta(url,id) {
+  $('#ModalDeImagenesGrandes').modal('show');
+  $('#divImagenGrande').html('');
+  $('#divImagenGrande').append(`<input type="button" onclick="EliminarImagenTour('${id}');" class="btn btn-danger" value="Eliminar">`);  
+  $('#divImagenGrande').append(`<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>`);
+  $('#ImagenCompletaDiv').html('');
+  $('#ImagenCompletaDiv').append(`<img src="${url}" alt="imagen${url}">`)
+  //"
+  }
+  function EliminarImagenTour(id) {
+    $('#ModalDeImagenesGrandes').modal('hide');
+    $('#ModalConsulta').modal('show');
+    $('#btnEliminarImagenTour').click(function (e) { 
+      $.ajax({
+        url: `http://127.0.0.1:8000/api/tourPredefinido/${id}`,
+        type: 'DELETE',
+        data:{"Opcion":"EliminarImagen"},
+        dataType: 'json',
+      }).done(function (data) {
+        console.log(data);
+        $('#ModalDeAviso').modal('show');
+        $('#ImagenTour').remove();
+        $('#ModalConsulta').modal('hide');
+      
+      }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+    });
+  
+  }
