@@ -334,7 +334,7 @@ function mostrarPunto(datos){
   <td>${datos.Departamento}</td>
   <td>${datos.Ciudad}</td>
   <td>${datos.Direccion}</td>
-  <td><i onclick="EliminarPuntoDeInteres(${datos.puntosinteres_id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalPuntosDeInteres(${datos.puntosinteres_id},${localStorage.getItem('Categoria')},'Unico');" style="cursor:pointer;" class="bi bi-gear ms-2"></i></td>
+  <td><i onclick="EliminarPuntoDeInteres(${datos.id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalPuntosDeInteres(${datos.id},${localStorage.getItem('Categoria')},'Unico');" style="cursor:pointer;" class="bi bi-gear ms-2"></i></td>
   </tr>`);
 }
 function PuntoDeInteres(id,Categoria,Opcion) {
@@ -360,6 +360,7 @@ function ConsultarTelefonosPuntoDeInteres(id) {
     dataType: 'json',
     data:{id:id}
   }).done(function (data) {
+    return console.log(data);
     for (var i = 0; i < data.length; i++) {
       $(`#TelefonoPuntoDeInteres${i}`).val(data[i].Telefono);
       $(`#TelefonoPuntoDeInteres${i+1}`).val('');
@@ -449,15 +450,10 @@ $('#btnModificarPuntosInteres').click(function (e) {
 });
 //FUNCIONES AUXILIARES------------------------------------------------------------------------------------------------------------------->
 function setInputPuntoDeInteres(Nombre,Departamento,Ciudad,Direccion,Facebook,Instagram,HoraDeApertura,HoraDeCierre,Descripcion,Latitud,Longitud,TipoDeLugar,RestriccionDeEdad,EnfoqueDePersonas){
-  console.log(respuestaHTTP);
-  console.log(Direccion);
-  Direccion=Direccion.split(' ');
   $('#NombrePuntoDeInteres').val(Nombre);
   $('#DepartamentoPuntoDeInteres').val(Departamento);
   $('#CiudadPuntoDeInteres').val(Ciudad);
-  $('#DireccionPuntoDeInteres1').val(Direccion[0]);
-  $('#DireccionPuntoDeInteres2').val(Direccion[1]);
-  $('#DireccionPuntoDeInteres3').val(Direccion[2]);
+  $('#DireccionPuntoDeInteres1').val(Direccion);
   $('#FacebookPuntoDeInteres').val(Facebook);
   $('#InstagramPuntoDeInteres').val(Instagram);
   $('#HoraDeApertura').val(HoraDeApertura);
@@ -512,12 +508,12 @@ function setInputGastronomico(datos){
     if(datos.MenuInfantil!=0)$('#InputMenuInfantil').attr('checked',true);
 }
 function getInputPuntoDeInteres() {
-  let Direccion=`${$('#DireccionPuntoDeInteres1').val()} ${$('#DireccionPuntoDeInteres2').val()} ${$('#DireccionPuntoDeInteres3').val()}`;
+  
   InformacionPuntoDeInteres = {
     Nombre: $('#NombrePuntoDeInteres').val(),
     Departamento: $('#DepartamentoPuntoDeInteres').val(),
     Ciudad: $('#CiudadPuntoDeInteres').val(),
-    Direccion: Direccion,
+    Direccion: $('#DireccionPuntoDeInteres1').val(),
     Telefono: $('#TelefonoPuntoDeInteres').val(),
     Celular: $('#CelularPuntoDeInteres').val(),
     Facebook: $('#FacebookPuntoDeInteres').val(),
