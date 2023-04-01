@@ -118,23 +118,6 @@ function EliminarImagen(url,id) {
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
   }
 //ALTA --------------------------------------------------------------------------------------------------------------------------------------->
-$('#btnRegistrarPuntosInteres').click(function (e) {
-  e.preventDefault();
-  if ($('#NombrePuntoDeInteres').val() == '') {
-    return $('#NombrePuntoDeInteres').addClass('is-invalid');
-  }
-
-  if ($('#DepartamentoPuntoDeInteres').val() == '') {
-    return $('#DepartamentoPuntoDeInteres').addClass('is-invalid');
-  }
-  if ($('#CiudadPuntoDeInteres').val() == '') {
-    return $('#CiudadPuntoDeInteres').addClass('is-invalid');
-  }
-  if ($('#DireccionPuntoDeInteres').val() == '') {
-    return $('#DireccionPuntoDeInteres').addClass('is-invalid');
-  }
-  getInputPuntoDeInteres();
-});
 $('#btnSiguiente').click(function (e) { 
   e.preventDefault();
   if ($('#NombrePuntoDeInteres').val() == '') {
@@ -161,25 +144,35 @@ $('#btnSiguiente').click(function (e) {
     return $('#Latitud').addClass('is-invalid');
   }
   if ($('#Latitud').val().length != 0) {
-    return $('#Latitud').removeClass('is-invalid').addClass('is-valid');
+     $('#Latitud').removeClass('is-invalid').addClass('is-valid');
   }
   if ($('#Longitud').val().length == 0) {
     return $('#Longitud').addClass('is-invalid');
   }
   if ($('#Longitud').val().length != 0) {
-    return $('#Longitud').removeClass('is-invalid').addClass('is-valid');
+    $('#Longitud').removeClass('is-invalid').addClass('is-valid');
   }
+ 
   if ($('#TipoDeLugar').val() === 'Tipo De Lugar') {
-    return 'tipo de lugar';
+    return $('#TipoDeLugar').addClass('is-invalid');
+  }
+  if ($('#TipoDeLugar').val() != 'Tipo De Lugar') {
     $('#TipoDeLugar').removeClass('is-invalid').addClass('is-valid');
   }
-  if ($('#RestriccionDeEdad').val() == 'Restriccion De Edad ') {
+
+  if ($('#RestriccionDeEdad').val() === 'Restriccion De Edad') {
     return $('#RestriccionDeEdad').addClass('is-invalid');
   }
-  if ($('#EnfoqueDePersonas').val() == 'Enfoque De Personas') {
+  if ($('#RestriccionDeEdad').val() != 'Restriccion De Edad') {
+    $('#RestriccionDeEdad').removeClass('is-invalid').addClass('is-valid');
+  }
+
+  if ($('#EnfoqueDePersonas').val() === 'Enfoque De Personas') {
+    return $('#EnfoqueDePersonas').addClass('is-invalid');
+  }
+  if ($('#EnfoqueDePersonas').val() != 'Enfoque De Personas') {
     $('#EnfoqueDePersonas').removeClass('is-invalid').addClass('is-valid');
   }
-  
   getInputPuntoDeInteres();
   
   if($('#TipoCategoria').val()==='Espectaculos'){FormularioDeEspectaculos();}
