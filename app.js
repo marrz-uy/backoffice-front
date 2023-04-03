@@ -42,7 +42,7 @@ function Login() {
         localStorage.setItem('Token',data.access_token);
         return location='Modulos/PuntosDeInteres/Dashboard.html';
       }
-      alert(data.respuesta);
+      Avisos(data.respuesta);
       //data.respuesta==='true'?location='Modulos/PuntosDeInteres/Dashboard.html':alert(data.respuesta);
       
       
@@ -194,7 +194,9 @@ function AltaDePuntoDeInteres(InformacionPuntoDeInteres) {
     data: InformacionPuntoDeInteres
   }).done(function (data) {
     console.log(data);
-    alert('Se registro correctamente');
+    Avisos('Se registro correctamente');
+    $('#BotonAceptarModalAviso').removeAttr('onclick');
+    $('#BotonAceptarModalAviso').attr('onclick','location.reload();');
     $('#NombrePuntoDeInteres').val('');
     $('#DepartamentoPuntoDeInteres').val('');
     $('#CiudadPuntoDeInteres').val('');
@@ -229,6 +231,18 @@ function AltaDePaseos() {
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
 function AltaDeAlojamiento() {
+  if ($('#TipoDetallado').val() === 'Seleccionar Tipo') {
+    return $('#TipoDetallado').addClass('is-invalid');
+  }
+  if ($('#TipoDetallado').val() != 'Seleccionar Tipo') {
+    $('#TipoDetallado').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#InputCalificaciones').val().length == 0) {
+    return $('#InputCalificaciones').addClass('is-invalid');
+  }
+  if ($('#InputCalificaciones').val().length != 0) {
+     $('#InputCalificaciones').removeClass('is-invalid').addClass('is-valid');
+  }
   getInputAlojamiento();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
@@ -244,9 +258,12 @@ function RegistrarPuntoDeInteres(InformacionPuntoDeInteres) {
     dataType: 'json',
     data: InformacionPuntoDeInteres
   }).done(function (data) {
-    alert(data.respuesta);
-    location.reload(); 
-    //console.log(data);
+    console.log(data.respuesta);
+    Avisos(data.respuesta);
+    $('#BotonAceptarModalAviso').removeAttr('onclick');
+    $('#BotonAceptarModalAviso').attr('onclick','location.reload();');
+    //setTimeout(location.reload(),1000); 
+    
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 
@@ -377,8 +394,9 @@ function EliminarPuntoDeInteres(id) {
       dataType: 'json',
     }).done(function (data) {
       console.log(data);
-      alert(data.respuesta);
-      location.reload();
+      Avisos(data.respuesta);
+      $('#BotonAceptarModalAviso').removeAttr('onclick');
+      $('#BotonAceptarModalAviso').attr('onclick','location.reload();');
       //ConsultarPuntosDeInteres(categoria);
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
   });
@@ -418,9 +436,9 @@ function ModificarPuntosDeInteres(id,InformacionPuntoDeInteres) {
     dataType: 'json',
     data: InformacionPuntoDeInteres
   }).done(function (data) {
-    alert(data.respuesta);
-    location.reload();
-    //console.log(data);
+    Avisos(data.respuesta);
+    $('#BotonAceptarModalAviso').removeAttr('onclick');
+    $('#BotonAceptarModalAviso').attr('onclick','location.reload();');
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function ModalConsulta(Categoria){
@@ -692,4 +710,3 @@ function dashboardChart(){
     });
   });
 }
-

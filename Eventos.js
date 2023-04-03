@@ -127,15 +127,63 @@ function RegistrarEvento(InformacionDelEvento){
     dataType: 'json',
     data:InformacionDelEvento
   }).done(function (data) {
-    alert(data.respuesta);
+    Avisos(data.respuesta);
+    $('#BotonAceptarModalAviso').removeAttr('onclick');
+    $('#BotonAceptarModalAviso').attr('onclick','location.reload();');
     CleanInput();
-    location.reload();
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 $('#btnRegistrarEvento').click(function (e) { 
   e.preventDefault();
+  if ($('#NombreDelEvento').val() == '') {
+    return $('#NombreDelEvento').addClass('is-invalid');
+  }
+  if ($('#NombreDelEvento').val() != '') {
+    $('#NombreDelEvento').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#LugarDelEvento').val() == '') {
+    return $('#LugarDelEvento').addClass('is-invalid');
+  }
+  if ($('#LugarDelEvento').val() != '') {
+    $('#LugarDelEvento').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#LugarDeVentaDeEntradas').val() === 'Ventas de Entradas') {
+    return $('#LugarDeVentaDeEntradas').addClass('is-invalid');
+  }
+  if ($('#LugarDeVentaDeEntradas').val() != 'Ventas de Entradas') {
+    $('#LugarDeVentaDeEntradas').removeClass('is-invalid').addClass('is-valid');
+  }
+
+  if ($('#FechaDeApertura').val() == '') {
+     $('#fechas').addClass('show');
+     return $('#FechaDeApertura').addClass('is-invalid');
+  }
+  if ($('#FechaDeApertura').val() != '') {
+    $('#FechaDeApertura').removeClass('is-invalid').addClass('is-valid');
+  }
+
+  if ($('#FechaDeCierre').val() == '') {
+    $('#fechas').addClass('show');
+    return $('#FechaDeCierre').addClass('is-invalid');
+ }
+ if ($('#FechaDeCierre').val() != '') {
+   $('#FechaDeCierre').removeClass('is-invalid').addClass('is-valid');
+ }
+
+ if ($('#HoraDeApertura').val() == '') {
+  $('#horarios').addClass('show');
+  return $('#HoraDeApertura').addClass('is-invalid');
+}
+if ($('#HoraDeApertura').val() != '') {
+ $('#HoraDeApertura').removeClass('is-invalid').addClass('is-valid');
+}
+if ($('#TipoDeEvento').val() == '') {
+  return $('#TipoDeEvento').addClass('is-invalid');
+}
+if ($('#TipoDeEvento').val() != '') {
+ $('#TipoDeEvento').removeClass('is-invalid').addClass('is-valid');
+}
   getInputEvento();
-  //return InformacionDelEvento;
   RegistrarEvento(InformacionDelEvento);
 });
 //BAJAS------------------------------------------------------------------------------------------------------------------------------------>
@@ -149,8 +197,9 @@ function EliminarEvento(id) {
       dataType: 'json',
     }).done(function (data) {
       console.log(data);
-      alert(data.respuesta);
-      location.reload();
+      Avisos(data.respuesta);
+      $('#BotonAceptarModalAviso').removeAttr('onclick');
+      $('#BotonAceptarModalAviso').attr('onclick','location.reload();');
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
   });
 
@@ -180,9 +229,11 @@ function ModificarEvento(InformacionDelEvento,id){
     dataType: 'json',
     data:InformacionDelEvento
   }).done(function (data) {
-    alert(data.respuesta);
+    Avisos(data.respuesta);
+    $('#BotonAceptarModalAviso').removeAttr('onclick');
+    $('#BotonAceptarModalAviso').attr('onclick','location.reload();');
     CleanInput();
-    location.reload();
+    
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 $('#btnModificarEvento').click(function (e) { 

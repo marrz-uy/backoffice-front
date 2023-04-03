@@ -27,8 +27,9 @@ function AltaDeTour(){
     data:InformacionTour
   }).done(function (data) {
       console.log(data.Message);
-      alert('Se registro Correctamente');
-      location.reload();
+      Avisos('Se registro Correctamente');
+      $('#BotonAceptarModalAviso').removeAttr('onclick');
+      $('#BotonAceptarModalAviso').attr('onclick','location.reload();');
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 /*BAJA-------------------------------------------------------------------------------------------------------------------------------------- */
