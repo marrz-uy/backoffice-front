@@ -29,6 +29,18 @@ $(document).ready(function (){
 });
 //LOGIN--------------------------------------------------------------------------------------------------------------------------------------->
 function Login() {
+  if ($('#user').val() == '') {
+    return $('#user').addClass('is-invalid');
+  }
+  if ($('#user').val() != '') {
+    $('#user').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#password').val() == '') {
+    return $('#password').addClass('is-invalid');
+  }
+  if ($('#password').val() != '') {
+    $('#password').removeClass('is-invalid').addClass('is-valid');
+  }
     $.ajax({
       url: 'http://127.0.0.1:8000/api/LoginController',
       type: 'POST',
@@ -38,13 +50,14 @@ function Login() {
         password:$('#password').val()
       }
     }).done(function (data){
+      console.log(data);
       if(data.respuesta==='true'){
         localStorage.setItem('Token',data.access_token);
         return location='Modulos/PuntosDeInteres/Dashboard.html';
       }
-      Avisos(data.respuesta);
-      //data.respuesta==='true'?location='Modulos/PuntosDeInteres/Dashboard.html':alert(data.respuesta);
-      
+      if(data.respuesta==='Invalid credentials'){
+        return Avisos('Credenciales incorrectas');
+      }
       
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }

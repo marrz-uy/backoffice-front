@@ -60,7 +60,11 @@
                     <li class="mb-1">
                         <a href="./TourShow.html" class="link-dark text-decoration-none btn btn-toggle  d-inline-flex align-items-center rounded border-0 collapsed">Gestion de Tours</a> 
                     </li>
-                    
+                    <li class="mb-1 mt-5 border-top">
+                      <button class="btn mt-3 d-inline-flex align-items-center rounded border-0" >
+                          <a href="../../index.html" class="link-dark text-decoration-none">Cerrar Sesion</a>
+                      </button>
+                  </li>
                     <li class="border-top my-3"></li>
                     
                     </ul>
@@ -320,21 +324,29 @@
   </div>
 </div>
     <!-- MODAL DE Lugares -------------------------------------------------------------------------->
-    <div class="modal fade" id="ModalDeLugares" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade w-100" id="ModalDeLugares" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
           <div class="modal-content">
             <div class="modal-header">
-                <div class="row w-100 justify-content-between">
-                    <div class="col">
-                        <h5 class="modal-title" id="exampleModalLabel">Lugares de Eventos</h5>
-                    </div>
-                    <div class="col">
-                        <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">
-                        <input type="button" class="btn btn-secondary" onclick="ConsultarPuntosDeInteres('PuntosDeInteres');" value="Limpiar Filtros">                        
-                    </div>
-                    <div class="col">
-                        <input type="button" onclick="window.location='PuntosInteresAlta.html';" class="ms-5 btn btn-success" value="Agregar Sitio">
-                    </div>
+              <div class="row w-100">
+                <div class="col-11">
+                  <h2 class="modal-title w-100" id="exampleModalLabel">Lugares de Eventos</h2>
+              </div>
+              <div class="row mt-3 w-100">
+                <div class="col-9">
+                  <div class="w-50 input-group">
+                    <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
+                    <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">                        
+                  </div>
+                </div>
+                
+                <div class="col-3">
+                  <input type="button" onclick="window.location='PuntosInteresAlta.html';" class="btn btn-success float-end" value="Agregar Sitio">
+                </div>
+              </div>
+              
+                
+                    
                 </div>
             </div>
             <div  class="modal-body">

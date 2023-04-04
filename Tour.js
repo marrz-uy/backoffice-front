@@ -19,6 +19,27 @@ function ErrorHandler(jqXHR, textStatus){
 function AltaDeTour(){
   puntosdeInteresTour=puntosdeInteresTour.toString();
   InformacionTour.puntosdeInteresTour=puntosdeInteresTour;
+  if ($('#nombreTourPredefinido').val() == '') {
+    return $('#nombreTourPredefinido').addClass('is-invalid');
+  }
+  if ($('#nombreTourPredefinido').val() != '') {
+    $('#nombreTourPredefinido').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#horaDeInicioTourPredefinido').val() == '') {
+    return $('#horaDeInicioTourPredefinido').addClass('is-invalid');
+  }
+  if ($('#horaDeInicioTourPredefinido').val() != '') {
+    $('#horaDeInicioTourPredefinido').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#descripcionTourPredefinido').val() == '') {
+    return $('#descripcionTourPredefinido').addClass('is-invalid');
+  }
+  if ($('#descripcionTourPredefinido').val() != '') {
+    $('#descripcionTourPredefinido').removeClass('is-invalid').addClass('is-valid');
+  }
+  if(InformacionTour.puntosdeInteresTour===''){
+   return Avisos('Debe seleccionar un punto de interes');
+  }
   console.log(InformacionTour);
   $.ajax({
     url: `http://127.0.0.1:8000/api/tourPredefinido`,
@@ -34,19 +55,48 @@ function AltaDeTour(){
 }
 /*BAJA-------------------------------------------------------------------------------------------------------------------------------------- */
 function EliminarTourPredefinido(id){
-  $.ajax({
+  $('#ModalConsultaTour').modal('show');
+  $('#btnEliminarTour').click(function (e) { 
+    e.preventDefault();
+    $.ajax({
     url: `http://127.0.0.1:8000/api/tourPredefinido/${id}`,
     type: 'DELETE',
+    data:{Opcion:'EliminarTour'},
     dataType: 'json',
   }).done(function (data) {
    console.log(data.respuesta);
    Avisos(data.respuesta);
+   $('#BotonAceptarModalAviso').removeAttr('onclick');
+   $('#BotonAceptarModalAviso').attr('onclick','location.reload();');
    ConsultarTour();
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+  });
+  
 }
 /*MODIFICACION-------------------------------------------------------------------------------------------------------------------------------------- */
 function ModificarTourHTTP(){
-
+  
+  if ($('#nombreTourPredefinido').val() == '') {
+    return $('#nombreTourPredefinido').addClass('is-invalid');
+  }
+  if ($('#nombreTourPredefinido').val() != '') {
+    $('#nombreTourPredefinido').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#horaDeInicioTourPredefinido').val() == '') {
+    return $('#horaDeInicioTourPredefinido').addClass('is-invalid');
+  }
+  if ($('#horaDeInicioTourPredefinido').val() != '') {
+    $('#horaDeInicioTourPredefinido').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#descripcionTourPredefinido').val() == '') {
+    return $('#descripcionTourPredefinido').addClass('is-invalid');
+  }
+  if ($('#descripcionTourPredefinido').val() != '') {
+    $('#descripcionTourPredefinido').removeClass('is-invalid').addClass('is-valid');
+  }
+  if(puntosdeInteresTour.length==0){
+   return Avisos('Debe seleccionar un punto de interes');
+  }
   $.ajax({
   url: `http://127.0.0.1:8000/api/tourPredefinido`,
   type: 'PATCH',
@@ -59,8 +109,11 @@ function ModificarTourHTTP(){
     puntosdeInteresTour:puntosdeInteresTour.toString()
   }
 }).done(function (data) {
-    alert(data.Message);
-    location.reload();
+
+    Avisos(data.Message);
+    $('#BotonAceptarModalAviso').removeAttr('onclick');
+    $('#BotonAceptarModalAviso').attr('onclick','location.reload();');
+    //location.reload();
 }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 $('#btnModificarTour').click(function (e) { 
@@ -338,6 +391,24 @@ puntosdeInteresTour.splice(posicion,1);
 $(`#${id}`).remove();
 }
 function getInputTour(){
+  if ($('#nombreTourPredefinido').val() == '') {
+    return $('#nombreTourPredefinido').addClass('is-invalid');
+  }
+  if ($('#nombreTourPredefinido').val() != '') {
+    $('#nombreTourPredefinido').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#horaDeInicioTourPredefinido').val() == '') {
+    return $('#horaDeInicioTourPredefinido').addClass('is-invalid');
+  }
+  if ($('#horaDeInicioTourPredefinido').val() != '') {
+    $('#horaDeInicioTourPredefinido').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#descripcionTourPredefinido').val() == '') {
+    return $('#descripcionTourPredefinido').addClass('is-invalid');
+  }
+  if ($('#descripcionTourPredefinido').val() != '') {
+    $('#descripcionTourPredefinido').removeClass('is-invalid').addClass('is-valid');
+  }
   InformacionTour={
     nombreTourPredefinido:$('#nombreTourPredefinido').val(),
     horaDeInicioTourPredefinido:$('#horaDeInicioTourPredefinido').val(),
