@@ -59,7 +59,11 @@
                         <a class="btn btn-toggle  d-inline-flex align-items-center rounded border-0 collapsed link-dark text-decoration-none " href="./TourShow.html">Gestion de Tours</a> 
                         
                     </li>
-                    
+                    <li class="mb-1 mt-5 border-top">
+                      <button class="btn mt-3 d-inline-flex align-items-center rounded border-0" >
+                          <a href="../../index.html" class="link-dark text-decoration-none">Cerrar Sesion</a>
+                      </button>
+                  </li>
                     <li class="border-top my-3"></li>
                     
                     </ul>
@@ -88,26 +92,21 @@
                                       </div>
                                       
                                       <div  class="input-group mb-3">
-                                          <input type="text" class="form-control" id="horaDeInicioTourPredefinido" placeholder="Hora de Inicio" required>
+                                          <input type="time" class="form-control" id="horaDeInicioTourPredefinido" placeholder="Hora de Inicio" required>
                                           <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
                                           <div id="campoRequerido1" class="ms-2 invalid-feedback">
                                               El campo es obligatorio
                                     </div>
                                       </div>
-                                      <div class="mb-3">
+                                      <div class="input-group mb-3">
                                         <textarea class="form-control" id="descripcionTourPredefinido" name="DescripcionPuntoDeInteres" rows="3"></textarea>
+                                        <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                                        <div id="campoRequerido1" class="ms-2 invalid-feedback">
+                                            El campo es obligatorio
+                                  </div>
                                       </div>
                                       <div class="row justify-content-center">
-                                        <div class="row border">
-
-                                          <div class="col ">
-                                            <input id="imagenes" type="file">
-                                          </div>
-                                          <div id="divBotonImagen" class="col ">
-                                            
-                                          </div>
-                        
-                                        </div>
+                                        
                                       <input type="button" value="Guardar Nombre" onclick="getInputTour();" class="btn mt-3 btn-primary form-control w-50">
                                       <div style="position: relative;height: 60px;" class="mt-3" id="div-mensaje">
                                         
@@ -216,10 +215,10 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title text-center" id="Modal-Mensaje">Se realizo correctamente</h5>
+        <h5 class="modal-title" id="Modal-Mensaje">Se realizo correctamente</h5>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+        <button id="BotonAceptarModalAviso" type="button" onclick="$('#ModalDeAviso').modal('hide');" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
       </div>
     </div>
   </div>

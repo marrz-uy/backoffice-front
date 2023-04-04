@@ -28,18 +28,37 @@
                 <h5 class="text-center text-secondary mt-3">Backoffice / MARRZ </h5>
                 <div class="mb-3 input-group">
                     <input id="user" type="text" class="form-control" placeholder="Usuario" required>
+                                <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                                         El campo es obligatorio
+                                </div>
                 </div>
-                <div class="mb-3">
+                <div class="input-group mb-3">
                     <input id="password" type="password" class="form-control" placeholder="Contraseña" required>
+                    <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                        El campo es obligatorio
+               </div>
                 </div>
                 <div class="mb-3">
                     <a href="./Modulos/PuntosDeInteres/Dashboard.html">Avanzar --></a>
-                    <input onclick="Login();"  class="btn btn-primary form-control" value="Ingresar">
+                    <input onclick="Login();"  class="btn btn-primary form-control" value="Iniciar Sesion">
                 </div>
             </form>
         </div>
         
     </div>
+    <!-- MODAL DE AVISO -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalDeAviso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="Modal-Mensaje">Se realizo correctamente</h5>
+        </div>
+        <div class="modal-footer">
+          <button id="BotonAceptarModalAviso" type="button" onclick="$('#ModalDeAviso').modal('hide');" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./bootstrap/js/bootstrap.bundle.js"></script>
     <script src="./app.js"></script>

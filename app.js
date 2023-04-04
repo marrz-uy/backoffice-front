@@ -29,6 +29,18 @@ $(document).ready(function (){
 });
 //LOGIN--------------------------------------------------------------------------------------------------------------------------------------->
 function Login() {
+  if ($('#user').val() == '') {
+    return $('#user').addClass('is-invalid');
+  }
+  if ($('#user').val() != '') {
+    $('#user').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#password').val() == '') {
+    return $('#password').addClass('is-invalid');
+  }
+  if ($('#password').val() != '') {
+    $('#password').removeClass('is-invalid').addClass('is-valid');
+  }
     $.ajax({
       url: 'http://127.0.0.1:8000/api/LoginController',
       type: 'POST',
@@ -38,13 +50,14 @@ function Login() {
         password:$('#password').val()
       }
     }).done(function (data){
+      console.log(data);
       if(data.respuesta==='true'){
         localStorage.setItem('Token',data.access_token);
         return location='Modulos/PuntosDeInteres/Dashboard.html';
       }
-      alert(data.respuesta);
-      //data.respuesta==='true'?location='Modulos/PuntosDeInteres/Dashboard.html':alert(data.respuesta);
-      
+      if(data.respuesta==='Invalid credentials'){
+        return Avisos('Credenciales incorrectas');
+      }
       
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
@@ -118,23 +131,6 @@ function EliminarImagen(url,id) {
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
   }
 //ALTA --------------------------------------------------------------------------------------------------------------------------------------->
-$('#btnRegistrarPuntosInteres').click(function (e) {
-  e.preventDefault();
-  if ($('#NombrePuntoDeInteres').val() == '') {
-    return $('#NombrePuntoDeInteres').addClass('is-invalid');
-  }
-
-  if ($('#DepartamentoPuntoDeInteres').val() == '') {
-    return $('#DepartamentoPuntoDeInteres').addClass('is-invalid');
-  }
-  if ($('#CiudadPuntoDeInteres').val() == '') {
-    return $('#CiudadPuntoDeInteres').addClass('is-invalid');
-  }
-  if ($('#DireccionPuntoDeInteres').val() == '') {
-    return $('#DireccionPuntoDeInteres').addClass('is-invalid');
-  }
-  getInputPuntoDeInteres();
-});
 $('#btnSiguiente').click(function (e) { 
   e.preventDefault();
   if ($('#NombrePuntoDeInteres').val() == '') {
@@ -161,25 +157,35 @@ $('#btnSiguiente').click(function (e) {
     return $('#Latitud').addClass('is-invalid');
   }
   if ($('#Latitud').val().length != 0) {
-    return $('#Latitud').removeClass('is-invalid').addClass('is-valid');
+     $('#Latitud').removeClass('is-invalid').addClass('is-valid');
   }
   if ($('#Longitud').val().length == 0) {
     return $('#Longitud').addClass('is-invalid');
   }
   if ($('#Longitud').val().length != 0) {
-    return $('#Longitud').removeClass('is-invalid').addClass('is-valid');
+    $('#Longitud').removeClass('is-invalid').addClass('is-valid');
   }
+ 
   if ($('#TipoDeLugar').val() === 'Tipo De Lugar') {
-    return 'tipo de lugar';
+    return $('#TipoDeLugar').addClass('is-invalid');
+  }
+  if ($('#TipoDeLugar').val() != 'Tipo De Lugar') {
     $('#TipoDeLugar').removeClass('is-invalid').addClass('is-valid');
   }
-  if ($('#RestriccionDeEdad').val() == 'Restriccion De Edad ') {
+
+  if ($('#RestriccionDeEdad').val() === 'Restriccion De Edad') {
     return $('#RestriccionDeEdad').addClass('is-invalid');
   }
-  if ($('#EnfoqueDePersonas').val() == 'Enfoque De Personas') {
+  if ($('#RestriccionDeEdad').val() != 'Restriccion De Edad') {
+    $('#RestriccionDeEdad').removeClass('is-invalid').addClass('is-valid');
+  }
+
+  if ($('#EnfoqueDePersonas').val() === 'Enfoque De Personas') {
+    return $('#EnfoqueDePersonas').addClass('is-invalid');
+  }
+  if ($('#EnfoqueDePersonas').val() != 'Enfoque De Personas') {
     $('#EnfoqueDePersonas').removeClass('is-invalid').addClass('is-valid');
   }
-  
   getInputPuntoDeInteres();
   
   if($('#TipoCategoria').val()==='Espectaculos'){FormularioDeEspectaculos();}
@@ -201,7 +207,9 @@ function AltaDePuntoDeInteres(InformacionPuntoDeInteres) {
     data: InformacionPuntoDeInteres
   }).done(function (data) {
     console.log(data);
-    alert('Se registro correctamente');
+    Avisos('Se registro correctamente');
+    $('#BotonAceptarModalAviso').removeAttr('onclick');
+    $('#BotonAceptarModalAviso').attr('onclick','location.reload();');
     $('#NombrePuntoDeInteres').val('');
     $('#DepartamentoPuntoDeInteres').val('');
     $('#CiudadPuntoDeInteres').val('');
@@ -236,6 +244,18 @@ function AltaDePaseos() {
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
 function AltaDeAlojamiento() {
+  if ($('#TipoDetallado').val() === 'Seleccionar Tipo') {
+    return $('#TipoDetallado').addClass('is-invalid');
+  }
+  if ($('#TipoDetallado').val() != 'Seleccionar Tipo') {
+    $('#TipoDetallado').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#InputCalificaciones').val().length == 0) {
+    return $('#InputCalificaciones').addClass('is-invalid');
+  }
+  if ($('#InputCalificaciones').val().length != 0) {
+     $('#InputCalificaciones').removeClass('is-invalid').addClass('is-valid');
+  }
   getInputAlojamiento();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
@@ -251,9 +271,12 @@ function RegistrarPuntoDeInteres(InformacionPuntoDeInteres) {
     dataType: 'json',
     data: InformacionPuntoDeInteres
   }).done(function (data) {
-    alert(data.respuesta);
-    location.reload(); 
-    //console.log(data);
+    console.log(data.respuesta);
+    Avisos(data.respuesta);
+    $('#BotonAceptarModalAviso').removeAttr('onclick');
+    $('#BotonAceptarModalAviso').attr('onclick','location.reload();');
+    //setTimeout(location.reload(),1000); 
+    
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 
@@ -341,7 +364,7 @@ function mostrarPunto(datos){
   <td>${datos.Departamento}</td>
   <td>${datos.Ciudad}</td>
   <td>${datos.Direccion}</td>
-  <td><i onclick="EliminarPuntoDeInteres(${datos.puntosinteres_id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalPuntosDeInteres(${datos.puntosinteres_id},${localStorage.getItem('Categoria')},'Unico');" style="cursor:pointer;" class="bi bi-gear ms-2"></i></td>
+  <td><i onclick="EliminarPuntoDeInteres(${datos.id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalPuntosDeInteres(${datos.id},${localStorage.getItem('Categoria')},'Unico');" style="cursor:pointer;" class="bi bi-gear ms-2"></i></td>
   </tr>`);
 }
 function PuntoDeInteres(id,Categoria,Opcion) {
@@ -367,6 +390,7 @@ function ConsultarTelefonosPuntoDeInteres(id) {
     dataType: 'json',
     data:{id:id}
   }).done(function (data) {
+    return console.log(data);
     for (var i = 0; i < data.length; i++) {
       $(`#TelefonoPuntoDeInteres${i}`).val(data[i].Telefono);
       $(`#TelefonoPuntoDeInteres${i+1}`).val('');
@@ -383,8 +407,9 @@ function EliminarPuntoDeInteres(id) {
       dataType: 'json',
     }).done(function (data) {
       console.log(data);
-      alert(data.respuesta);
-      location.reload();
+      Avisos(data.respuesta);
+      $('#BotonAceptarModalAviso').removeAttr('onclick');
+      $('#BotonAceptarModalAviso').attr('onclick','location.reload();');
       //ConsultarPuntosDeInteres(categoria);
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
   });
@@ -424,9 +449,9 @@ function ModificarPuntosDeInteres(id,InformacionPuntoDeInteres) {
     dataType: 'json',
     data: InformacionPuntoDeInteres
   }).done(function (data) {
-    alert(data.respuesta);
-    location.reload();
-    //console.log(data);
+    Avisos(data.respuesta);
+    $('#BotonAceptarModalAviso').removeAttr('onclick');
+    $('#BotonAceptarModalAviso').attr('onclick','location.reload();');
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function ModalConsulta(Categoria){
@@ -456,15 +481,10 @@ $('#btnModificarPuntosInteres').click(function (e) {
 });
 //FUNCIONES AUXILIARES------------------------------------------------------------------------------------------------------------------->
 function setInputPuntoDeInteres(Nombre,Departamento,Ciudad,Direccion,Facebook,Instagram,HoraDeApertura,HoraDeCierre,Descripcion,Latitud,Longitud,TipoDeLugar,RestriccionDeEdad,EnfoqueDePersonas){
-  console.log(respuestaHTTP);
-  console.log(Direccion);
-  Direccion=Direccion.split(' ');
   $('#NombrePuntoDeInteres').val(Nombre);
   $('#DepartamentoPuntoDeInteres').val(Departamento);
   $('#CiudadPuntoDeInteres').val(Ciudad);
-  $('#DireccionPuntoDeInteres1').val(Direccion[0]);
-  $('#DireccionPuntoDeInteres2').val(Direccion[1]);
-  $('#DireccionPuntoDeInteres3').val(Direccion[2]);
+  $('#DireccionPuntoDeInteres1').val(Direccion);
   $('#FacebookPuntoDeInteres').val(Facebook);
   $('#InstagramPuntoDeInteres').val(Instagram);
   $('#HoraDeApertura').val(HoraDeApertura);
@@ -519,12 +539,12 @@ function setInputGastronomico(datos){
     if(datos.MenuInfantil!=0)$('#InputMenuInfantil').attr('checked',true);
 }
 function getInputPuntoDeInteres() {
-  let Direccion=`${$('#DireccionPuntoDeInteres1').val()} ${$('#DireccionPuntoDeInteres2').val()} ${$('#DireccionPuntoDeInteres3').val()}`;
+  
   InformacionPuntoDeInteres = {
     Nombre: $('#NombrePuntoDeInteres').val(),
     Departamento: $('#DepartamentoPuntoDeInteres').val(),
     Ciudad: $('#CiudadPuntoDeInteres').val(),
-    Direccion: Direccion,
+    Direccion: $('#DireccionPuntoDeInteres1').val(),
     Telefono: $('#TelefonoPuntoDeInteres').val(),
     Celular: $('#CelularPuntoDeInteres').val(),
     Facebook: $('#FacebookPuntoDeInteres').val(),
@@ -703,4 +723,3 @@ function dashboardChart(){
     });
   });
 }
-

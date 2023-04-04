@@ -64,7 +64,11 @@
                         <a href="./TourShow.html" class="link-dark text-decoration-none btn btn-toggle d-inline-flex align-items-center rounded border-0 ">Gestion de Tours</a> 
                         
                      </li>
-                    
+                     <li class="mb-1 mt-5 border-top">
+                        <button class="btn mt-3 d-inline-flex align-items-center rounded border-0" >
+                            <a href="../../index.html" class="link-dark text-decoration-none">Cerrar Sesion</a>
+                        </button>
+                    </li>
                     <li class="border-top my-3"></li>
                     
                     </ul>
@@ -149,8 +153,6 @@
                             </div>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" id="DireccionPuntoDeInteres1" name="DireccionPuntoDeInteres" placeholder="Direccion" >
-                                <input type="text" class="form-control ms-2" id="DireccionPuntoDeInteres2" name="DireccionPuntoDeInteres" placeholder="N° de puerta" >
-                                <input type="text" class="form-control ms-2" id="DireccionPuntoDeInteres3" name="DireccionPuntoDeInteres" placeholder="Esquina" >
 
                                 <div id="campoRequerido8" class="ms-2 invalid-feedback">
                                     El campo es obligatorio
@@ -216,7 +218,7 @@
                                   </div>
                             </div>
                             <div class="mb-3">
-                                <textarea class="form-control" id="DescripcionPuntoDeInteres" name="DescripcionPuntoDeInteres" rows="3"></textarea>
+                                <textarea placeholder="Descripcion del sitio" class="form-control" id="DescripcionPuntoDeInteres" name="DescripcionPuntoDeInteres" rows="3"></textarea>
                             </div>
                             <div class="mb-3">
                                 <div class="mb-3">
@@ -233,23 +235,6 @@
                                         <option value="Servicios_Esenciales">Servicios Esenciales</option>
                                     </select>
                                 </div>
-                                <div hidden class="dropdown">
-                                    <button class="btn btn-secondary form-control dropdown-toggle" type="submit" id="btnRegistrarPuntosInteres" data-bs-toggle="dropdown" aria-expanded="false">Seleccionar Categoria</button>
-                                    <div class="row">
-                                        <ul class="dropdown-menu col" aria-labelledby="dropdownMenuButton1">
-                                            <li><a onclick="FormularioDeAlojamiento();" class="dropdown-item text-white bg-secondary" href="#">Alojamiento</a></li>
-                                            <li><a onclick="FormularioDeGastronomia();" class="dropdown-item text-white bg-secondary" href="#">Gastronomia</a></li>
-                                            <li><a onclick="FormularioDeEspectaculos();" class="dropdown-item text-white bg-secondary" href="#">Espectaculos</a></li>
-                                            <li><a onclick="FormularioDeActivdadesAlAireLibre();" class="dropdown-item text-white bg-secondary" href="#">Actividades al Aire Libre</a></li>
-                                            <li><a onclick="FormularioDeActividadesNocturnas();" class="dropdown-item text-white bg-secondary " href="#">Actividades Nocturnas</a></li>
-                                            <li><a class="dropdown-item text-white bg-secondary" href="#">Transporte</a></li>
-                                            <li><a onclick="FormularioDeActividadesInfantiles();" class="dropdown-item text-white bg-secondary" href="#">Actividades Infantiles</a></li>
-                                            <li><a onclick="FormularioDeServiciosEscenciales();" class="dropdown-item text-white bg-secondary" href="#">Servicios Escenciales</a></li>
-                                          </ul>
-                                    </div>
-                                    
-                                    
-                                </div>
                                 <button id="btnSiguiente" class="btn mt-3 btn-primary form-control">Siguiente</button>
                             </div>
                         </form>
@@ -262,6 +247,19 @@
             
         
     </div>
+    <!-- MODAL DE AVISO -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalDeAviso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="Modal-Mensaje">Se realizo correctamente</h5>
+        </div>
+        <div class="modal-footer">
+          <button id="BotonAceptarModalAviso" type="button" onclick="$('#ModalDeAviso').modal('hide');" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
     <script src="../../formularios.js"></script>

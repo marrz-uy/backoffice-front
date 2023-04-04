@@ -59,7 +59,11 @@
                        <a href="./TourShow.html" class="link-dark text-decoration-none btn btn-toggle d-inline-flex align-items-center rounded border-0 ">Gestion de Tours</a> 
                        
                     </li>
-                    
+                    <li class="mb-1 mt-5 border-top">
+                      <button class="btn mt-3 d-inline-flex align-items-center rounded border-0" >
+                          <a href="../../index.html" class="link-dark text-decoration-none">Cerrar Sesion</a>
+                      </button>
+                  </li>
                     <li class="border-top my-3"></li>
                     
                     </ul>
@@ -76,7 +80,7 @@
                             <div class="col-9 input-group w-50">
                               <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
                               <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">                        
-                          </div>
+                            </div>
                           <div class="col-6 ">
                             <div class="dropdown offset-9 ">
                               <!--BUSCAR POR CATEGORIA------------------------------------------------------------------------------------------------------------------------->
@@ -184,7 +188,7 @@
         <h5 class="modal-title" id="Modal-Mensaje">Se realizo correctamente</h5>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+        <button id="BotonAceptarModalAviso" type="button" onclick="$('#ModalDeAviso').modal('hide');" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
       </div>
     </div>
   </div>

@@ -61,7 +61,11 @@
                         Gestion de Tours
                         </button>
                     </li>
-                    
+                    <li class="mb-1 mt-5 border-top">
+                      <button class="btn mt-3 d-inline-flex align-items-center rounded border-0" >
+                          <a href="../../index.html" class="link-dark text-decoration-none">Cerrar Sesion</a>
+                      </button>
+                  </li>
                     <li class="border-top my-3"></li>
                     
                     </ul>
@@ -272,6 +276,20 @@
       </div>
     </div>
 </div>
+<!-- MODAL DE CONSULTA -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalConsultaTour" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">¿Desea Eliminar?</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnEliminarTour" class="btn btn-danger">Eliminar</button>
+        <button type="button" onclick="$('#ModalConsultaTour').modal('hide');" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- MODAL DE AVISO -------------------------------------------------------------------------->
 <div class="modal fade" id="ModalDeAviso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -280,7 +298,7 @@
         <h5 class="modal-title" id="Modal-Mensaje">Se realizo correctamente</h5>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+        <button id="BotonAceptarModalAviso" type="button" onclick="$('#ModalDeAviso').modal('hide');" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
       </div>
     </div>
   </div>
