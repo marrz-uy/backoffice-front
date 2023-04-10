@@ -32,7 +32,8 @@ function ConsultarPuntosDeInteres(categoria) {
       var js = data.data;
       console.log(js);
       respuestaHTTP=data;
-      pagination(respuestaHTTP,'PuntosInteres/PuntosDeInteres?page=');
+      console.log(respuestaHTTP);
+      
       $('#tbody').html('');
       for (var i = 0; i < js.length; i++) {
         if(categoria==='PuntosDeInteres'){
@@ -51,8 +52,48 @@ function ConsultarPuntosDeInteres(categoria) {
         }
         
       }
-      
+      pagination_lugares(respuestaHTTP);
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+function BuscarUnPuntoDeInteres(){
+  $.ajax({
+    url: `http://127.0.0.1:8000/api/PuntosInteres/PuntosDeInteres`,
+    type: 'GET',
+    dataType: 'json',
+    data:{
+      "Opcion":"BusquedaPorNombre",
+      "Nombre":$('#txt-buscar-lugares').val()
+    }
+  }).done(function (data) {
+    console.log(data);
+    if($('#txt-buscar-lugares').val()===''){
+      return ConsultarPuntosDeInteres('PuntosDeInteres');
+    }
+    if(data.Mensaje==='No hubo resultado'){
+      console.log(data.Mensaje);
+      Avisos(data.Mensaje);
+      ConsultarPuntosDeInteres('PuntosDeInteres');
+    }
+      mostrarPunto(data);
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+function mostrarPunto(datos){
+  console.log(datos);
+  $('#tbody').html('');
+  for(i=0;i<datos.length;i++){
+    $('#tbody').append(`<tr class="table-active">
+          <th scope="row">${datos[i].Nombre}</th>
+          <td>${datos[i].Departamento}</td>
+          <td>${datos[i].Ciudad}</td>
+          <td>${datos[i].Direccion}</td>
+          <td>
+                <svg onclick="getInputLugarDelEvento('${datos[i].id}','${datos[i].Nombre}');" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
+                </svg>
+          </td>
+          </tr>`);
+  }
+  
 }
 function ConsultarEventos() {
   $('#txt-buscar').val('');
@@ -73,7 +114,7 @@ function ConsultarEventos() {
       </tr>`);
     }
     respuestaHTTP=data;
-    pagination(respuestaHTTP,EndPoint);
+    pagination(respuestaHTTP);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function ConsultarEvento(id){
@@ -110,13 +151,16 @@ function BuscarEventoPorNombre(){
       return ConsultarEventos();
     }
     $('#TablaEventos').html('');
-    $('#TablaEventos').append(`<tr class="table-active">
-      <th scope="row">${data[0].NombreEvento}</th>
-      <td>${data[0].FechaInicio}</td>
-      <td>${data[0].HoraInicio}</td>
-      <td>${data[0].TipoEvento}</td>
-      <td><i onclick="EliminarEvento(${data[0].id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalEvento(${data[0].Eventos_id});" class="bi bi-gear ms-2 pointer"></i></td>
+    for(i=0;i<data.length;i++){
+      $('#TablaEventos').append(`<tr class="table-active">
+      <th scope="row">${data[i].NombreEvento}</th>
+      <td>${data[i].FechaInicio}</td>
+      <td>${data[i].HoraInicio}</td>
+      <td>${data[i].TipoEvento}</td>
+      <td><i onclick="EliminarEvento(${data[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalEvento(${data[i].Eventos_id});" class="bi bi-gear ms-2 pointer"></i></td>
       </tr>`);
+    }
+    
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 //ALTAS--------------------------------------------------------------------------------------------------------------------------------------->
@@ -210,13 +254,14 @@ function CargarModalEvento(id){
   $('#ModalDeEventos').modal('show');
   $('#divBotonImagen').html('');
   CleanInput();
-  $('#mensaje').text('');
+  
   ConsultarEvento(id);
   ConsultarImagenes(id);
   $('#divBotonImagen').append(`<input onclick="ModificarImagen(${idEvento});" id="BotonAgregarImagen" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
  setTimeout(function(){
     setInputEvento(respuestaHTTP.NombreEvento,'',respuestaHTTP.LugarDeVentaDeEntradas,respuestaHTTP.FechaInicio,respuestaHTTP.FechaFin,respuestaHTTP.HoraInicio,respuestaHTTP.HoraFin,respuestaHTTP.TipoEvento)
     getInputLugarDelEvento(respuestaHTTP.puntosinteres_id,'');
+    $('#mensaje').text('');
     ConsultarUnPuntoDeInteres(respuestaHTTP.puntosinteres_id,'PuntosDeInteres','Unico');
     setTimeout(function(){console.log($('#LugarDelEvento').val(respuestaHTTP.Nombre))},1000);
   },1000);
@@ -256,6 +301,20 @@ function pagination(respuestaHTTP) {
   $('#pagination').append(`<li onclick="ConsultarPorPagina('${respuestaHTTP.prev_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Anterior</a></li>`)
   $('#pagination').append(`<li id='PaginaSiguiente'; onclick="ConsultarPorPagina('${respuestaHTTP.next_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Siguiente</a></li>`)
 }
+function pagination_lugares(respuestaHTTP) {
+  $('#pagination_lugares').html('');
+  if(respuestaHTTP.last_page==1){
+    return $('#pagination_lugares').html('');
+  }
+  if (respuestaHTTP.prev_page_url==null){
+   return $('#pagination_lugares').append(`<li id='PaginaSiguiente'; onclick="ConsultarPorPagina_lugares('${respuestaHTTP.next_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Siguiente</a></li>`);
+  }
+  if(respuestaHTTP.next_page_url==null){
+    return $('#pagination_lugares').append(`<li onclick="ConsultarPorPagina_lugares('${respuestaHTTP.prev_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Anterior</a></li>`);
+  }
+  $('#pagination_lugares').append(`<li onclick="ConsultarPorPagina_lugares('${respuestaHTTP.prev_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Anterior</a></li>`)
+  $('#pagination_lugares').append(`<li id='PaginaSiguiente'; onclick="ConsultarPorPagina_lugares('${respuestaHTTP.next_page_url}');" class="page-item"><a class="page-link" href="#">Pagina Siguiente</a></li>`)
+}
 function ConsultarPorPagina(UrlPagina){
   $.ajax({
     url:UrlPagina,
@@ -279,6 +338,34 @@ function ConsultarPorPagina(UrlPagina){
     pagination(data);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
+function ConsultarPorPagina_lugares(UrlPagina){
+  $.ajax({
+    url:UrlPagina,
+    type: 'GET',
+    dataType: 'json',
+  }).done(function (data) {
+    var js = data.data;
+    console.log(data);
+    console.log(js);
+    $('#tbody').html('');
+    for (var i = 0; i < js.length; i++) {
+      console.log(i);
+      $('#tbody').append(`<tr class="table-active">
+          <th scope="row">${js[i].Nombre}</th>
+          <td>${js[i].Departamento}</td>
+          <td>${js[i].Ciudad}</td>
+          <td>${js[i].Direccion}</td>
+          <td>
+                <svg onclick="getInputLugarDelEvento('${js[i].id}','${js[i].Nombre}');" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
+                </svg>
+          </td>
+          </tr>`);
+    }
+    $('#TituloCategorias').text(`${localStorage.getItem('Categoria').toUpperCase()} - Página ${data.current_page}`);
+    pagination_lugares(data);
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
   function getInputLugarDelEvento(id,nombre){
     InformacionLugar = {
         id: id,
@@ -286,7 +373,8 @@ function ConsultarPorPagina(UrlPagina){
       }
       JSON.stringify(InformacionLugar);
       $('#LugarDelEvento').val(nombre);
-      //$('#mensaje').text('Se agrego correctamente');
+      $('#mensaje').text('Se agrego correctamente');
+      setTimeout(function(){$('#mensaje').text('')},2000);
       return InformacionLugar;
 }
 function getInputEvento(){
