@@ -110,7 +110,7 @@ function ConsultarEventos() {
       <td>${js[i].FechaInicio}</td>
       <td>${js[i].HoraInicio}</td>
       <td>${js[i].TipoEvento}</td>
-      <td><i onclick="EliminarEvento(${js[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalEvento(${js[i].Eventos_id});" class="bi bi-gear ms-2 pointer"></i></td>
+      <td class="text-center"><i onclick="EliminarEvento(${js[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalEvento(${js[i].Eventos_id});" class="bi bi-gear ms-2 pointer"></i></td>
       </tr>`);
     }
     respuestaHTTP=data;

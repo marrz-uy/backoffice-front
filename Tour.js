@@ -40,6 +40,8 @@ function AltaDeTour(){
   if(InformacionTour.puntosdeInteresTour===''){
    return Avisos('Debe seleccionar un punto de interes');
   }
+  
+  InformacionTour.Opcion="AltaDeTour"
   console.log(InformacionTour);
   $.ajax({
     url: `http://127.0.0.1:8000/api/tourPredefinido`,
@@ -47,8 +49,8 @@ function AltaDeTour(){
     dataType: 'json',
     data:InformacionTour
   }).done(function (data) {
-      console.log(data.Message);
-      Avisos('Se registro Correctamente');
+      console.log(data);
+      Avisos(data.Message);
       $('#BotonAceptarModalAviso').removeAttr('onclick');
       $('#BotonAceptarModalAviso').attr('onclick','location.reload();');
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
@@ -140,7 +142,7 @@ function ConsultarTour() {
         <th scope="row">${data[0].data[i].nombreTourPredefinido}</th>
         <td>${data[0].data[i].horaDeInicioTourPredefinido}</td>
         <td>${data[0].data[i].descripcionTourPredefinido}</td>
-        <td><i onclick="EliminarTourPredefinido(${data[0].data[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarTour(${data[0].data[i].id});" class="bi bi-gear ms-2 pointer"></i></td>
+        <td class="text-center"><i onclick="EliminarTourPredefinido(${data[0].data[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarTour(${data[0].data[i].id});" class="bi bi-gear ms-2 pointer"></i></td>
         </tr>`);
       }
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
@@ -174,8 +176,8 @@ function ConsultaTourHtml() {
   $('#contenido-tour').html('');
   $('#contenido-tour').append(`
   
-  <div class="table-responsive">
-  <table class="table table-hover">
+  <div class="table-responsive mt-3">
+  <table class="table table-dark table-hover">
   <thead>
     <tr>
       <th scope="col">Nombre del Tour</th>
@@ -193,7 +195,7 @@ function ConsultaTourHtml() {
     </tr>
   </thead>
   
-  <tbody id="tbody-Tour">
+  <tbody class="table-success" id="tbody-Tour">
     
   </tbody>
   
@@ -234,7 +236,7 @@ function ConsultarPuntosDeInteresParaTour(categoria) {
         <th scope="row">${js[i].Nombre}</th>
         <td>${js[i].Departamento}</td>
        
-        <td>
+        <td class="text-center">
               <svg onclick="getDataTour('${js[i].id}','${js[i].Nombre}','${js[i].Departamento}','${js[i].Direccion}');" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill pointer" viewBox="0 0 16 16">
                   <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
               </svg>
@@ -292,7 +294,7 @@ function BuscarTourPorNombre(){
       <td>${data[0].FechaInicio}</td>
       <td>${data[0].HoraInicio}</td>
       <td>${data[0].TipoEvento}</td>
-      <td><i onclick="EliminarEvento(${data[0].id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalEvento(${data[0].Eventos_id});" class="bi bi-gear ms-2 pointer"></i></td>
+      <td class="text-center"><i onclick="EliminarEvento(${data[0].id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalEvento(${data[0].Eventos_id});" class="bi bi-gear ms-2 pointer"></i></td>
       </tr>`);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
@@ -326,7 +328,7 @@ function ConsultarPorPagina(UrlPagina){
       <th scope="row">${data[0].data[i].nombreTourPredefinido}</th>
       <td>${data[0].data[i].horaDeInicioTourPredefinido}</td>
       <td>${data[0].data[i].descripcionTourPredefinido}</td>
-      <td><i onclick="EliminarTourPredefinido(${data[0].data[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarTour(${data[0].data[i].id});" class="bi bi-gear ms-2 pointer"></i></td>
+      <td class="text-center"><i onclick="EliminarTourPredefinido(${data[0].data[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarTour(${data[0].data[i].id});" class="bi bi-gear ms-2 pointer"></i></td>
       </tr>`);
     }
     $('#TituloTablaTour').text(`TOUR PREDEFINIDOS - Página ${data[0].current_page}`);
@@ -380,7 +382,7 @@ $('#tbody-tourPreview').append(`
 <th scope="row">${Nombre}</th>
 <td>'${Departamento}'</td>
 <td>'${Direccion}'</td>
-<td><i onclick="removeDataTour('${id}');" class="bi bi-trash pointer" ></i></td>
+<td class="text-center"><i onclick="removeDataTour('${id}');" class="bi bi-trash pointer" ></i></td>
 </tr>
 `);
 puntosdeInteresTour.push(id);
