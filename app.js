@@ -300,7 +300,7 @@ function ConsultarPuntosDeInteres(categoria) {
         <td>${js[i].Departamento}</td>
         <td>${js[i].Ciudad}</td>
         <td>${js[i].Direccion}</td>
-        <td><i onclick="EliminarPuntoDeInteres(${js[i].puntosinteres_id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalPuntosDeInteres(${js[i].puntosinteres_id},${localStorage.getItem('Categoria')},'Unico');" style="cursor:pointer;" class="bi bi-gear ms-2"></i></td>
+        <td class="text-center"><i onclick="EliminarPuntoDeInteres(${js[i].puntosinteres_id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalPuntosDeInteres(${js[i].puntosinteres_id},${localStorage.getItem('Categoria')},'Unico');" style="cursor:pointer;" class="bi bi-gear ms-2"></i></td>
         </tr>`;
         
       };
@@ -311,7 +311,7 @@ function ConsultarPuntosDeInteres(categoria) {
         <td>${js[i].Departamento}</td>
         <td>${js[i].Ciudad}</td>
         <td>${js[i].Direccion}</td>
-        <td><i onclick="EliminarPuntoDeInteres(${js[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalPuntosDeInteres(${js[i].id},${localStorage.getItem('Categoria')},'Unico');" style="cursor:pointer;" class="bi bi-gear ms-2"></i></td>
+        <td class="text-center"><i onclick="EliminarPuntoDeInteres(${js[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalPuntosDeInteres(${js[i].id},${localStorage.getItem('Categoria')},'Unico');" style="cursor:pointer;" class="bi bi-gear ms-2"></i></td>
         </tr>`;
       }
       
@@ -345,8 +345,9 @@ function BuscarUnPuntoDeInteres(){
     }
   }).done(function (data) {
     console.log(data);
-    if($('#txt-buscar').val()===''){
-      return ConsultarPuntosDeInteres('PuntosDeInteres');
+    if($('#txt-buscar').val()===''){ 
+      ConsultarPuntosDeInteres('PuntosDeInteres');  
+      return $('#TituloCategorias').text('PUNTOS DE INTERES');
     }
     if(data.Mensaje==='No hubo resultado'){
       console.log(data.Mensaje);
@@ -471,6 +472,59 @@ function ModalConsulta(Categoria){
 }
 $('#btnModificarPuntosInteres').click(function (e) {
   e.preventDefault();
+  if ($('#NombrePuntoDeInteres').val() == '') {
+    return $('#NombrePuntoDeInteres').addClass('is-invalid');
+  }
+  if ($('#NombrePuntoDeInteres').val() != '') {
+    $('#NombrePuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#DepartamentoPuntoDeInteres').val() == '') {
+    return $('#DepartamentoPuntoDeInteres').addClass('is-invalid');
+  }
+  if ($('#DepartamentoPuntoDeInteres').val() != '') {
+    $('#DepartamentoPuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
+  }
+
+  if ($('#CiudadPuntoDeInteres').val() == '') {
+    return $('#CiudadPuntoDeInteres').addClass('is-invalid');
+  }
+  if ($('#CiudadPuntoDeInteres').val() != '') {
+    $('#CiudadPuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
+  }
+
+  if ($('#Latitud').val().length == 0) {
+    return $('#Latitud').addClass('is-invalid');
+  }
+  if ($('#Latitud').val().length != 0) {
+     $('#Latitud').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#Longitud').val().length == 0) {
+    return $('#Longitud').addClass('is-invalid');
+  }
+  if ($('#Longitud').val().length != 0) {
+    $('#Longitud').removeClass('is-invalid').addClass('is-valid');
+  }
+ 
+  if ($('#TipoDeLugar').val() === 'Tipo De Lugar') {
+    return $('#TipoDeLugar').addClass('is-invalid');
+  }
+  if ($('#TipoDeLugar').val() != 'Tipo De Lugar') {
+    $('#TipoDeLugar').removeClass('is-invalid').addClass('is-valid');
+  }
+
+  if ($('#RestriccionDeEdad').val() === 'Restriccion De Edad') {
+    return $('#RestriccionDeEdad').addClass('is-invalid');
+  }
+  if ($('#RestriccionDeEdad').val() != 'Restriccion De Edad') {
+    $('#RestriccionDeEdad').removeClass('is-invalid').addClass('is-valid');
+  }
+
+  if ($('#EnfoqueDePersonas').val() === 'Enfoque De Personas') {
+    return $('#EnfoqueDePersonas').addClass('is-invalid');
+  }
+  if ($('#EnfoqueDePersonas').val() != 'Enfoque De Personas') {
+    $('#EnfoqueDePersonas').removeClass('is-invalid').addClass('is-valid');
+  }
   let Categoria=localStorage.getItem('Categoria');
   getInputPuntoDeInteres();
   if(Categoria==="'alojamientos'")getInputAlojamiento();
@@ -543,7 +597,59 @@ function setInputGastronomico(datos){
     if(datos.MenuInfantil!=0)$('#InputMenuInfantil').attr('checked',true);
 }
 function getInputPuntoDeInteres() {
-  
+  if ($('#NombrePuntoDeInteres').val() == '') {
+    return $('#NombrePuntoDeInteres').addClass('is-invalid');
+  }
+  if ($('#NombrePuntoDeInteres').val() != '') {
+    $('#NombrePuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#DepartamentoPuntoDeInteres').val() == '') {
+    return $('#DepartamentoPuntoDeInteres').addClass('is-invalid');
+  }
+  if ($('#DepartamentoPuntoDeInteres').val() != '') {
+    $('#DepartamentoPuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
+  }
+
+  if ($('#CiudadPuntoDeInteres').val() == '') {
+    return $('#CiudadPuntoDeInteres').addClass('is-invalid');
+  }
+  if ($('#CiudadPuntoDeInteres').val() != '') {
+    $('#CiudadPuntoDeInteres').removeClass('is-invalid').addClass('is-valid');
+  }
+
+  if ($('#Latitud').val().length == 0) {
+    return $('#Latitud').addClass('is-invalid');
+  }
+  if ($('#Latitud').val().length != 0) {
+     $('#Latitud').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#Longitud').val().length == 0) {
+    return $('#Longitud').addClass('is-invalid');
+  }
+  if ($('#Longitud').val().length != 0) {
+    $('#Longitud').removeClass('is-invalid').addClass('is-valid');
+  }
+ 
+  if ($('#TipoDeLugar').val() === 'Tipo De Lugar') {
+    return $('#TipoDeLugar').addClass('is-invalid');
+  }
+  if ($('#TipoDeLugar').val() != 'Tipo De Lugar') {
+    $('#TipoDeLugar').removeClass('is-invalid').addClass('is-valid');
+  }
+
+  if ($('#RestriccionDeEdad').val() === 'Restriccion De Edad') {
+    return $('#RestriccionDeEdad').addClass('is-invalid');
+  }
+  if ($('#RestriccionDeEdad').val() != 'Restriccion De Edad') {
+    $('#RestriccionDeEdad').removeClass('is-invalid').addClass('is-valid');
+  }
+
+  if ($('#EnfoqueDePersonas').val() === 'Enfoque De Personas') {
+    return $('#EnfoqueDePersonas').addClass('is-invalid');
+  }
+  if ($('#EnfoqueDePersonas').val() != 'Enfoque De Personas') {
+    $('#EnfoqueDePersonas').removeClass('is-invalid').addClass('is-valid');
+  }
   InformacionPuntoDeInteres = {
     Nombre: $('#NombrePuntoDeInteres').val(),
     Departamento: $('#DepartamentoPuntoDeInteres').val(),

@@ -12,11 +12,14 @@
                 <input type="text" class="form-control" id="CiudadPuntoDeInteres" name="CiudadPuntoDeInteres" placeholder="Ciudad" required>
             </div>
             <div class="input-group mb-3">
-              <input type="text" class="form-control" id="DireccionPuntoDeInteres1" name="DireccionPuntoDeInteres" placeholder="Direccion" >
-              <input type="text" class="form-control ms-2" id="DireccionPuntoDeInteres2" name="DireccionPuntoDeInteres" placeholder="N° de puerta" >
-              <input type="text" class="form-control ms-2" id="DireccionPuntoDeInteres3" name="DireccionPuntoDeInteres" placeholder="Esquina" >
+              <input type="text" class="form-control me-1" id="Latitud" placeholder="Latitud">
+              <input type="text" class="form-control ms-1" id="Longitud" placeholder="Longitud">
+          </div>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" id="DireccionPuntoDeInteres1" name="DireccionPuntoDeInteres"
+                placeholder="Direccion">
               <div id="campoRequerido3" class="ms-2 invalid-feedback">
-                  El campo es obligatorio
+                El campo es obligatorio
               </div>
             </div>
            
@@ -121,10 +124,13 @@
             <div class="mb-3">
                 <input class="form-control" type="file" id="Imagen" name="Imagen">
               </div>
-            <div class="mb-3">
-                <textarea class="form-control" id="DescripcionPuntoDeInteres" name="DescripcionPuntoDeInteres" rows="3"></textarea>
-            </div>
-            <div class="mb-3">
+            <div class="input-group mb-3">
+                <textarea placeholder="Recomendaciones" class="form-control" id="DescripcionPuntoDeInteres" name="DescripcionPuntoDeInteres" rows="3"></textarea>
+                <div id="campoRequerido3" class="ms-2 invalid-feedback">
+                  El campo es obligatorio
+                </div>
+              </div>
+            <div class="input-group mb-3">
               <select id="TipoDetallado" class="form-select" aria-label="Default select example">
                   <option selected>Seleccionar Tipo</option>
                   <option value="Playas">Playas</option>
@@ -132,6 +138,9 @@
                   <option value="Cerros">Cerros</option>
                   <option value="Sierras">Sierras</option>
               </select>
+              <div id="campoRequerido3" class="ms-2 invalid-feedback">
+                El campo es obligatorio
+              </div>
           </div>
           <div class="mb-3">
               <textarea class="form-control" id="RecomendacionesPaseos" name="RecomendacionesPaseos" rows="3"></textarea>
