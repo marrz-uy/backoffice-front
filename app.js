@@ -220,26 +220,71 @@ function AltaDePuntoDeInteres(InformacionPuntoDeInteres) {
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function AltaDeServicioEscencial() {
+  if ($('#TipoDetallado').val() === 'Seleccionar Tipo') {
+    return $('#TipoDetallado').addClass('is-invalid');
+  }
+  if ($('#TipoDetallado').val() != 'Seleccionar Tipo') {
+    $('#TipoDetallado').removeClass('is-invalid').addClass('is-valid');
+  }
   getInputServicioEsencial();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
 function AltaDeActividadesInfantiles() {
+  if ($('#TipoDetallado').val() === 'Seleccionar Tipo') {
+    return $('#TipoDetallado').addClass('is-invalid');
+  }
+  if ($('#TipoDetallado').val() != 'Seleccionar Tipo') {
+    $('#TipoDetallado').removeClass('is-invalid').addClass('is-valid');
+  }
   getInputActividadesInfantiles();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
 function AltaDeActividadesNocturnas() {
+  if ($('#TipoDetallado').val() === 'Seleccionar Tipo') {
+    return $('#TipoDetallado').addClass('is-invalid');
+  }
+  if ($('#TipoDetallado').val() != 'Seleccionar Tipo') {
+    $('#TipoDetallado').removeClass('is-invalid').addClass('is-valid');
+  }
   getInputActividadesNocturnas();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
 function AltaDeEspectaculos(){
+  if ($('#TipoDetallado').val() === 'Seleccionar Tipo') {
+    return $('#TipoDetallado').addClass('is-invalid');
+  }
+  if ($('#TipoDetallado').val() != 'Seleccionar Tipo') {
+    $('#TipoDetallado').removeClass('is-invalid').addClass('is-valid');
+  }
   getInputEspectaculos();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
 function AltaDeTransporte() {
+  if ($('#TipoDetallado').val() === 'Seleccionar Tipo') {
+    return $('#TipoDetallado').addClass('is-invalid');
+  }
+  if ($('#TipoDetallado').val() != 'Seleccionar Tipo') {
+    $('#TipoDetallado').removeClass('is-invalid').addClass('is-valid');
+  }
   getInputTransporte();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
 function AltaDePaseos() {
+  if ($('#TipoDetallado').val() === 'Seleccionar Tipo') {
+    return $('#TipoDetallado').addClass('is-invalid');
+  }
+  if ($('#TipoDetallado').val() != 'Seleccionar Tipo') {
+    $('#TipoDetallado').removeClass('is-invalid').addClass('is-valid');
+  }
+
+  if ($('#RecomendacionesPaseos').val() === '') {
+    return $('#RecomendacionesPaseos').addClass('is-invalid');
+  }
+  if ($('#RecomendacionesPaseos').val() != '') {
+    $('#RecomendacionesPaseos').removeClass('is-invalid').addClass('is-valid');
+  }
+
+  
   getInputPaseos();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
@@ -260,6 +305,12 @@ function AltaDeAlojamiento() {
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
 function AltaDeGastronomico() {
+  if ($('#TipoDetallado').val() === 'Seleccionar Tipo') {
+    return $('#TipoDetallado').addClass('is-invalid');
+  }
+  if ($('#TipoDetallado').val() != 'Seleccionar Tipo') {
+    $('#TipoDetallado').removeClass('is-invalid').addClass('is-valid');
+  }
   getInputGastronomico();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
@@ -354,10 +405,13 @@ function BuscarUnPuntoDeInteres(){
       Avisos(data.Mensaje);
       ConsultarPuntosDeInteres('PuntosDeInteres');
     }
+    $('#TituloCategorias').text(`Busqueda: ${$('#txt-buscar').val()}`);
       mostrarPunto(data);
+      pagination(data);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function mostrarPunto(datos){
+  datos=datos.data
   console.log(datos);
   $('#tbody').html('');
   for(i=0;i<datos.length;i++){
@@ -527,14 +581,32 @@ $('#btnModificarPuntosInteres').click(function (e) {
   }
   let Categoria=localStorage.getItem('Categoria');
   getInputPuntoDeInteres();
-  if(Categoria==="'alojamientos'")getInputAlojamiento();
+  if ($('#TipoDetallado').val() === 'Seleccionar Tipo') {
+    return $('#TipoDetallado').addClass('is-invalid');
+  }
+  if ($('#TipoDetallado').val() != 'Seleccionar Tipo') {
+    $('#TipoDetallado').removeClass('is-invalid').addClass('is-valid');
+  }
+  if(Categoria==="'alojamientos'"){
+    
+    getInputAlojamiento();
+  }
+  
   if(Categoria==="'gastronomicos'")getInputGastronomico();
   if(Categoria==="'actividades_infantiles'")getInputActividadesInfantiles();
   if(Categoria==="'actividades_nocturnas'")getInputActividadesNocturnas();
   if(Categoria==="'transporte'")getInputTransporte();
-  if(Categoria==="'paseos'")getInputPaseos();
-  if(Categoria==="'espectaculos'")getInputEspectaculos();
-  if(Categoria==="'servicios_esenciales'")getInputServicioEsencial();
+  if(Categoria==="'paseos'"){
+    if ($('#RecomendacionesPaseos').val() === '') {
+      return $('#RecomendacionesPaseos').addClass('is-invalid');
+    }
+    if ($('#RecomendacionesPaseos').val() != '') {
+      $('#RecomendacionesPaseos').removeClass('is-invalid').addClass('is-valid');
+    }
+    getInputPaseos();
+  }
+  if(Categoria==="'espectaculos'"){getInputEspectaculos();}
+  if(Categoria==="'servicios_esenciales'"){getInputServicioEsencial();}
   ModificarPuntosDeInteres(IdModificarPuntoDeInteres,InformacionPuntoDeInteres);
 });
 //FUNCIONES AUXILIARES------------------------------------------------------------------------------------------------------------------->

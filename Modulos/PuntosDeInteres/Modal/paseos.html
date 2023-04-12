@@ -15,14 +15,31 @@
               <input type="text" class="form-control me-1" id="Latitud" placeholder="Latitud">
               <input type="text" class="form-control ms-1" id="Longitud" placeholder="Longitud">
           </div>
+          <div class="input-group mb-3">
+            <select id="TipoDetallado" class="form-select" aria-label="Default select example">
+                <option selected>Seleccionar Tipo</option>
+                <option value="Playas">Playas</option>
+                <option value="Ejercicios al aire libre">Ejercicios al aire libre</option>
+                <option value="Cerros">Cerros</option>
+                <option value="Sierras">Sierras</option>
+            </select>
+            <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                            <div id="campoRequerido2" class="ms-2 invalid-feedback">
+                                El campo es obligatorio
+                            </div>
+        </div>
+        <div class="input-group mb-3">
+          <textarea class="form-control" id="RecomendacionesPaseos" name="RecomendacionesPaseos" rows="3"></textarea>
+          <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                          <div id="campoRequerido2" class="ms-2 invalid-feedback">
+                              El campo es obligatorio
+                          </div>
+      </div>
             <div class="input-group mb-3">
               <input type="text" class="form-control" id="DireccionPuntoDeInteres1" name="DireccionPuntoDeInteres"
                 placeholder="Direccion">
-              <div id="campoRequerido3" class="ms-2 invalid-feedback">
-                El campo es obligatorio
-              </div>
             </div>
-           
+            
             <div class="mb-3">
                 <div class="accordion" id="accordionExample">
                     <div class="accordion-item">
@@ -97,30 +114,7 @@
 
   </div>
 </div>
-             <!--HORARIO--------------------------------------------------------------------------------------------------->
-             <div class="mb-3">
-                <div class="accordion" id="accordionExample">
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button form-control" type="button" data-bs-toggle="collapse" data-bs-target="#horarios" aria-expanded="true" aria-controls="collapseOne">
-                          Horario
-                        </button>
-                      </h2>
-                      <div id="horarios" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#horarios">
-                        <div class="accordion-body">
-                            <div class="mb-3">
-                                <input type="text" class="form-control" id="HoraDeApertura" name="HoraApertura" placeholder="Horario de Apertura">
-                            </div>
-                            <div class="mb-3">
-                                <input type="text" class="form-control" id="HoraDeCierre" name="HoraCierre" placeholder="Horario de Cierre">
-                            </div>
-                        
-                        </div>
-                      </div>
-                    </div>
-                  
-                  </div>
-            </div>
+             
             <div class="mb-3">
                 <input class="form-control" type="file" id="Imagen" name="Imagen">
               </div>
@@ -130,18 +124,19 @@
                   El campo es obligatorio
                 </div>
               </div>
-            <div class="input-group mb-3">
-              <select id="TipoDetallado" class="form-select" aria-label="Default select example">
-                  <option selected>Seleccionar Tipo</option>
-                  <option value="Playas">Playas</option>
-                  <option value="Ejercicios al aire libre">Ejercicios al aire libre</option>
-                  <option value="Cerros">Cerros</option>
-                  <option value="Sierras">Sierras</option>
-              </select>
-              <div id="campoRequerido3" class="ms-2 invalid-feedback">
-                El campo es obligatorio
-              </div>
-          </div>
+              <div class="input-group mb-3">
+                <select id="TipoDetallado" class="form-select" aria-label="Default select example">
+                    <option selected>Seleccionar Tipo</option>
+                    <option value="Playas">Playas</option>
+                    <option value="Ejercicios al aire libre">Ejercicios al aire libre</option>
+                    <option value="Cerros">Cerros</option>
+                    <option value="Sierras">Sierras</option>
+                </select>
+                <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                                <div id="campoRequerido2" class="ms-2 invalid-feedback">
+                                    El campo es obligatorio
+                                </div>
+            </div>
           <div class="mb-3">
               <textarea class="form-control" id="RecomendacionesPaseos" name="RecomendacionesPaseos" rows="3"></textarea>
           </div>

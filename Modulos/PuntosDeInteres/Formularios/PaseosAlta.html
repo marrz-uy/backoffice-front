@@ -2,7 +2,7 @@
     <div class="col-sm-6 mt-3">
         <form action="" method="POST">
             <h3 class="text-center">PASEOS</h3>
-            <div class="mb-3">
+            <div class="input-group mb-3">
                 <select id="TipoDetallado" class="form-select" aria-label="Default select example">
                     <option selected>Seleccionar Tipo</option>
                     <option value="Playas">Playas</option>
@@ -10,9 +10,17 @@
                     <option value="Cerros">Cerros</option>
                     <option value="Sierras">Sierras</option>
                 </select>
+                <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                                <div id="campoRequerido2" class="ms-2 invalid-feedback">
+                                    El campo es obligatorio
+                                </div>
             </div>
-            <div class="mb-3">
+            <div class="input-group mb-3">
                 <textarea class="form-control" id="RecomendacionesPaseos" name="RecomendacionesPaseos" rows="3"></textarea>
+                <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                                <div id="campoRequerido2" class="ms-2 invalid-feedback">
+                                    El campo es obligatorio
+                                </div>
             </div>
         </form>
     </div>
