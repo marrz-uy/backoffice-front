@@ -18,9 +18,9 @@
     <div  class="container-fluid">
         <div class="row ">
             <header class="rounded  " style="border:2px solid black">
-                <div class="col-sm m-2">
+                <div class="col-md m-2">
                     <form class="row justify-content-center" method="POST">
-                        <div class="col-sm">
+                        <div class="col-md">
                           <a href="../../index.html"><img src="../../mars-NyN.png" alt="Logo" width="50px"></a>
                         </div>
                     </form>
@@ -34,11 +34,11 @@
         
         <!--Aside y Main -->
         <div style="height: 90vh;" class="row">
-            <aside class="col-sm-3 col-md-3 col-lg-3 rounded" style="border:2px solid black;">
-                <div class="flex-shrink-0 p-3 ms-3 bg-white" style="width: 280px;">
+            <aside class=" col-md-3  rounded" style="border:2px solid black;">
+                <div class="flex-shrink-0 p-3 ms-3 bg-white" >
                     <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
                     <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
-                    <span class="fs-5 fw-semibold">Menu Gestor Turistico</span>
+                    <span class="fs-5 col-md fw-semibold">Menu Gestor Turistico</span>
                     </a>
                     <ul class="list-unstyled ps-0">
                         <li class="mb-1">
@@ -69,25 +69,25 @@
                     </ul>
                 </div>
         </aside>
-            <main class="col-sm-9 col-md-9 col-lg-9 rounded" style="border:2px solid black;">
+            <main class=" col-md-9  rounded" style="border:2px solid black;">
                 <div class="row justify-content-center">
-                    <div class="col-11 mt-3">
+                    <div class="col-md-11 mt-3">
                         <div class="row">
-                          <div class="col">
+                          <div class="col-md">
                             <h3 id="TituloCategorias">PUNTOS DE INTERES</h3>
                           </div>
                           <div class="row">
-                            <div class="col-9 input-group w-50">
+                            <div class="col-md-9 input-group w-50">
                               <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
                               <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary ms-2" value="Buscar">                        
                             </div>
-                          <div class="col-6 ">
-                            <div class="dropdown offset-9 ">
+                          <div class="col-md-6 ">
+                            <div class="dropdown float-end ">
                               <!--BUSCAR POR CATEGORIA------------------------------------------------------------------------------------------------------------------------->
                                 <button class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                   Seleccionar Categoria
                                 </button>
-                                <ul class="dropdown-menu col" aria-labelledby="dropdownMenuButton1">
+                                <ul class="dropdown-menu col-md" aria-labelledby="dropdownMenuButton1">
                                     <li><a onclick="ArregloCategorias('alojamientos');" class="dropdown-item text-white bg-secondary" href="#">Alojamiento</a></li>
                                     <li><a onclick="ArregloCategorias('gastronomicos');" class="dropdown-item text-white bg-secondary" href="#">Gastronomia</a></li>
                                     <li><a onclick="ArregloCategorias('espectaculos');" class="dropdown-item text-white bg-secondary" href="#">Espectaculos</a></li>
