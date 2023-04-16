@@ -16,20 +16,11 @@
     <div  class="container-fluid">
         <div class="row ">
             <header class="rounded  " style="border:2px solid black">
-                <div class="col-sm m-2">
+                <div class="col-md m-2">
                     <form class="row justify-content-center" method="POST">
-                        <div class="col-sm">
+                        <div class="col-md">
                             <img src="../../mars-NyN.png" alt="Logo" width="50px">
                         </div>
-                        <div class="col-3">
-                        <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
-                        </div>
-                        <div class="col-auto">
-                            <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">
-                            <input type="button" class="btn btn-secondary" onclick="ConsultarPuntosDeInteres();" value="Limpiar Filtros">                        
-                        </div>
-                
-                       
                     </form>
                   
                 </div>
@@ -38,8 +29,8 @@
         </div>     
         <!--Aside y Main -->
         <div style="height: 90vh;" class="row">
-            <aside class="col-3 rounded" style="border:2px solid black;">
-                <div class="flex-shrink-0 p-3 ms-3 bg-white" style="width: 280px;">
+            <aside class="col-md-3 rounded" style="border:2px solid black;">
+                <div class="flex-shrink-0 p-3 ms-3 bg-white">
                     <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
                     <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
                     <span class="fs-5 fw-semibold">Menu Gestor Turistico</span>
@@ -74,9 +65,9 @@
                     </ul>
                 </div>
             </aside>
-            <main id="main" class="col-9 rounded" style="border:2px solid black;">
+            <main id="main" class="col-md-9 rounded" style="border:2px solid black;">
                 <div class="row justify-content-center">
-                    <div class="col-sm-6 mt-3">
+                    <div class="col-md-6 mt-3">
                         <form id="FormularioPuntoDeInteres" method="POST" enctype="multipart/formdata">
                             <h3 class="text-center">REGISTRO DE PUNTOS DE INTERES</h3>
                             

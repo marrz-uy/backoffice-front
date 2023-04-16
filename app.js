@@ -610,6 +610,33 @@ $('#btnModificarPuntosInteres').click(function (e) {
   ModificarPuntosDeInteres(IdModificarPuntoDeInteres,InformacionPuntoDeInteres);
 });
 //FUNCIONES AUXILIARES------------------------------------------------------------------------------------------------------------------->
+function EnviarNotificacion(){
+  if ($('#TituloNotificacion').val() == '') {
+    return $('#TituloNotificacion').addClass('is-invalid');
+  }
+  if ($('#TituloNotificacion').val() != '') {
+    $('#TituloNotificacion').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#MensajeNotificacion').val() == '') {
+    return $('#MensajeNotificacion').addClass('is-invalid');
+  }
+  if ($('#MensajeNotificacion').val() != '') {
+    $('#MensajeNotificacion').removeClass('is-invalid').addClass('is-valid');
+  }
+  $.ajax({
+    url: 'http://127.0.0.1:8000/api/message',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      "title":$('#TituloNotificacion').val(),
+      "message":$('#MensajeNotificacion').val()
+    }
+  }).done(function (data) {
+    console.log(data);
+    $('#ModalDeNotificaciones').modal('hide');
+    Avisos(data.message);
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
 function setInputPuntoDeInteres(Nombre,Departamento,Ciudad,Direccion,Facebook,Instagram,HoraDeApertura,HoraDeCierre,Descripcion,Latitud,Longitud,TipoDeLugar,RestriccionDeEdad,EnfoqueDePersonas){
   $('#NombrePuntoDeInteres').val(Nombre);
   $('#DepartamentoPuntoDeInteres').val(Departamento);
