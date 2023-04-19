@@ -411,7 +411,6 @@ function BuscarUnPuntoDeInteres(){
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function mostrarPunto(datos){
-  datos=datos.data
   console.log(datos);
   $('#tbody').html('');
   for(i=0;i<datos.length;i++){
@@ -449,11 +448,9 @@ function ConsultarTelefonosPuntoDeInteres(id) {
     dataType: 'json',
     data:{id:id}
   }).done(function (data) {
-    return console.log(data);
-    for (var i = 0; i < data.length; i++) {
-      $(`#TelefonoPuntoDeInteres${i}`).val(data[i].Telefono);
-      $(`#TelefonoPuntoDeInteres${i+1}`).val('');
-    }
+    console.log(data);
+    if(data[0].Telefono!='')$('#TelefonoPuntoDeInteres0').val(data[0].Telefono);
+    if(data[1].Telefono!='')$('#TelefonoPuntoDeInteres1').val(data[1].Telefono);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 //BAJA --------------------------------------------------------------------------------------------------------------------------------------->
