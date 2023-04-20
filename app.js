@@ -411,16 +411,17 @@ function BuscarUnPuntoDeInteres(){
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function mostrarPunto(datos){
-  console.log(datos);
+  
+  //console.log(datos[1][0]);
   $('#tbody').html('');
   for(i=0;i<datos.length;i++){
     $('#tbody').append(`
     <tr class="table-active">
-    <th scope="row">${datos[i].Nombre}</th>
-    <td>${datos[i].Departamento}</td>
-    <td>${datos[i].Ciudad}</td>
-    <td>${datos[i].Direccion}</td>
-    <td><i onclick="EliminarPuntoDeInteres(${datos[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalPuntosDeInteres(${datos[i].id},${localStorage.getItem('Categoria')},'Unico');" style="cursor:pointer;" class="bi bi-gear ms-2"></i></td>
+    <th scope="row">${datos[i][0].Nombre}</th>
+    <td>${datos[i][0].Departamento}</td>
+    <td>${datos[i][0].Ciudad}</td>
+    <td>${datos[i][0].Direccion}</td>
+    <td><i onclick="EliminarPuntoDeInteres(${datos[i][0].id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalPuntosDeInteres(${datos[i][0].id},'${datos[i][0].Categoria}','Unico');" style="cursor:pointer;" class="bi bi-gear ms-2"></i></td>
     </tr>`);
   }
   
