@@ -38,7 +38,7 @@
         <!--Aside y Main -->
         <div style="height: 90vh;" class="row">
             <aside class="col-sm-3 col-md-3 col-lg-3 rounded" style="border:2px solid black;">
-                <div class="flex-shrink-0 p-3 ms-3 bg-white" style="width: 280px;">
+                <div class="flex-shrink-0 p-3 ms-3 bg-white">
                     <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
                     <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
                     <span class="fs-5 fw-semibold">Menu Gestor Turistico</span>
@@ -76,10 +76,10 @@
                         <div class="row">
                             <h2>EVENTOS</h2>
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-md-6">
                                     <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-md-3">
                                         <input type="button" onclick="BuscarEventoPorNombre();" id="btn-buscar" class="btn btn-primary w-50" value="Buscar">                       
                                     </div>
                             </div>
@@ -151,10 +151,10 @@
     <div class="modal-content">
         <div class="modal-header">
             <div class="row w-100 justify-content-between">
-                <div class="col-8">
+                <div class="col-md-8">
                     <h3>MODIFICAR EVENTO</h3>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3">
                     <input type="button" onclick="window.location='PuntosInteresAlta.html';" class="ms-5 btn btn-success" value="Agregar Sitio">
                 </div>
             </div>
@@ -172,10 +172,10 @@
                       </div>
                       <div class="row mb-3">
                           
-                          <div class="col-10">
+                          <div class="col-md-10">
                               <input disabled type="text" class="form-control" id="LugarDelEvento" name="LugarDelEvento"  placeholder="Agregar sitio del evento">
                           </div>
-                          <div class="col-2">
+                          <div class="col-md-2">
                             
                               <button id="btnConsultarLugar" data-bs-target="#ModalDeLugares" data-bs-toggle="modal" type="button" class="btn btn-success btn-toggle">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
@@ -280,10 +280,10 @@
 
                 <div class="row border">
 
-                  <div class="col ">
+                  <div class="col-md ">
                     <input id="imagenes" type="file">
                   </div>
-                  <div id="divBotonImagen" class="col ">
+                  <div id="divBotonImagen" class="col-md ">
                     
                   </div>
 
@@ -310,7 +310,7 @@
           </div>
       </div>
       <div class="modal-footer">
-        <div class="col-1">
+        <div class="col-md-1">
           <button type="button" onclick="$('#ModalDeEventos').modal('hide');" class="btn btn-secondary w-100" data-dismiss="modal">Cerrar</button>
         </div>
 
@@ -325,18 +325,18 @@
           <div class="modal-content">
             <div class="modal-header">
               <div class="row w-100">
-                <div class="col-11">
+                <div class="col-md-11">
                   <h2 class="modal-title w-100" id="exampleModalLabel">Lugares de Eventos</h2>
               </div>
               <div class="row mt-3 w-100">
-                <div class="col-9">
+                <div class="col-md-9">
                   <div class="w-50 input-group">
                     <input type="text" class="form-control" id="txt-buscar-lugares" placeholder="Buscar">
                     <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">                        
                   </div>
                 </div>
                 
-                <div class="col-3">
+                <div class="col-md-3">
                   <input type="button" onclick="window.location='PuntosInteresAlta.html';" class="btn btn-success float-end" value="Agregar Sitio">
                 </div>
               </div>
@@ -374,10 +374,10 @@
             </div>
             <div class="modal-footer">
                 <div class="row w-100 justify-content-between">
-                    <div class="col-8">
+                    <div class="col-md-8">
                         <p id="mensaje" style="color:rgb(31, 102, 31)"></p>
                     </div>
-                    <div class="col-2">
+                    <div class="col-md-2">
                         <button type="button" onclick="$('#ModalDeLugares').modal('hide');" class="btn btn-secondary w-100" data-bs-target="#ModalDeEventos" data-bs-toggle="modal">Cerrar</button>
                     </div>
                 </div>
