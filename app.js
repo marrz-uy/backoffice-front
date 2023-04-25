@@ -668,6 +668,7 @@ function setInputAlojamiento(datos){
   if(datos.Restaurante!=null)$('#InputRestaurante').attr('checked',true);
   if(datos.TvCable!=null)$('#InputTvCable').attr('checked',true);
   if(datos.Wifi!=null)$('#InputWifi').attr('checked',true);
+  if(datos.Mascota!=null)$('#InputMascotas').attr('checked',true);
 }
 function setInputActividadesInfantiles(datos){
   if(datos.Tipo!=null)$('#TipoDetallado').val(datos.Tipo);
@@ -833,6 +834,7 @@ function getInputAlojamiento() {
   $('#InputCasino').prop('checked')?Casino=1:Casino=0;
   $('#InputDesayuno').prop('checked')?Desayuno=1:Desayuno=0;
   $('#InputRestaurante').prop('checked')?Restaurante=1:Restaurante=0;
+  $('#InputMascotas').prop('checked')?Mascota=1:Mascota=0;
   InformacionDetalladaPuntoDeInteres = {
     Tipo: $('#TipoDetallado').val(),
     Calificaciones:$('#InputCalificaciones').val(),
@@ -845,6 +847,7 @@ function getInputAlojamiento() {
     Casino:Casino,
     Desayuno:Desayuno,
     Restaurante:Restaurante,
+    Mascota:Mascota,
     Op: 'Alojamiento'
   }
   InformacionDetalladaPuntoDeInteres = JSON.stringify(InformacionDetalladaPuntoDeInteres);
