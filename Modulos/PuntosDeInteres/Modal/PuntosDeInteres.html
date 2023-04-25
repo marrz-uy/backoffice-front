@@ -164,8 +164,105 @@
 
         </div>
       </div>
+      <!--HORARIO--------------------------------------------------------------------------------------------------->
       <div class="mb-3">
-        <input class="form-control" type="file" id="Imagen" name="Imagen">
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button form-control" type="button" data-bs-toggle="collapse"
+                data-bs-target="#horarios" aria-expanded="true" aria-controls="collapseOne">
+                Horario
+              </button>
+            </h2>
+            <div id="horarios" class="accordion-collapse collapse" aria-labelledby="headingOne"
+              data-bs-parent="#horarios">
+              <div class="accordion-body">
+                <div class="mb-3">
+                  <input type="text" class="form-control" id="HoraDeApertura" name="HoraApertura"
+                    placeholder="Horario de Apertura">
+                </div>
+                <div class="mb-3">
+                  <input type="text" class="form-control" id="HoraDeCierre" name="HoraCierre"
+                    placeholder="Horario de Cierre">
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="mb-3">
+        <textarea class="form-control" id="DescripcionPuntoDeInteres" name="DescripcionPuntoDeInteres"
+          rows="3"></textarea>
+      </div>
+      <!--GESTION DE IMAGENES------------------------------------------------------------------------------------>
+      <div class="mb-3">
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button form-control" type="button" data-bs-toggle="collapse"
+                data-bs-target="#accordion-imagenes" aria-expanded="true" aria-controls="collapseOne">
+                Gestion de Imagenes
+              </button>
+            </h2>
+            <div id="accordion-imagenes" class="accordion-collapse collapse" aria-labelledby="headingOne"
+              data-bs-parent="#accordion-imagenes">
+              <div style="height: 40vh;" class="accordion-body">
+
+                <div class="row border mb-3 messi" style="height: 30vh;">
+                  <div class="messi">
+                    <div id="imagen-container" class="img-container">
+
+                      
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row border">
+
+                  <div class="col ">
+                    <input id="imagenes" type="file">
+                  </div>
+                  <div id="divBotonImagen" class="col ">
+                    
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!--HORARIO--------------------------------------------------------------------------------------------------->
+      <div class="mb-3">
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button form-control" type="button" data-bs-toggle="collapse"
+                data-bs-target="#horarios" aria-expanded="true" aria-controls="collapseOne">
+                Horario
+              </button>
+            </h2>
+            <div id="horarios" class="accordion-collapse collapse" aria-labelledby="headingOne"
+              data-bs-parent="#horarios">
+              <div class="accordion-body">
+                <div class="mb-3">
+                  <input type="text" class="form-control" id="HoraDeApertura" name="HoraApertura"
+                    placeholder="Horario de Apertura">
+                </div>
+                <div class="mb-3">
+                  <input type="text" class="form-control" id="HoraDeCierre" name="HoraCierre"
+                    placeholder="Horario de Cierre">
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
       <div class="mb-3">
         <textarea class="form-control" id="DescripcionPuntoDeInteres" name="DescripcionPuntoDeInteres"

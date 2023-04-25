@@ -450,7 +450,7 @@ function ConsultarTelefonosPuntoDeInteres(id) {
     data:{id:id}
   }).done(function (data) {
     console.log(data);
-    if(data[0].Telefono!='')$('#TelefonoPuntoDeInteres0').val(data[0].Telefono);
+    if(data[0].Telefono!='')$('#TelefonoPuntoDeInteres').val(data[0].Telefono);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 //BAJA --------------------------------------------------------------------------------------------------------------------------------------->
@@ -752,7 +752,7 @@ function getInputPuntoDeInteres() {
     Departamento: $('#DepartamentoPuntoDeInteres').val(),
     Ciudad: $('#CiudadPuntoDeInteres').val(),
     Direccion: $('#DireccionPuntoDeInteres1').val(),
-    Telefono: $('#TelefonoPuntoDeInteres0').val(),
+    Telefono: $('#TelefonoPuntoDeInteres').val(),
     Celular: $('#CelularPuntoDeInteres').val(),
     Facebook: $('#FacebookPuntoDeInteres').val(),
     Instagram: $('#InstagramPuntoDeInteres').val(),
