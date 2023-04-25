@@ -451,7 +451,6 @@ function ConsultarTelefonosPuntoDeInteres(id) {
   }).done(function (data) {
     console.log(data);
     if(data[0].Telefono!='')$('#TelefonoPuntoDeInteres0').val(data[0].Telefono);
-    if(data[1].Telefono!='')$('#TelefonoPuntoDeInteres1').val(data[1].Telefono);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 //BAJA --------------------------------------------------------------------------------------------------------------------------------------->
@@ -483,7 +482,7 @@ function CargarModalPuntosDeInteres(id,Categoria,Opcion) {
   $('#PuntosDeInteres').modal('show');
   ModalConsulta(Categoria);
   setTimeout(function(){
-    setInputPuntoDeInteres(respuestaHTTP.Nombre,respuestaHTTP.Departamento,respuestaHTTP.Ciudad,respuestaHTTP.Direccion,respuestaHTTP.Facebook,respuestaHTTP.Instagram,respuestaHTTP.HoraDeApertura,respuestaHTTP.HoraDeCierre,respuestaHTTP.Descripcion,respuestaHTTP.Latitud,respuestaHTTP.Longitud,respuestaHTTP.TipoDeLugar,respuestaHTTP.RestriccionDeEdad,respuestaHTTP.EnfoqueDePersonas);
+    setInputPuntoDeInteres(respuestaHTTP.Nombre,respuestaHTTP.Departamento,respuestaHTTP.Ciudad,respuestaHTTP.Direccion,respuestaHTTP.Facebook,respuestaHTTP.Instagram,respuestaHTTP.Web,respuestaHTTP.HoraDeApertura,respuestaHTTP.HoraDeCierre,respuestaHTTP.Descripcion,respuestaHTTP.Latitud,respuestaHTTP.Longitud,respuestaHTTP.TipoDeLugar,respuestaHTTP.RestriccionDeEdad,respuestaHTTP.EnfoqueDePersonas);
     ConsultarImagenes(id);
     console.log(id);
     $('#divBotonImagen').append(`<input onclick="NuevaImagen(${id});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
@@ -635,13 +634,14 @@ function EnviarNotificacion(){
     Avisos(data.message);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
-function setInputPuntoDeInteres(Nombre,Departamento,Ciudad,Direccion,Facebook,Instagram,HoraDeApertura,HoraDeCierre,Descripcion,Latitud,Longitud,TipoDeLugar,RestriccionDeEdad,EnfoqueDePersonas){
+function setInputPuntoDeInteres(Nombre,Departamento,Ciudad,Direccion,Facebook,Instagram,Web,HoraDeApertura,HoraDeCierre,Descripcion,Latitud,Longitud,TipoDeLugar,RestriccionDeEdad,EnfoqueDePersonas){
   $('#NombrePuntoDeInteres').val(Nombre);
   $('#DepartamentoPuntoDeInteres').val(Departamento);
   $('#CiudadPuntoDeInteres').val(Ciudad);
   $('#DireccionPuntoDeInteres1').val(Direccion);
   $('#FacebookPuntoDeInteres').val(Facebook);
   $('#InstagramPuntoDeInteres').val(Instagram);
+  $('#WebPuntoDeInteres').val(Web),
   $('#HoraDeApertura').val(HoraDeApertura);
   $('#HoraDeCierre').val(HoraDeCierre);
   $('#DescripcionPuntoDeInteres').val(Descripcion);
@@ -660,7 +660,7 @@ function setInputAlojamiento(datos){
   if(datos.Calificaciones!=null)$('#InputCalificaciones').val(datos.Calificaciones);
   if(datos.Habitaciones!=null)$('#InputHabitaciones').val(datos.Habitaciones);
   if(datos.AireAcondicionado!=null)$('#InputAireAcondicionado').attr('checked',true);
-  if(datos.BanoPrivad!=null)$('#InputBanoPrivado').attr('checked',true);
+  if(datos.BanoPrivado!=null)$('#InputBanoPrivado').attr('checked',true);
   if(datos.Bar!=null)$('#InputBar').attr('checked',true);
   if(datos.Casino!=null)$('#InputCasino').attr('checked',true);
   if(datos.Desayuno!=null)$('#InputDesayuno').attr('checked',true);
@@ -689,7 +689,6 @@ function setInputServicioEsencial(datos){
 function setInputGastronomico(datos){
     if(datos.Tipo!=null)$('#TipoDetallado').val(datos.Tipo);
     if(datos.ComidaVegge!=0)$('#InputComidaVegge').attr('checked',true);
-    if(datos.Comida!=0)$('#InputComida').attr('checked',true);
     if(datos.Alcohol!=0)$('#InputAlcohol').attr('checked',true);
     if(datos.MenuInfantil!=0)$('#InputMenuInfantil').attr('checked',true);
 }
@@ -752,10 +751,11 @@ function getInputPuntoDeInteres() {
     Departamento: $('#DepartamentoPuntoDeInteres').val(),
     Ciudad: $('#CiudadPuntoDeInteres').val(),
     Direccion: $('#DireccionPuntoDeInteres1').val(),
-    Telefono: $('#TelefonoPuntoDeInteres').val(),
+    Telefono: $('#TelefonoPuntoDeInteres0').val(),
     Celular: $('#CelularPuntoDeInteres').val(),
     Facebook: $('#FacebookPuntoDeInteres').val(),
     Instagram: $('#InstagramPuntoDeInteres').val(),
+    Web: $('#WebPuntoDeInteres').val(),
     HoraDeApertura: $('#HoraDeApertura').val(),
     HoraDeCierre: $('#HoraDeCierre').val(),
     Descripcion: $('#DescripcionPuntoDeInteres').val(),
@@ -852,13 +852,11 @@ function getInputAlojamiento() {
 }
 function getInputGastronomico() {
   $('#InputComidaVegge').prop('checked')?ComidaVegge=1:ComidaVegge=0;
-  $('#InputComida').prop('checked')?Comida=1:Comida=0;
   $('#InputAlcohol').prop('checked')?Alcohol=1:Alcohol=0;
   $('#InputMenuInfantil').prop('checked')?MenuInfantil=1:MenuInfantil=0;
   InformacionDetalladaPuntoDeInteres = {
     Tipo: $('#TipoDetallado').val(),
     ComidaVegge:ComidaVegge,
-    Comida:Comida,
     Alcohol:Alcohol,
     MenuInfantil:MenuInfantil,
     Op: 'Gastronomicos'
