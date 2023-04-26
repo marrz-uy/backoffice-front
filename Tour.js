@@ -37,6 +37,7 @@ function AltaDeTour(){
   if ($('#descripcionTourPredefinido').val() != '') {
     $('#descripcionTourPredefinido').removeClass('is-invalid').addClass('is-valid');
   }
+  console.log(InformacionTour);
   if(InformacionTour.puntosdeInteresTour===''){
    return Avisos('Debe seleccionar un punto de interes');
   }
@@ -259,6 +260,7 @@ function BuscarUnPuntoDeInteres(){
       "Nombre":$('#txt-buscar').val()
     }
   }).done(function (data) {
+    
     if($('#txt-buscar').val()===''){
       return ConsultarPuntosDeInteresParaTour('PuntosDeInteres');
     }
@@ -266,7 +268,7 @@ function BuscarUnPuntoDeInteres(){
       Avisos(data.Mensaje);
       ConsultarPuntosDeInteresParaTour('PuntosDeInteres');
     }
-      mostrarPunto(data[0]);
+      mostrarPunto(data);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function BuscarTourPorNombre(){
@@ -385,6 +387,7 @@ $('#tbody-tourPreview').append(`
 <td class="text-center"><i onclick="removeDataTour('${id}');" class="bi bi-trash pointer" ></i></td>
 </tr>
 `);
+console.log(puntosdeInteresTour);
 puntosdeInteresTour.push(id);
 }
 function removeDataTour(id){
@@ -444,17 +447,20 @@ function setItemsInputTour(respuestaHTTP){
   }
 }
 function mostrarPunto(datos){
+  console.log(datos);
   $('#tbody').html('');
+  for(i=0;i<datos.length;i++){
   $('#tbody').append(`<tr class="table-active">
-  <th scope="row">${datos.Nombre}</th>
-  <td>${datos.Departamento}</td>
+  <th scope="row">${datos[i][0].Nombre}</th>
+  <td>${datos[i][0].Departamento}</td>
  
   <td>
-        <svg onclick="getDataTour('${datos.id}','${datos.Nombre}','${datos.Departamento}','${datos.Direccion}');" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+        <svg onclick="getDataTour('${datos[i][0].id}','${datos[i][0].Nombre}','${datos[i][0].Departamento}','${datos[i][0].Direccion}');" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
             <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
         </svg>
   </td>
   </tr>`);
+  }
 }
 function Avisos(mensaje){
   $('#ModalDeAviso').modal('show');
