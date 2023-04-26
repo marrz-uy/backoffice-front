@@ -220,26 +220,71 @@ function AltaDePuntoDeInteres(InformacionPuntoDeInteres) {
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function AltaDeServicioEscencial() {
+  if ($('#TipoDetallado').val() === 'Seleccionar Tipo') {
+    return $('#TipoDetallado').addClass('is-invalid');
+  }
+  if ($('#TipoDetallado').val() != 'Seleccionar Tipo') {
+    $('#TipoDetallado').removeClass('is-invalid').addClass('is-valid');
+  }
   getInputServicioEsencial();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
 function AltaDeActividadesInfantiles() {
+  if ($('#TipoDetallado').val() === 'Seleccionar Tipo') {
+    return $('#TipoDetallado').addClass('is-invalid');
+  }
+  if ($('#TipoDetallado').val() != 'Seleccionar Tipo') {
+    $('#TipoDetallado').removeClass('is-invalid').addClass('is-valid');
+  }
   getInputActividadesInfantiles();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
 function AltaDeActividadesNocturnas() {
+  if ($('#TipoDetallado').val() === 'Seleccionar Tipo') {
+    return $('#TipoDetallado').addClass('is-invalid');
+  }
+  if ($('#TipoDetallado').val() != 'Seleccionar Tipo') {
+    $('#TipoDetallado').removeClass('is-invalid').addClass('is-valid');
+  }
   getInputActividadesNocturnas();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
 function AltaDeEspectaculos(){
+  if ($('#TipoDetallado').val() === 'Seleccionar Tipo') {
+    return $('#TipoDetallado').addClass('is-invalid');
+  }
+  if ($('#TipoDetallado').val() != 'Seleccionar Tipo') {
+    $('#TipoDetallado').removeClass('is-invalid').addClass('is-valid');
+  }
   getInputEspectaculos();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
 function AltaDeTransporte() {
+  if ($('#TipoDetallado').val() === 'Seleccionar Tipo') {
+    return $('#TipoDetallado').addClass('is-invalid');
+  }
+  if ($('#TipoDetallado').val() != 'Seleccionar Tipo') {
+    $('#TipoDetallado').removeClass('is-invalid').addClass('is-valid');
+  }
   getInputTransporte();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
 function AltaDePaseos() {
+  if ($('#TipoDetallado').val() === 'Seleccionar Tipo') {
+    return $('#TipoDetallado').addClass('is-invalid');
+  }
+  if ($('#TipoDetallado').val() != 'Seleccionar Tipo') {
+    $('#TipoDetallado').removeClass('is-invalid').addClass('is-valid');
+  }
+
+  if ($('#RecomendacionesPaseos').val() === '') {
+    return $('#RecomendacionesPaseos').addClass('is-invalid');
+  }
+  if ($('#RecomendacionesPaseos').val() != '') {
+    $('#RecomendacionesPaseos').removeClass('is-invalid').addClass('is-valid');
+  }
+
+  
   getInputPaseos();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
@@ -260,6 +305,12 @@ function AltaDeAlojamiento() {
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
 function AltaDeGastronomico() {
+  if ($('#TipoDetallado').val() === 'Seleccionar Tipo') {
+    return $('#TipoDetallado').addClass('is-invalid');
+  }
+  if ($('#TipoDetallado').val() != 'Seleccionar Tipo') {
+    $('#TipoDetallado').removeClass('is-invalid').addClass('is-valid');
+  }
   getInputGastronomico();
   RegistrarPuntoDeInteres(InformacionPuntoDeInteres);
 }
@@ -354,20 +405,23 @@ function BuscarUnPuntoDeInteres(){
       Avisos(data.Mensaje);
       ConsultarPuntosDeInteres('PuntosDeInteres');
     }
+    $('#TituloCategorias').text(`Busqueda: ${$('#txt-buscar').val()}`);
       mostrarPunto(data);
+      pagination(data);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function mostrarPunto(datos){
-  console.log(datos);
+  
+  //console.log(datos[1][0]);
   $('#tbody').html('');
   for(i=0;i<datos.length;i++){
     $('#tbody').append(`
     <tr class="table-active">
-    <th scope="row">${datos[i].Nombre}</th>
-    <td>${datos[i].Departamento}</td>
-    <td>${datos[i].Ciudad}</td>
-    <td>${datos[i].Direccion}</td>
-    <td><i onclick="EliminarPuntoDeInteres(${datos[i].id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalPuntosDeInteres(${datos[i].id},${localStorage.getItem('Categoria')},'Unico');" style="cursor:pointer;" class="bi bi-gear ms-2"></i></td>
+    <th scope="row">${datos[i][0].Nombre}</th>
+    <td>${datos[i][0].Departamento}</td>
+    <td>${datos[i][0].Ciudad}</td>
+    <td>${datos[i][0].Direccion}</td>
+    <td><i onclick="EliminarPuntoDeInteres(${datos[i][0].id});" class="bi bi-trash pointer" ></i><i onclick="CargarModalPuntosDeInteres(${datos[i][0].id},'${datos[i][0].Categoria}','Unico');" style="cursor:pointer;" class="bi bi-gear ms-2"></i></td>
     </tr>`);
   }
   
@@ -395,11 +449,8 @@ function ConsultarTelefonosPuntoDeInteres(id) {
     dataType: 'json',
     data:{id:id}
   }).done(function (data) {
-    return console.log(data);
-    for (var i = 0; i < data.length; i++) {
-      $(`#TelefonoPuntoDeInteres${i}`).val(data[i].Telefono);
-      $(`#TelefonoPuntoDeInteres${i+1}`).val('');
-    }
+    console.log(data);
+    if(data[0].Telefono!='')$('#TelefonoPuntoDeInteres').val(data[0].Telefono);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 //BAJA --------------------------------------------------------------------------------------------------------------------------------------->
@@ -431,7 +482,7 @@ function CargarModalPuntosDeInteres(id,Categoria,Opcion) {
   $('#PuntosDeInteres').modal('show');
   ModalConsulta(Categoria);
   setTimeout(function(){
-    setInputPuntoDeInteres(respuestaHTTP.Nombre,respuestaHTTP.Departamento,respuestaHTTP.Ciudad,respuestaHTTP.Direccion,respuestaHTTP.Facebook,respuestaHTTP.Instagram,respuestaHTTP.HoraDeApertura,respuestaHTTP.HoraDeCierre,respuestaHTTP.Descripcion,respuestaHTTP.Latitud,respuestaHTTP.Longitud,respuestaHTTP.TipoDeLugar,respuestaHTTP.RestriccionDeEdad,respuestaHTTP.EnfoqueDePersonas);
+    setInputPuntoDeInteres(respuestaHTTP.Nombre,respuestaHTTP.Departamento,respuestaHTTP.Ciudad,respuestaHTTP.Direccion,respuestaHTTP.Facebook,respuestaHTTP.Instagram,respuestaHTTP.Web,respuestaHTTP.HoraDeApertura,respuestaHTTP.HoraDeCierre,respuestaHTTP.Descripcion,respuestaHTTP.Latitud,respuestaHTTP.Longitud,respuestaHTTP.TipoDeLugar,respuestaHTTP.RestriccionDeEdad,respuestaHTTP.EnfoqueDePersonas);
     ConsultarImagenes(id);
     console.log(id);
     $('#divBotonImagen').append(`<input onclick="NuevaImagen(${id});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
@@ -527,14 +578,32 @@ $('#btnModificarPuntosInteres').click(function (e) {
   }
   let Categoria=localStorage.getItem('Categoria');
   getInputPuntoDeInteres();
-  if(Categoria==="'alojamientos'")getInputAlojamiento();
+  if ($('#TipoDetallado').val() === 'Seleccionar Tipo') {
+    return $('#TipoDetallado').addClass('is-invalid');
+  }
+  if ($('#TipoDetallado').val() != 'Seleccionar Tipo') {
+    $('#TipoDetallado').removeClass('is-invalid').addClass('is-valid');
+  }
+  if(Categoria==="'alojamientos'"){
+    
+    getInputAlojamiento();
+  }
+  
   if(Categoria==="'gastronomicos'")getInputGastronomico();
   if(Categoria==="'actividades_infantiles'")getInputActividadesInfantiles();
   if(Categoria==="'actividades_nocturnas'")getInputActividadesNocturnas();
   if(Categoria==="'transporte'")getInputTransporte();
-  if(Categoria==="'paseos'")getInputPaseos();
-  if(Categoria==="'espectaculos'")getInputEspectaculos();
-  if(Categoria==="'servicios_esenciales'")getInputServicioEsencial();
+  if(Categoria==="'paseos'"){
+    if ($('#RecomendacionesPaseos').val() === '') {
+      return $('#RecomendacionesPaseos').addClass('is-invalid');
+    }
+    if ($('#RecomendacionesPaseos').val() != '') {
+      $('#RecomendacionesPaseos').removeClass('is-invalid').addClass('is-valid');
+    }
+    getInputPaseos();
+  }
+  if(Categoria==="'espectaculos'"){getInputEspectaculos();}
+  if(Categoria==="'servicios_esenciales'"){getInputServicioEsencial();}
   ModificarPuntosDeInteres(IdModificarPuntoDeInteres,InformacionPuntoDeInteres);
 });
 //FUNCIONES AUXILIARES------------------------------------------------------------------------------------------------------------------->
@@ -565,13 +634,14 @@ function EnviarNotificacion(){
     Avisos(data.message);
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
-function setInputPuntoDeInteres(Nombre,Departamento,Ciudad,Direccion,Facebook,Instagram,HoraDeApertura,HoraDeCierre,Descripcion,Latitud,Longitud,TipoDeLugar,RestriccionDeEdad,EnfoqueDePersonas){
+function setInputPuntoDeInteres(Nombre,Departamento,Ciudad,Direccion,Facebook,Instagram,Web,HoraDeApertura,HoraDeCierre,Descripcion,Latitud,Longitud,TipoDeLugar,RestriccionDeEdad,EnfoqueDePersonas){
   $('#NombrePuntoDeInteres').val(Nombre);
   $('#DepartamentoPuntoDeInteres').val(Departamento);
   $('#CiudadPuntoDeInteres').val(Ciudad);
   $('#DireccionPuntoDeInteres1').val(Direccion);
   $('#FacebookPuntoDeInteres').val(Facebook);
   $('#InstagramPuntoDeInteres').val(Instagram);
+  $('#WebPuntoDeInteres').val(Web),
   $('#HoraDeApertura').val(HoraDeApertura);
   $('#HoraDeCierre').val(HoraDeCierre);
   $('#DescripcionPuntoDeInteres').val(Descripcion);
@@ -590,7 +660,7 @@ function setInputAlojamiento(datos){
   if(datos.Calificaciones!=null)$('#InputCalificaciones').val(datos.Calificaciones);
   if(datos.Habitaciones!=null)$('#InputHabitaciones').val(datos.Habitaciones);
   if(datos.AireAcondicionado!=null)$('#InputAireAcondicionado').attr('checked',true);
-  if(datos.BanoPrivad!=null)$('#InputBanoPrivado').attr('checked',true);
+  if(datos.BanoPrivado!=null)$('#InputBanoPrivado').attr('checked',true);
   if(datos.Bar!=null)$('#InputBar').attr('checked',true);
   if(datos.Casino!=null)$('#InputCasino').attr('checked',true);
   if(datos.Desayuno!=null)$('#InputDesayuno').attr('checked',true);
@@ -598,6 +668,7 @@ function setInputAlojamiento(datos){
   if(datos.Restaurante!=null)$('#InputRestaurante').attr('checked',true);
   if(datos.TvCable!=null)$('#InputTvCable').attr('checked',true);
   if(datos.Wifi!=null)$('#InputWifi').attr('checked',true);
+  if(datos.Mascota!=null)$('#InputMascotas').attr('checked',true);
 }
 function setInputActividadesInfantiles(datos){
   if(datos.Tipo!=null)$('#TipoDetallado').val(datos.Tipo);
@@ -619,7 +690,6 @@ function setInputServicioEsencial(datos){
 function setInputGastronomico(datos){
     if(datos.Tipo!=null)$('#TipoDetallado').val(datos.Tipo);
     if(datos.ComidaVegge!=0)$('#InputComidaVegge').attr('checked',true);
-    if(datos.Comida!=0)$('#InputComida').attr('checked',true);
     if(datos.Alcohol!=0)$('#InputAlcohol').attr('checked',true);
     if(datos.MenuInfantil!=0)$('#InputMenuInfantil').attr('checked',true);
 }
@@ -686,6 +756,7 @@ function getInputPuntoDeInteres() {
     Celular: $('#CelularPuntoDeInteres').val(),
     Facebook: $('#FacebookPuntoDeInteres').val(),
     Instagram: $('#InstagramPuntoDeInteres').val(),
+    Web: $('#WebPuntoDeInteres').val(),
     HoraDeApertura: $('#HoraDeApertura').val(),
     HoraDeCierre: $('#HoraDeCierre').val(),
     Descripcion: $('#DescripcionPuntoDeInteres').val(),
@@ -763,6 +834,7 @@ function getInputAlojamiento() {
   $('#InputCasino').prop('checked')?Casino=1:Casino=0;
   $('#InputDesayuno').prop('checked')?Desayuno=1:Desayuno=0;
   $('#InputRestaurante').prop('checked')?Restaurante=1:Restaurante=0;
+  $('#InputMascotas').prop('checked')?Mascota=1:Mascota=0;
   InformacionDetalladaPuntoDeInteres = {
     Tipo: $('#TipoDetallado').val(),
     Calificaciones:$('#InputCalificaciones').val(),
@@ -775,6 +847,7 @@ function getInputAlojamiento() {
     Casino:Casino,
     Desayuno:Desayuno,
     Restaurante:Restaurante,
+    Mascota:Mascota,
     Op: 'Alojamiento'
   }
   InformacionDetalladaPuntoDeInteres = JSON.stringify(InformacionDetalladaPuntoDeInteres);
@@ -782,13 +855,11 @@ function getInputAlojamiento() {
 }
 function getInputGastronomico() {
   $('#InputComidaVegge').prop('checked')?ComidaVegge=1:ComidaVegge=0;
-  $('#InputComida').prop('checked')?Comida=1:Comida=0;
   $('#InputAlcohol').prop('checked')?Alcohol=1:Alcohol=0;
   $('#InputMenuInfantil').prop('checked')?MenuInfantil=1:MenuInfantil=0;
   InformacionDetalladaPuntoDeInteres = {
     Tipo: $('#TipoDetallado').val(),
     ComidaVegge:ComidaVegge,
-    Comida:Comida,
     Alcohol:Alcohol,
     MenuInfantil:MenuInfantil,
     Op: 'Gastronomicos'

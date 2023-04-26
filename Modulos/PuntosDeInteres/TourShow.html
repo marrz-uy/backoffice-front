@@ -37,51 +37,57 @@
         <!--Aside y Main -->
         <div style="height: 90vh;" class="row">
             <aside class="col-sm-3 col-md-3 col-lg-3 rounded" style="border:2px solid black;">
-                <div class="flex-shrink-0 p-3 ms-3 bg-white" style="width: 280px;">
-                    <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
-                    <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
-                    <span class="fs-5 fw-semibold">Menu Gestor Turistico</span>
-                    </a>
-                    <ul class="list-unstyled ps-0">
-                        <li class="mb-1">
-                            <a class="link-dark d-inline-flex text-decoration-none rounded" href="./Dashboard.html">Dashboard</a>
-                        </li>     
+              <div class="flex-shrink-0 p-3 ms-3 bg-white">
+                <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+                <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+                <span class="fs-5 fw-semibold">Menu Gestor Turistico</span>
+                </a>
+                <ul class="list-unstyled ps-0">
                     <li class="mb-1">
-                        
-                        <a href="./PuntosInteresShow.html" class="link-dark text-decoration-none btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed">Puntos de Interes</a> 
-
-                    </li>
+                        <a class="link-dark d-inline-flex text-decoration-none rounded" href="./Dashboard.html">Dashboard</a>
+                    </li>     
                     <li class="mb-1">
                       <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
-                      <a href="./EventosShow.html" class="link-dark text-decoration-none">Eventos</a>
-                      </button>  
-                  </li>
-                    <li class="mb-1">
-                        <button class="btn btn-toggle  d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-                        Gestion de Tours
-                        </button>
-                    </li>
-                    <li class="mb-1 mt-5 border-top">
-                      <button class="btn mt-3 d-inline-flex align-items-center rounded border-0" >
-                          <a href="../../index.html" class="link-dark text-decoration-none">Cerrar Sesion</a>
+                      <a href="./PuntosInteresShow.html" class="link-dark text-decoration-none">Puntos de Interes</a>
                       </button>
+                   
                   </li>
-                    <li class="border-top my-3"></li>
+                <li class="mb-1">
+                  <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
+                  <a href="./EventosShow.html" class="link-dark text-decoration-none">Eventos</a>
+                  </button>  
+              </li>
+                <li class="mb-1">
                     
-                    </ul>
-                </div>
+                    <a class="btn btn-toggle  d-inline-flex align-items-center rounded border-0 collapsed link-dark text-decoration-none " href="./TourShow.html">Gestion de Tours</a> 
+                    
+                </li>
+                <li class="mb-1">
+                  <button class="btn d-inline-flex align-items-center rounded border-0" >
+                      <a onclick="$('#ModalDeNotificaciones').modal('show');" class="link-dark text-decoration-none">Notificaciones</a>
+                  </button>
+              </li>
+                <li class="mb-1 mt-5 border-top">
+                  <button class="btn mt-3 d-inline-flex align-items-center rounded border-0" >
+                      <a href="../../index.html" class="link-dark text-decoration-none">Cerrar Sesion</a>
+                  </button>
+              </li>
+                <li class="border-top my-3"></li>
+                
+                </ul>
+            </div>
         </aside>
             <main class="col-sm-9 col-md-9 col-lg-9 rounded" style="border:2px solid black;">
                 <div class="row justify-content-center">
-                    <div class="col-11 mt-3">
+                    <div class="col-md-11 mt-3">
                         <div>
                           <h2 id="TituloTablaTour">TOUR PREDEFINIDOS</h2>
                         </div>
                         <div class="row">
-                          <div class="col-6">
+                          <div class="col-md-6">
                               <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
                               </div>
-                              <div class="col-3">
+                              <div class="col-md-3">
                                   <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary w-50" value="Buscar">                       
                               </div>
                       </div>
@@ -109,7 +115,7 @@
         <div  class="modal-body">
             <div id="ModalBody" class="row justify-content-center">
               <div class="row justify-content-center">
-                <div class="col-11 mt-3">
+                <div class="col-md-11 mt-3">
                     
                     <div id="contenido-tour">
                           <div class="row">
@@ -162,10 +168,10 @@
 
                 <div class="row border">
 
-                  <div class="col ">
+                  <div class="col-md ">
                     <input id="imagenes" type="file">
                   </div>
-                  <div id="divBotonImagen" class="col ">
+                  <div id="divBotonImagen" class="col-md ">
                     
                   </div>
 
@@ -213,7 +219,7 @@
                           <!--DIV PARA VER ANTES DE GUARDAR-->
                           
                           <div class="col-sm">
-                                    <div style="height: 50vh;" class="col">
+                                    <div style="height: 50vh;" class="col-md">
                                       <br>
                                       <h3 id="titulo-tabla-tour">Preview</h3>
                               <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
@@ -310,6 +316,44 @@
             <img onclick=""  alt="">
           
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- MODAL DE NOTIFICACIONES -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalDeNotificaciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="Modal-Mensaje">Envio de Notificaciones</h5>
+      </div>
+      <div class="modal-body">
+          <div class="row justify-content-center">
+            
+              <form id="FormularioDeNotificaciones" method="POST" enctype="multipart/formdata">
+                  <div class="input-group mb-3">
+                      <input type="text" class="form-control" id="TituloNotificacion" name="DireccionPuntoDeInteres" placeholder="Titulo Notificacion" >
+                      <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                      <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                               El campo es obligatorio
+                      </div>
+                  </div>
+                  <div class="input-group mb-3">
+                      <textarea placeholder="Mensaje" class="form-control" id="MensajeNotificacion" name="DescripcionPuntoDeInteres" rows="3"></textarea>
+                      <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                      <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                               El campo es obligatorio
+                      </div>
+                  </div>
+                  <div class="row justify-content-center mb-3">
+                      <input onclick="EnviarNotificacion();" id="btnEnviarNotificacion" type="text" class="btn btn-success w-50" value="Enviar Notificaciones">
+                  </div>
+              </form>
+            
+          </div>
+        </div>
+      <div class="modal-footer">
+        <button  type="button" onclick="$('#ModalDeNotificaciones').modal('hide');" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>
