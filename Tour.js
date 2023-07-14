@@ -418,6 +418,7 @@ function getInputTour(){
     nombreTourPredefinido:$('#nombreTourPredefinido').val(),
     horaDeInicioTourPredefinido:$('#horaDeInicioTourPredefinido').val(),
     descripcionTourPredefinido:$('#descripcionTourPredefinido').val(),
+    imagenTour:'PruebaLink',
     id:InformacionTour.id
   };
 
@@ -505,6 +506,27 @@ function Arreglos(){
   $('#divBotonImagen').append(`<input onclick="ModificaImagen(${idTour});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
 }
 //IMAGENES------------------------------------------------------------------------------------------------------------------------------------>
+function NuevaImagen(id){
+  const formData=new FormData();
+  formData.append('file',$('#imagenes')[0].files[0]);
+  formData.append('image_description','file');
+  formData.append('puntosinteres_id',id);
+  $.ajax({
+      url: 'http://127.0.0.1:8000/api/cargarImagen',
+      type: 'POST',
+      data: formData,
+      dataType:'json',
+      cache:false,
+      contentType:false,
+      processData:false,
+      headers:{'Accept':'*/*','Content-Encoding':'multipart/form-data','Access-Control-Allow-Origin':"*/*"},
+    }).done(function (data) {
+      console.log(data);
+      $('#ModalDeAviso').modal('show');
+      ConsultarImagenes(id);
+    }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+
 function ModificarImagenTour(idTour){
   const formData=new FormData();
   formData.append('file',$('#imagenes')[0].files[0]);
@@ -558,7 +580,7 @@ function ImagenCompleta(url,id) {
   $('#divImagenGrande').append(`<input type="button" onclick="EliminarImagenTour('${id}');" class="btn btn-danger" value="Eliminar">`);  
   $('#divImagenGrande').append(`<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>`);
   $('#ImagenCompletaDiv').html('');
-  $('#ImagenCompletaDiv').append(`<img src="${url}" alt="imagen${url}">`)
+  $('#ImagenCompletaDiv').append(`<img src="${url}" alt="<imagen>${url}">`)
   //"
   }
   function EliminarImagenTour(id) {
