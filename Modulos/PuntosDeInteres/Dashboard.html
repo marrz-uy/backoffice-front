@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
+    <title>Backoffice-FeelUY</title>
+</head>
+<body onload="dashboardChart();">
+    <!--Contenedor -->
+    <div  class="container-fluid">
+        <div class="row ">
+            <header class="rounded  " style="border:2px solid black">
+                <div class="col-sm m-2">
+                    <div class="row justify-content-center" method="POST">
+                        <div class="col-sm-1">
+                           <a href="../../index.html"><img src="../../mars-NyN.png" alt="Logo" width="50px"></a>
+                        </div>
+                       <div class="col-sm">
+                        <h1>Backoffice</h1>
+                       </div>
+                    </div>
+                  
+                </div>
+                
+            </header>    
+        </div>
+        
+            
+        
+        <!--Aside y Main -->
+        <div style="height: 90vh;" class="row">
+            <aside class="col-md-3 rounded" style="border:2px solid black;">
+                    <div class="flex-shrink-0 p-3 ms-3 bg-white">
+                        <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+                        <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+                        <span class="fs-5 fw-semibold">Menu Gestor Turistico</span>
+                        </a>
+                        <ul class="list-unstyled ps-0">
+                            <li class="mb-1">
+                                <a role="button" class="link-dark d-inline-flex text-decoration-none rounded">Dashboard</a>
+                            </li>     
+                        <li class="mb-1">
+                            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
+                            <a href="./PuntosInteresShow.html" class="link-dark text-decoration-none">Puntos de Interes</a>
+                            </button>  
+                        </li>
+                        <li class="mb-1">
+                            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
+                            <a href="./EventosShow.html" class="link-dark text-decoration-none">Eventos</a>
+                            </button>  
+                        </li>
+                        <li class="mb-1">
+                            <button class="btn d-inline-flex align-items-center rounded border-0" >
+                                <a href="./TourShow.html" class="link-dark text-decoration-none">Gestion de Tours</a>
+                            </button>
+                        </li>
+                        <li class="mb-1">
+                            <button class="btn d-inline-flex align-items-center rounded border-0" >
+                                <a onclick="$('#ModalDeNotificaciones').modal('show');" class="link-dark text-decoration-none">Notificaciones</a>
+                            </button>
+                        </li>
+                        <li class="mb-1 mt-5 border-top">
+                            <button class="btn mt-3 d-inline-flex align-items-center rounded border-0" >
+                                <a href="../../index.html" class="link-dark text-decoration-none">Cerrar Sesion</a>
+                            </button>
+                        </li>
+                        <li class="border-top my-3"></li>
+                        
+                        </ul>
+                    </div>
+            </aside>
+            <main id="main" class="col-md-9 rounded" style="border:2px solid black;">
+                <div id="grafica"></div>
+            </main>
+        </div>
+            
+        
+    </div>
+    <!-- MODAL DE NOTIFICACIONES -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalDeNotificaciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="Modal-Mensaje">Envio de Notificaciones</h5>
+        </div>
+        <div class="modal-body">
+            <div class="row justify-content-center">
+              
+                <form id="FormularioDeNotificaciones" method="POST" enctype="multipart/formdata">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="TituloNotificacion" name="DireccionPuntoDeInteres" placeholder="Titulo Notificacion" >
+                        <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                        <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                                 El campo es obligatorio
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <textarea placeholder="Mensaje" class="form-control" id="MensajeNotificacion" name="DescripcionPuntoDeInteres" rows="3"></textarea>
+                        <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                        <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                                 El campo es obligatorio
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mb-3">
+                        <input onclick="EnviarNotificacion();" id="btnEnviarNotificacion" type="text" class="btn btn-success w-50" value="Enviar Notificaciones">
+                    </div>
+                </form>
+              
+            </div>
+          </div>
+        <div class="modal-footer">
+          <button  type="button" onclick="$('#ModalDeNotificaciones').modal('hide');" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+      <!-- MODAL DE AVISO -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalDeAviso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="Modal-Mensaje">Se envio correctamente</h5>
+        </div>
+        <div class="modal-footer">
+          <button id="BotonAceptarModalAviso" type="button" onclick="$('#ModalDeAviso').modal('hide');" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../../formularios.js"></script>
+    <script src="../../app.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/10.3.3/modules/exporting.js"></script>
+    <script src="../../bootstrap/js/bootstrap.bundle.js"></script>
+</body>
+</html>

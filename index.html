@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <title>Backoffice-FeelUY</title>
+</head>
+<body class="bg-dark">
+    <div class="row">
+        <div class="col-6 m-auto">
+            <h1 class="text-center text-white mt-3">BIENVENIDO</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center vh-100">
+        <div id="login" class="col-sm-4 ms-2">
+            <form class="border border-3 rounded p-4 mt-3 bg-white" action="" method="post">
+                <div class="row">
+                    <div class="col-1 mb-2">
+                        <img src="./mars-NyN.png" alt="" style="width: 40px;" >
+                    </div>
+                </div>
+                <h5 class="text-center text-secondary mt-3">Backoffice / FeelUY </h5>
+                <div class="mb-3 input-group">
+                    <input id="user" type="text" class="form-control" placeholder="Usuario" required>
+                                <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                                         El campo es obligatorio
+                                </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input id="password" type="password" class="form-control" placeholder="Contraseña" required>
+                    <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                        El campo es obligatorio
+               </div>
+                </div>
+                <div class="mb-3">
+                    <a href="./Modulos/PuntosDeInteres/Dashboard.html">Avanzar --></a>
+                    <input onclick="Login();"  class="btn btn-primary form-control" value="Iniciar Sesion">
+                </div>
+            </form>
+        </div>
+        
+    </div>
+    <!-- MODAL DE AVISO -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalDeAviso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="Modal-Mensaje">Se realizo correctamente</h5>
+        </div>
+        <div class="modal-footer">
+          <button id="BotonAceptarModalAviso" type="button" onclick="$('#ModalDeAviso').modal('hide');" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="./app.js"></script>
+    <link rel="stylesheet" href="./Modulos/PuntosDeInteres/Formularios/ServiciosEscencialesAlta.html">
+</body>
+</html>
