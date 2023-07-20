@@ -3,6 +3,7 @@ var puntosdeInteresTour=[];
 var InformacionTour={};
 var id;
 var idTour;
+var file;
 function sendError(errorText){alert(errorText);}
 function ErrorHandler(jqXHR, textStatus){
   if (jqXHR.status === 0)  return sendError('Not connect: Verify Network');
@@ -19,42 +20,67 @@ function ErrorHandler(jqXHR, textStatus){
 function AltaDeTour(){
   puntosdeInteresTour=puntosdeInteresTour.toString();
   InformacionTour.puntosdeInteresTour=puntosdeInteresTour;
-  if ($('#nombreTourPredefinido').val() == '') {
-    return $('#nombreTourPredefinido').addClass('is-invalid');
-  }
-  if ($('#nombreTourPredefinido').val() != '') {
-    $('#nombreTourPredefinido').removeClass('is-invalid').addClass('is-valid');
-  }
-  if ($('#horaDeInicioTourPredefinido').val() == '') {
-    return $('#horaDeInicioTourPredefinido').addClass('is-invalid');
-  }
-  if ($('#horaDeInicioTourPredefinido').val() != '') {
-    $('#horaDeInicioTourPredefinido').removeClass('is-invalid').addClass('is-valid');
-  }
-  if ($('#descripcionTourPredefinido').val() == '') {
-    return $('#descripcionTourPredefinido').addClass('is-invalid');
-  }
-  if ($('#descripcionTourPredefinido').val() != '') {
-    $('#descripcionTourPredefinido').removeClass('is-invalid').addClass('is-valid');
-  }
-  console.log(InformacionTour);
-  if(InformacionTour.puntosdeInteresTour===''){
-   return Avisos('Debe seleccionar un punto de interes');
-  }
+  // if ($('#nombreTourPredefinido').val() == '') {
+  //   return $('#nombreTourPredefinido').addClass('is-invalid');
+  // }
+  // if ($('#nombreTourPredefinido').val() != '') {
+  //   $('#nombreTourPredefinido').removeClass('is-invalid').addClass('is-valid');
+  // }
+  // if ($('#horaDeInicioTourPredefinido').val() == '') {
+  //   return $('#horaDeInicioTourPredefinido').addClass('is-invalid');
+  // }
+  // if ($('#horaDeInicioTourPredefinido').val() != '') {
+  //   $('#horaDeInicioTourPredefinido').removeClass('is-invalid').addClass('is-valid');
+  // }
+  // if ($('#descripcionTourPredefinido').val() == '') {
+  //   return $('#descripcionTourPredefinido').addClass('is-invalid');
+  // }
+  // if ($('#descripcionTourPredefinido').val() != '') {
+  //   $('#descripcionTourPredefinido').removeClass('is-invalid').addClass('is-valid');
+  // }
+  // console.log(InformacionTour);
+  // if(InformacionTour.puntosdeInteresTour===''){
+  //  return Avisos('Debe seleccionar un punto de interes');
+  // }
   
   InformacionTour.Opcion="AltaDeTour"
+  InformacionTour.imagenTour=file;
   console.log(InformacionTour);
-  $.ajax({
-    url: `http://127.0.0.1:8000/api/tourPredefinido`,
-    type: 'POST',
-    dataType: 'json',
-    data:InformacionTour
-  }).done(function (data) {
+  const formData= new FormData();
+  formData.append('imagenTour',file);
+  const reader = new FileReader();
+      reader.onload = function (event) {
+        const contenido = event.target.result;
+        const tipoMIME = file.type;
+
+        const blob = new Blob([contenido], { type: tipoMIME });
+
+        // Ahora tienes el objeto Blob, y puedes utilizarlo según tus necesidades
+        console.log('Blob creado:', blob);
+
+        // Aquí podrías enviar el blob a un servidor o hacer cualquier otra operación
+      };
+  fetch('http://127.0.0.1:8000/api/tourPredefinido', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: InformacionTour
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Error en la solicitud');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Manipula los datos de respuesta
       console.log(data);
-      Avisos(data.Message);
-      $('#BotonAceptarModalAviso').removeAttr('onclick');
-      $('#BotonAceptarModalAviso').attr('onclick','location.reload();');
-  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+    })
+    .catch(error => {
+      // Maneja cualquier error de la solicitud
+      console.error(error);
+    });
 }
 /*BAJA-------------------------------------------------------------------------------------------------------------------------------------- */
 function EliminarTourPredefinido(id){
@@ -418,7 +444,7 @@ function getInputTour(){
     nombreTourPredefinido:$('#nombreTourPredefinido').val(),
     horaDeInicioTourPredefinido:$('#horaDeInicioTourPredefinido').val(),
     descripcionTourPredefinido:$('#descripcionTourPredefinido').val(),
-    imagenTour:'PruebaLink',
+    imagenTour:file,
     id:InformacionTour.id
   };
 
@@ -479,7 +505,6 @@ function CargarTour(id){
   $('#divBotonImagen').append(`<input onclick="ModificarImagenTour(${id});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
   ConsultarPuntosDeInteresParaTour('PuntosDeInteres');
   ConsultarUnSoloTour(id);
-  ConsultarImagenes(id);
   setTimeout(function (){
     setInputTour(respuestaHTTP);
     setItemsInputTour(respuestaHTTP)
@@ -506,27 +531,32 @@ function Arreglos(){
   $('#divBotonImagen').append(`<input onclick="ModificaImagen(${idTour});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
 }
 //IMAGENES------------------------------------------------------------------------------------------------------------------------------------>
-function NuevaImagen(id){
-  const formData=new FormData();
-  formData.append('file',$('#imagenes')[0].files[0]);
-  formData.append('image_description','file');
-  formData.append('puntosinteres_id',id);
-  $.ajax({
-      url: 'http://127.0.0.1:8000/api/cargarImagen',
-      type: 'POST',
-      data: formData,
-      dataType:'json',
-      cache:false,
-      contentType:false,
-      processData:false,
-      headers:{'Accept':'*/*','Content-Encoding':'multipart/form-data','Access-Control-Allow-Origin':"*/*"},
-    }).done(function (data) {
-      console.log(data);
-      $('#ModalDeAviso').modal('show');
-      ConsultarImagenes(id);
-    }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
-}
 
+$('#imagenes').change(function(){
+  file=$('#imagenes')[0].files[0];
+  function convertirABlob() {
+    const archivoInput = document.getElementById('archivoInput');
+    
+    if (archivoInput.files.length > 0) {
+      const file = archivoInput.files[0];
+      
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const contenido = event.target.result;
+        const tipoMIME = file.type;
+
+        const blob = new Blob([contenido], { type: tipoMIME });
+
+        // Ahora tienes el objeto Blob, y puedes utilizarlo según tus necesidades
+        console.log('Blob creado:', blob);
+
+        // Aquí podrías enviar el blob a un servidor o hacer cualquier otra operación
+      };
+
+      reader.readAsArrayBuffer(file);
+    }
+  }
+})
 function ModificarImagenTour(idTour){
   const formData=new FormData();
   formData.append('file',$('#imagenes')[0].files[0]);
@@ -549,31 +579,7 @@ function ModificarImagenTour(idTour){
       ConsultarImagenes(data.idTour);
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
-function ConsultarImagenes(id){
-  console.log(id);
-  $.ajax({
-    url: `http://127.0.0.1:8000/api/tourPredefinido`,
-    type: 'GET',
-    data:{
-      "Opcion":"ImagenTour",
-      "tour_id":id
-    },
-    dataType:'json',
-  }).done(function (data) {
-    console.log(data);
-    let url=data[0].imagen;
-    $('#imagen-container').html('');
-    if(url!=null){
-      $('#imagen-container').append(`<div class="tamano">
-      <img id="ImagenTour" class="pointer" onclick="ImagenCompleta('${url}',${id});"
-        src="${url}"
-        alt="imagen${url}">
-      </div>`);
-    }
-      
-    
-  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
-}
+
 function ImagenCompleta(url,id) {
   $('#ModalDeImagenesGrandes').modal('show');
   $('#divImagenGrande').html('');
@@ -602,3 +608,32 @@ function ImagenCompleta(url,id) {
     });
   
   }
+ 
+$('#botonnn').click(function (e) { 
+  e.preventDefault();
+  enviarImagen();
+});
+  function enviarImagen() {
+    
+
+    const inputImagen = document.getElementById('imagenInput');
+    const imagen = inputImagen.files[0];
+
+    enviarImagenFetch(imagen);
+}
+  function enviarImagenFetch(imagen) {
+    const formData = new FormData();
+    formData.append('imagen', imagen);
+
+    fetch('http://127.0.0.1:8000/api/tourPredefinido', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
