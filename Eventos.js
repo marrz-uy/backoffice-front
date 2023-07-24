@@ -1,3 +1,4 @@
+const apiUrl='http://127.0.0.1:8000';
 var InformacionLugar;
 var idEvento;
 var respuestaHTTP;
@@ -25,7 +26,7 @@ $('#btnConsultarLugar').click(function (e) {
 //CONSULTAS----------------------------------------------------------------------------------------------------------------------------------->
 function ConsultarPuntosDeInteres(categoria) {
     $.ajax({
-      url: `http://127.0.0.1:8000/api/PuntosInteres/${categoria}`,
+      url: `${apiUrl}/api/PuntosInteres/${categoria}`,
       type: 'GET',
       dataType: 'json',
     }).done(function (data) {
@@ -57,7 +58,7 @@ function ConsultarPuntosDeInteres(categoria) {
 }
 function BuscarUnPuntoDeInteres(){
   $.ajax({
-    url: `http://127.0.0.1:8000/api/PuntosInteres/PuntosDeInteres`,
+    url: `${apiUrl}/api/PuntosInteres/PuntosDeInteres`,
     type: 'GET',
     dataType: 'json',
     data:{
@@ -98,7 +99,7 @@ function mostrarPunto(datos){
 function ConsultarEventos() {
   $('#txt-buscar').val('');
   $.ajax({
-    url: `http://127.0.0.1:8000/api/Eventos`,
+    url: `${apiUrl}/api/Eventos`,
     type: 'GET',
     dataType: 'json',
   }).done(function (data) {
@@ -120,7 +121,7 @@ function ConsultarEventos() {
 }
 function ConsultarEvento(id){
   $.ajax({
-    url: `http://127.0.0.1:8000/api/Eventos`,
+    url: `${apiUrl}/api/Eventos`,
     type: 'GET',
     dataType: 'json',
     data:{
@@ -134,7 +135,7 @@ function ConsultarEvento(id){
 }
 function BuscarEventoPorNombre(){
   $.ajax({
-    url: `http://127.0.0.1:8000/api/Eventos`,
+    url: `${apiUrl}/api/Eventos`,
     type: 'GET',
     dataType: 'json',
     data:{
@@ -167,7 +168,7 @@ function BuscarEventoPorNombre(){
 //ALTAS--------------------------------------------------------------------------------------------------------------------------------------->
 function RegistrarEvento(InformacionDelEvento){
   $.ajax({
-    url: `http://127.0.0.1:8000/api/Eventos`,
+    url: `${apiUrl}/api/Eventos`,
     type: 'POST',
     dataType: 'json',
     data:InformacionDelEvento
@@ -236,7 +237,7 @@ function EliminarEvento(id) {
   $('#ModalConsultaEvento').modal('show');
   $('#btnEliminarEvento').click(function (e) { 
     $.ajax({
-      url: `http://127.0.0.1:8000/api/Eventos/${id}`,
+      url: `${apiUrl}/api/Eventos/${id}`,
       type: 'DELETE',
       data:{"Opcion":"EliminarEvento"},
       dataType: 'json',
@@ -270,7 +271,7 @@ function CargarModalEvento(id){
 }
 function ModificarEvento(InformacionDelEvento,id){
   $.ajax({
-    url: `http://127.0.0.1:8000/api/Eventos/${id}`,
+    url: `${apiUrl}/api/Eventos/${id}`,
     type: 'PATCH',
     dataType: 'json',
     data:InformacionDelEvento
@@ -422,7 +423,7 @@ function NuevaImagen(id){
   formData.append('image_description','file');
   formData.append('puntosinteres_id',id);
   $.ajax({
-      url: 'http://127.0.0.1:8000/api/cargarImagen',
+      url:`${apiUrl}/api/cargarImagen`,
       type: 'POST',
       data: formData,
       dataType:'json',
@@ -442,7 +443,7 @@ function ModificarImagen(idEvento){
   const formData=new FormData();
   formData.append('file',$('#imagenes')[0].files[0]);
   $.ajax({
-      url: `http://127.0.0.1:8000/api/Eventos/${idEvento}`,
+      url: `${apiUrl}/api/Eventos/${idEvento}`,
       type: 'POST',
       data: formData,
       dataType:'json',
@@ -461,7 +462,7 @@ function ModificarImagen(idEvento){
 function ConsultarImagenes(id){
   console.log(id);
   $.ajax({
-    url: `http://127.0.0.1:8000/api/Eventos`,
+    url: `${apiUrl}/api/Eventos`,
     type: 'GET',
     data:{
       "Opcion":"ImagenEvento",
@@ -497,7 +498,7 @@ function ImagenCompleta(url,id) {
     $('#ModalConsultaEvento').modal('show');
     $('#btnEliminarEvento').click(function (e) { 
       $.ajax({
-        url: `http://127.0.0.1:8000/api/Eventos/${id}`,
+        url: `${apiUrl}/api/Eventos/${id}`,
         type: 'DELETE',
         data:{"Opcion":"EliminarImagen"},
         dataType: 'json',

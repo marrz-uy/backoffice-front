@@ -1,3 +1,4 @@
+const apiUrl='http://127.0.0.1:8000';
 var tbody = document.getElementById('tbody');
 var main = document.getElementById('main');
 var EndPoint='PuntosDeInteres';
@@ -29,7 +30,6 @@ $(document).ready(function (){
 });
 //LOGIN--------------------------------------------------------------------------------------------------------------------------------------->
 function Login() {
-
   if ($('#user').val() == '') {
     return $('#user').addClass('is-invalid');
   }
@@ -43,7 +43,7 @@ function Login() {
     $('#password').removeClass('is-invalid').addClass('is-valid');
   }
     $.ajax({
-      url: 'http://127.0.0.1:8000/api/LoginController',
+      url:`${apiUrl}/api/LoginController`,
       type: 'POST',
       dataType: 'json',
       data: {
@@ -64,7 +64,7 @@ function Login() {
 }
 function Logout() {
   $.ajax({
-    url: 'http://127.0.0.1:8000/api/auth/logout',
+    url:`${apiUrl}/api/auth/logout`,
     type: 'POST',
     dataType: 'json',
     
@@ -80,7 +80,7 @@ function NuevaImagen(id){
   formData.append('image_description','file');
   formData.append('puntosinteres_id',id);
   $.ajax({
-      url: 'http://127.0.0.1:8000/api/cargarImagen',
+      url:`${apiUrl}:8000/api/cargarImagen`,
       type: 'POST',
       data: formData,
       dataType:'json',
@@ -96,7 +96,7 @@ function NuevaImagen(id){
 }
 function ConsultarImagenes(id){
   $.ajax({
-    url: `http://127.0.0.1:8000/api/showImages/${id}`,
+    url: `${apiUrl}/api/showImages/${id}`,
     type: 'GET',
     dataType:'json',
   }).done(function (data) {
@@ -121,7 +121,7 @@ $('#ImagenCompletaDiv').append(`<img src="${url}" alt="imagen${url}">`)
 }
 function EliminarImagen(url,id) {
   $.ajax({
-    url: 'http://127.0.0.1:8000/api/EliminarImagen',
+    url: `${apiUrl}/api/EliminarImagen`,
     type: 'POST',
     data: {url:url},
     dataType:'json',
@@ -202,7 +202,7 @@ $('#btnSiguiente').click(function (e) {
 });
 function AltaDePuntoDeInteres(InformacionPuntoDeInteres) {
   $.ajax({
-    url: 'http://127.0.0.1:8000/api/PuntosInteres',
+    url: `${apiUrl}/api/PuntosInteres`,
     type: 'POST',
     dataType: 'json',
     data: InformacionPuntoDeInteres
@@ -318,7 +318,7 @@ function AltaDeGastronomico() {
 function RegistrarPuntoDeInteres(InformacionPuntoDeInteres) {
   console.log(InformacionPuntoDeInteres);
   $.ajax({
-    url: 'http://127.0.0.1:8000/api/PuntosInteres',
+    url: `${apiUrl}/api/PuntosInteres`,
     type: 'POST',
     dataType: 'json',
     data: InformacionPuntoDeInteres
@@ -335,7 +335,7 @@ function RegistrarPuntoDeInteres(InformacionPuntoDeInteres) {
 //CONSULTA --------------------------------------------------------------------------------------------------------------------------------------->
 function ConsultarPuntosDeInteres(categoria) {
   $.ajax({
-    url: `http://127.0.0.1:8000/api/PuntosInteres/${categoria}`,
+    url: `${apiUrl}/api/PuntosInteres/${categoria}`,
     type: 'GET',
     dataType: 'json',
   }).done(function (data) {
@@ -372,7 +372,7 @@ function ConsultarPuntosDeInteres(categoria) {
 }
 function ConsultarUnPuntoDeInteres(id,Categoria,Opcion) {
   $.ajax({
-    url: `http://127.0.0.1:8000/api/PuntosInteres/${Categoria}`,
+    url: `${apiUrl}/api/PuntosInteres/${Categoria}`,
     type: 'GET',
     dataType: 'json',
     data:{
@@ -388,7 +388,7 @@ function ConsultarUnPuntoDeInteres(id,Categoria,Opcion) {
 }
 function BuscarUnPuntoDeInteres(){
   $.ajax({
-    url: `http://127.0.0.1:8000/api/PuntosInteres/PuntosDeInteres`,
+    url: `${apiUrl}/api/PuntosInteres/PuntosDeInteres`,
     type: 'GET',
     dataType: 'json',
     data:{
@@ -429,7 +429,7 @@ function mostrarPunto(datos){
 }
 function PuntoDeInteres(id,Categoria,Opcion) {
   $.ajax({
-    url: `http://127.0.0.1:8000/api/PuntosInteres/${Categoria}`,
+    url: `${apiUrl}/api/PuntosInteres/${Categoria}`,
     type: 'GET',
     dataType: 'json',
     data:{
@@ -445,7 +445,7 @@ function PuntoDeInteres(id,Categoria,Opcion) {
 }
 function ConsultarTelefonosPuntoDeInteres(id) {
   $.ajax({
-    url: `http://127.0.0.1:8000/api/PuntosInteres/Telefonos`,
+    url: `${apiUrl}/api/PuntosInteres/Telefonos`,
     type: 'GET',
     dataType: 'json',
     data:{id:id}
@@ -459,7 +459,7 @@ function EliminarPuntoDeInteres(id) {
   $('#ModalConsulta').modal('show');
   $('#btnEliminarPunto').click(function (e) { 
     $.ajax({
-      url: `http://127.0.0.1:8000/api/PuntosInteres/${id}`,
+      url: `${apiUrl}/api/PuntosInteres/${id}`,
       type: 'DELETE',
       dataType: 'json',
     }).done(function (data) {
@@ -501,7 +501,7 @@ function CargarModalPuntosDeInteres(id,Categoria,Opcion) {
 function ModificarPuntosDeInteres(id,InformacionPuntoDeInteres) {
   console.log(InformacionPuntoDeInteres);
   $.ajax({
-    url: `http://127.0.0.1:8000/api/PuntosInteres/${id}`,
+    url: `${apiUrl}/api/PuntosInteres/${id}`,
     type: 'PATCH',
     dataType: 'json',
     data: InformacionPuntoDeInteres
@@ -622,7 +622,7 @@ function EnviarNotificacion(){
     $('#MensajeNotificacion').removeClass('is-invalid').addClass('is-valid');
   }
   $.ajax({
-    url: 'http://127.0.0.1:8000/api/message',
+    url:`${apiUrl}/api/message`,
     type: 'POST',
     dataType: 'json',
     data: {

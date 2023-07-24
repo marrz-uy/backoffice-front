@@ -1,3 +1,4 @@
+const apiUrl='http://127.0.0.1:8000';
 var respuestaHTTP;
 var puntosdeInteresTour=[];
 var InformacionTour={};
@@ -60,7 +61,7 @@ function AltaDeTour(){
 
         // Aquí podrías enviar el blob a un servidor o hacer cualquier otra operación
       };
-  fetch('http://127.0.0.1:8000/api/tourPredefinido', {
+  fetch(`${apiUrl}/api/tourPredefinido`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -88,7 +89,7 @@ function EliminarTourPredefinido(id){
   $('#btnEliminarTour').click(function (e) { 
     e.preventDefault();
     $.ajax({
-    url: `http://127.0.0.1:8000/api/tourPredefinido/${id}`,
+    url: `${apiUrl}/api/tourPredefinido/${id}`,
     type: 'DELETE',
     data:{Opcion:'EliminarTour'},
     dataType: 'json',
@@ -127,7 +128,7 @@ function ModificarTourHTTP(){
    return Avisos('Debe seleccionar un punto de interes');
   }
   $.ajax({
-  url: `http://127.0.0.1:8000/api/tourPredefinido`,
+  url: `${apiUrl}/api/tourPredefinido`,
   type: 'PATCH',
   dataType: 'json',
   data:{
@@ -158,7 +159,7 @@ function modificarPuntosDeInteresTourDG(){
 /*CONSULTA-------------------------------------------------------------------------------------------------------------------------------------- */
 function ConsultarTour() {
   $.ajax({
-    url: `http://127.0.0.1:8000/api/tourPredefinido`,
+    url: `${apiUrl}/api/tourPredefinido`,
     type: 'GET',
     dataType: 'json',
   }).done(function (data) {
@@ -176,7 +177,7 @@ function ConsultarTour() {
 }
 function ConsultarPorPagina(endpoint,pagina) {
 $.ajax({
-  url: `http://127.0.0.1:8000/api/tourPredefinido?page=${pagina}`,
+  url: `${apiUrl}/api/tourPredefinido?page=${pagina}`,
   type: 'GET',
   dataType: 'json',
 }).done(function (data) {
@@ -187,7 +188,7 @@ $.ajax({
 }
 function ConsultarUnSoloTour(id){
 $.ajax({
-  url: `http://127.0.0.1:8000/api/tourPredefinido`,
+  url: `${apiUrl}/api/tourPredefinido`,
   type: 'GET',
   data:{
     Opcion:"Unico",
@@ -249,7 +250,7 @@ $('#div-busqueda').append(`<div class="input-group w-75">
 }
 function ConsultarPuntosDeInteresParaTour(categoria) {
   $.ajax({
-    url: `http://127.0.0.1:8000/api/PuntosInteres/${categoria}`,
+    url: `${apiUrl}/api/PuntosInteres/${categoria}`,
     type: 'GET',
     dataType: 'json',
   }).done(function (data) {
@@ -278,7 +279,7 @@ function ConsultarPuntosDeInteresParaTour(categoria) {
 }
 function BuscarUnPuntoDeInteres(){
   $.ajax({
-    url: `http://127.0.0.1:8000/api/PuntosInteres/PuntosDeInteres`,
+    url: `${apiUrl}/api/PuntosInteres/PuntosDeInteres`,
     type: 'GET',
     dataType: 'json',
     data:{
@@ -299,7 +300,7 @@ function BuscarUnPuntoDeInteres(){
 }
 function BuscarTourPorNombre(){
   $.ajax({
-    url: `http://127.0.0.1:8000/api/Eventos`,
+    url: `${apiUrl}/api/Eventos`,
     type: 'GET',
     dataType: 'json',
     data:{
@@ -563,7 +564,7 @@ function ModificarImagenTour(idTour){
   formData.append('Opcion','AltaDeImagenTour');
   formData.append('idTour',idTour);
   $.ajax({
-      url: `http://127.0.0.1:8000/api/tourPredefinido`,
+      url: `${apiUrl}/api/tourPredefinido`,
       type: 'POST',
       data: formData,
       dataType:'json',
@@ -594,7 +595,7 @@ function ImagenCompleta(url,id) {
     $('#ModalConsulta').modal('show');
     $('#btnEliminarImagenTour').click(function (e) { 
       $.ajax({
-        url: `http://127.0.0.1:8000/api/tourPredefinido/${id}`,
+        url: `${apiUrl}/api/tourPredefinido/${id}`,
         type: 'DELETE',
         data:{"Opcion":"EliminarImagen"},
         dataType: 'json',
@@ -625,7 +626,7 @@ $('#botonnn').click(function (e) {
     const formData = new FormData();
     formData.append('imagen', imagen);
 
-    fetch('http://127.0.0.1:8000/api/tourPredefinido', {
+    fetch(`${apiUrl}/api/tourPredefinido`, {
         method: 'POST',
         body: formData
     })
