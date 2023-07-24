@@ -30,7 +30,7 @@
                     <input type="text" class="form-control" id="user" placeholder="Usuario">
                 </div>
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="password" placeholder="Contraseña">
+                    <input type="password" class="form-control" id="password" placeholder="Contraseña">
                 </div>
                 <div class="mb-3">
                     <input type="button" onclick="Login();" class="btn btn-primary form-control" value="Ingresar">
@@ -38,6 +38,20 @@
             </form>
         </div>
     </div>
+    <!-- MODAL DE AVISO -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalDeAviso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="Modal-Mensaje">Se realizo correctamente</h5>
+        </div>
+        <div class="modal-footer">
+          <button id="BotonAceptarModalAviso" type="button" onclick="$('#ModalDeAviso').modal('hide');" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
     <script src="./jquery-3.6.0.min.js"></script>
     <script src="./bootstrap/js/bootstrap.bundle.js"></script>
     <script src="./app.js"></script>

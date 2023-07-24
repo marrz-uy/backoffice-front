@@ -56,6 +56,7 @@ function Login() {
         localStorage.setItem('Token',data.access_token);
         return location='Modulos/PuntosDeInteres/Dashboard.html';
       }
+      return Avisos(data.respuesta);
       if(data.respuesta==='Invalid credentials'){
         return Avisos('Credenciales incorrectas');
       }

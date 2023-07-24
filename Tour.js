@@ -1,4 +1,3 @@
-const apiUrl='http://127.0.0.1:8000';
 var respuestaHTTP;
 var puntosdeInteresTour=[];
 var InformacionTour={};
