@@ -3,7 +3,6 @@ var puntosdeInteresTour=[];
 var InformacionTour={};
 var id;
 var idTour;
-var file;
 function sendError(errorText){alert(errorText);}
 function ErrorHandler(jqXHR, textStatus){
   if (jqXHR.status === 0)  return sendError('Not connect: Verify Network');
@@ -20,67 +19,42 @@ function ErrorHandler(jqXHR, textStatus){
 function AltaDeTour(){
   puntosdeInteresTour=puntosdeInteresTour.toString();
   InformacionTour.puntosdeInteresTour=puntosdeInteresTour;
-  // if ($('#nombreTourPredefinido').val() == '') {
-  //   return $('#nombreTourPredefinido').addClass('is-invalid');
-  // }
-  // if ($('#nombreTourPredefinido').val() != '') {
-  //   $('#nombreTourPredefinido').removeClass('is-invalid').addClass('is-valid');
-  // }
-  // if ($('#horaDeInicioTourPredefinido').val() == '') {
-  //   return $('#horaDeInicioTourPredefinido').addClass('is-invalid');
-  // }
-  // if ($('#horaDeInicioTourPredefinido').val() != '') {
-  //   $('#horaDeInicioTourPredefinido').removeClass('is-invalid').addClass('is-valid');
-  // }
-  // if ($('#descripcionTourPredefinido').val() == '') {
-  //   return $('#descripcionTourPredefinido').addClass('is-invalid');
-  // }
-  // if ($('#descripcionTourPredefinido').val() != '') {
-  //   $('#descripcionTourPredefinido').removeClass('is-invalid').addClass('is-valid');
-  // }
-  // console.log(InformacionTour);
-  // if(InformacionTour.puntosdeInteresTour===''){
-  //  return Avisos('Debe seleccionar un punto de interes');
-  // }
+  if ($('#nombreTourPredefinido').val() == '') {
+    return $('#nombreTourPredefinido').addClass('is-invalid');
+  }
+  if ($('#nombreTourPredefinido').val() != '') {
+    $('#nombreTourPredefinido').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#horaDeInicioTourPredefinido').val() == '') {
+    return $('#horaDeInicioTourPredefinido').addClass('is-invalid');
+  }
+  if ($('#horaDeInicioTourPredefinido').val() != '') {
+    $('#horaDeInicioTourPredefinido').removeClass('is-invalid').addClass('is-valid');
+  }
+  if ($('#descripcionTourPredefinido').val() == '') {
+    return $('#descripcionTourPredefinido').addClass('is-invalid');
+  }
+  if ($('#descripcionTourPredefinido').val() != '') {
+    $('#descripcionTourPredefinido').removeClass('is-invalid').addClass('is-valid');
+  }
+  console.log(InformacionTour);
+  if(InformacionTour.puntosdeInteresTour===''){
+   return Avisos('Debe seleccionar un punto de interes');
+  }
   
   InformacionTour.Opcion="AltaDeTour"
-  InformacionTour.imagenTour=file;
-  console.log(InformacionTour);
-  const formData= new FormData();
-  formData.append('imagenTour',file);
-  const reader = new FileReader();
-      reader.onload = function (event) {
-        const contenido = event.target.result;
-        const tipoMIME = file.type;
-
-        const blob = new Blob([contenido], { type: tipoMIME });
-
-        // Ahora tienes el objeto Blob, y puedes utilizarlo según tus necesidades
-        console.log('Blob creado:', blob);
-
-        // Aquí podrías enviar el blob a un servidor o hacer cualquier otra operación
-      };
-  fetch(`${apiUrl}/api/tourPredefinido`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: InformacionTour
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Error en la solicitud');
-      }
-      return response.json();
-    })
-    .then(data => {
-      // Manipula los datos de respuesta
-      console.log(data);
-    })
-    .catch(error => {
-      // Maneja cualquier error de la solicitud
-      console.error(error);
-    });
+  $.ajax({
+    url: `${apiUrl}/api/tourPredefinido`,
+    type: 'POST',
+    data:InformacionTour,
+    dataType: 'json',
+  }).done(function (data) {
+   console.log(data.Message);
+   Avisos(data.Message);
+  //  $('#BotonAceptarModalAviso').removeAttr('onclick');
+  //  $('#BotonAceptarModalAviso').attr('onclick','location.reload();');
+  //  ConsultarTour();
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 /*BAJA-------------------------------------------------------------------------------------------------------------------------------------- */
 function EliminarTourPredefinido(id){
@@ -444,7 +418,7 @@ function getInputTour(){
     nombreTourPredefinido:$('#nombreTourPredefinido').val(),
     horaDeInicioTourPredefinido:$('#horaDeInicioTourPredefinido').val(),
     descripcionTourPredefinido:$('#descripcionTourPredefinido').val(),
-    imagenTour:file,
+    imagenTour:'',
     id:InformacionTour.id
   };
 
