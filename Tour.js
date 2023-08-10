@@ -459,6 +459,7 @@ function setItemsInputTour(respuestaHTTP){
   DraggAndDrop();
   puntosdeInteresTour=[];
   console.log(puntosdeInteresTour);
+  //return console.log(respuestaHTTP);
   for(i=0;i<respuestaHTTP.tour_items.length;i++){
     getDataTour(respuestaHTTP.tour_items[i].puntos_interes.id,respuestaHTTP.tour_items[i].puntos_interes.Nombre,respuestaHTTP.tour_items[i].puntos_interes.Departamento,respuestaHTTP.tour_items[i].puntos_interes.Direccion);
   }
