@@ -1,4 +1,4 @@
-const apiUrl='http://192.168.3.4:9000';
+const apiUrl='http://127.0.0.1:8000';
 var tbody = document.getElementById('tbody');
 var main = document.getElementById('main');
 var EndPoint='PuntosDeInteres';
