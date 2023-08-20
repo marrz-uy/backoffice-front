@@ -634,6 +634,8 @@ function EnviarNotificacion(){
     console.log(data);
     $('#ModalDeNotificaciones').modal('hide');
     Avisos(data.message);
+    $('#TituloNotificacion').val('');
+    $('#MensajeNotificacion').val('');
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 function setInputPuntoDeInteres(Nombre,Departamento,Ciudad,Direccion,Facebook,Instagram,Web,HoraDeApertura,HoraDeCierre,Descripcion,Latitud,Longitud,TipoDeLugar,RestriccionDeEdad,EnfoqueDePersonas){
@@ -918,16 +920,26 @@ function ArregloCategorias(categoria){
   $('#TituloCategorias').text(categoria.toUpperCase());
 }
 //DASHBOARD------------------------------------------------------------------------------------------------------------------------------------>
-function dashboardChart(){
+function Estadisticas(){
+  $.ajax({
+    url:`${apiUrl}/api/Estadisticas`,
+    type: 'GET',
+    dataType: 'json',
+  }).done(function (data) {
+    console.log(data);
+    dashboardChart(data);
+  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
+}
+function dashboardChart(data){
   $(function($){
     $('#grafica').highcharts({
-      title:{text:'Registro de Usuarios del 2023'},
-      xAxis:{categories:['Enero','Febrero','Marzo','Abril']},
+      title:{text:'Datos totales'},
+      xAxis:{categories:['TourPredefinidos','Eventos','PuntosDeInteres']},
       yAxis:{title:'Porcentaje %'},plotLines:[{value:0,width:1}],
-      tooltip:{valueSuffix:'%'},
+      tooltip:{valueSuffix:'U'},
       legend:{layout:'vertical',align:'right',verticalAlign:'middle',borderWidth:0},
       series:[
-      {type:'column',name:'Usuarios',data:[25,30,21,50],color:'#2874A6'}
+      {type:'column',name:'Datos',data:[data.TourPredefinido,data.Eventos,data.PuntosInteres],color:'#2874A6'}
     
     ]
     });

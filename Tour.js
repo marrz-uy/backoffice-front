@@ -116,6 +116,7 @@ function ModificarTourHTTP(){
     nombreTourPredefinido:InformacionTour.nombreTourPredefinido,
     horaDeInicioTourPredefinido:InformacionTour.horaDeInicioTourPredefinido,
     descripcionTourPredefinido:InformacionTour.descripcionTourPredefinido,
+    imagenTour:InformacionTour.imagenTour,
     id:InformacionTour.id,
     puntosdeInteresTour:puntosdeInteresTour.toString()
   }
@@ -444,9 +445,11 @@ function getInputTour(){
   return InformacionTour;
 }
 function setInputTour(data){
+  console.log(data);
   $('#nombreTourPredefinido').val(data.nombreTourPredefinido);
   $('#horaDeInicioTourPredefinido').val(data.horaDeInicioTourPredefinido);
   $('#descripcionTourPredefinido').val(data.descripcionTourPredefinido);
+  $('#imagenTour').val(data.imagenTour);
   InformacionTour={
     nombreTourPredefinido:data.nombreTourPredefinido,
     horaDeInicioTourPredefinido:data.horaDeInicioTourPredefinido,
