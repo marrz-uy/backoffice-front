@@ -1,0 +1,23 @@
+name: UseImageFrontendBackoffice
+on:
+  push:
+    branches:
+      - main
+jobs:
+  Deploy:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+      - name: Actualizar imagen
+        run: |
+          docker pull marrzuy/backoffice-backend:latest
+      - name: Detenes contenedores
+        run: |
+          cd /var/www/html/Arquitectura-de-Backoffice
+          docker compose down
+      - name: Iniciar contenedores
+        run: |
+          cd /var/www/html/Arquitectura-de-Backoffice
+          docker compose up -d
