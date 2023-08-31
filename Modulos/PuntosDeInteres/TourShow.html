@@ -120,11 +120,11 @@
                     <div id="contenido-tour">
                           <div class="row">
                             <!--DIV PARA NOMBRE DEL TOUR-->
-                            <div style="height: 90vh;" class="col-sm">
+                            <div class="col-sm-6">
                               <form id="FormularioTourPredefinido" method="POST" enctype="multipart/formdata">
                                 <h2 class="text-center">Nombre Tour</h2>
                                 <br>
-                                <div class="input-group mb-3">
+                                <div  class="input-group mb-3">
                                     <input type="text" class="form-control" id="nombreTourPredefinido" placeholder="Nombre del Tour Predefinido" required>
                                     <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
                                     <div id="campoRequerido0" class="ms-2 invalid-feedback">
@@ -137,51 +137,17 @@
                                     <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
                                     <div id="campoRequerido1" class="ms-2 invalid-feedback">
                                         El campo es obligatorio
+                                   
                               </div>
+                              <div style="margin-top: 1rem;" class="input-group mb-3">
+                                <input type="text" class="form-control" id="imagenTour" placeholder="Agregue una URL de imagen" required>
+                                <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                              </div>
+                              
                                 </div>
                                 <div class="mb-3">
                                   <textarea class="form-control" id="descripcionTourPredefinido" name="DescripcionPuntoDeInteres" rows="3"></textarea>
                                 </div>
-                                <!--GESTION DE IMAGENES------------------------------------------------------------------------------------>
-      <div class="mb-3">
-        <div class="accordion" id="accordionExample">
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-              <button class="accordion-button form-control" type="button" data-bs-toggle="collapse"
-                data-bs-target="#accordion-imagenes" aria-expanded="true" aria-controls="collapseOne">
-                Gestion de Imagenes
-              </button>
-            </h2>
-            <div id="accordion-imagenes" class="accordion-collapse collapse" aria-labelledby="headingOne"
-              data-bs-parent="#accordion-imagenes">
-              <div style="height: 40vh;" class="accordion-body">
-
-                <div class="row border mb-3 messi" style="height: 30vh;">
-                  <div class="messi">
-                    <div id="imagen-container" class="img-container">
-
-                      
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="row border">
-
-                  <div class="col-md ">
-                    <input id="imagenes" type="file">
-                  </div>
-                  <div id="divBotonImagen" class="col-md ">
-                    
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
                                 <div class="row justify-content-center">
                                 <input type="button" value="Guardar Nombre" onclick="getInputTour();" class="btn mt-3 btn-primary form-control w-50">
                                 <div style="position: relative;height: 60px;" class="mt-3" id="div-mensaje">
@@ -192,7 +158,7 @@
                             </form>
                             </div>
                             <!--DIV PARA BUSCAR PUNTOS-->
-                            <div style="height: 50vh;" class="col-sm">
+                            <div class="col-sm-6">
                               <div class="row justify-content-center ">
                                 <div class="row justify-content-center " id="div-busqueda">
                                   
@@ -218,7 +184,7 @@
                           </div>
                           <!--DIV PARA VER ANTES DE GUARDAR-->
                           
-                          <div class="col-sm">
+                          <div class="row">
                                     <div style="height: 50vh;" class="col-md">
                                       <br>
                                       <h3 id="titulo-tabla-tour">Preview</h3>
@@ -359,6 +325,7 @@
   </div>
 </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../../jquery-3.6.0.min.js"></script>
     <script src="../../app.js"></script>
     <script src="../../Tour.js"></script>
     <script src="../../bootstrap/js/bootstrap.bundle.js"></script>

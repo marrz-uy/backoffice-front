@@ -31,6 +31,14 @@ function AltaDeTour(){
   if ($('#horaDeInicioTourPredefinido').val() != '') {
     $('#horaDeInicioTourPredefinido').removeClass('is-invalid').addClass('is-valid');
   }
+
+  if ($('#imagenTour').val() == '') {
+    return $('#imagenTour').addClass('is-invalid');
+  }
+  if ($('#imagenTour').val() != '') {
+    $('#imagenTour').removeClass('is-invalid').addClass('is-valid');
+  }
+
   if ($('#descripcionTourPredefinido').val() == '') {
     return $('#descripcionTourPredefinido').addClass('is-invalid');
   }
@@ -42,18 +50,18 @@ function AltaDeTour(){
    return Avisos('Debe seleccionar un punto de interes');
   }
   
-  InformacionTour.Opcion="AltaDeTour"
-  console.log(InformacionTour);
+ // return console.log(InformacionTour);
   $.ajax({
-    url: `http://127.0.0.1:8000/api/tourPredefinido`,
+    url: `${apiUrl}/api/tourPredefinido`,
     type: 'POST',
+    data:InformacionTour,
     dataType: 'json',
-    data:InformacionTour
   }).done(function (data) {
-      console.log(data);
-      Avisos(data.Message);
-      $('#BotonAceptarModalAviso').removeAttr('onclick');
-      $('#BotonAceptarModalAviso').attr('onclick','location.reload();');
+   console.log(data.Message);
+   Avisos(data.Message);
+  //  $('#BotonAceptarModalAviso').removeAttr('onclick');
+  //  $('#BotonAceptarModalAviso').attr('onclick','location.reload();');
+  //  ConsultarTour();
   }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
 /*BAJA-------------------------------------------------------------------------------------------------------------------------------------- */
@@ -62,7 +70,7 @@ function EliminarTourPredefinido(id){
   $('#btnEliminarTour').click(function (e) { 
     e.preventDefault();
     $.ajax({
-    url: `http://127.0.0.1:8000/api/tourPredefinido/${id}`,
+    url: `${apiUrl}/api/tourPredefinido/${id}`,
     type: 'DELETE',
     data:{Opcion:'EliminarTour'},
     dataType: 'json',
@@ -101,13 +109,14 @@ function ModificarTourHTTP(){
    return Avisos('Debe seleccionar un punto de interes');
   }
   $.ajax({
-  url: `http://127.0.0.1:8000/api/tourPredefinido`,
+  url: `${apiUrl}/api/tourPredefinido`,
   type: 'PATCH',
   dataType: 'json',
   data:{
     nombreTourPredefinido:InformacionTour.nombreTourPredefinido,
     horaDeInicioTourPredefinido:InformacionTour.horaDeInicioTourPredefinido,
     descripcionTourPredefinido:InformacionTour.descripcionTourPredefinido,
+    imagenTour:InformacionTour.imagenTour,
     id:InformacionTour.id,
     puntosdeInteresTour:puntosdeInteresTour.toString()
   }
@@ -132,7 +141,7 @@ function modificarPuntosDeInteresTourDG(){
 /*CONSULTA-------------------------------------------------------------------------------------------------------------------------------------- */
 function ConsultarTour() {
   $.ajax({
-    url: `http://127.0.0.1:8000/api/tourPredefinido`,
+    url: `${apiUrl}/api/tourPredefinido`,
     type: 'GET',
     dataType: 'json',
   }).done(function (data) {
@@ -150,7 +159,7 @@ function ConsultarTour() {
 }
 function ConsultarPorPagina(endpoint,pagina) {
 $.ajax({
-  url: `http://127.0.0.1:8000/api/tourPredefinido?page=${pagina}`,
+  url: `${apiUrl}/api/tourPredefinido?page=${pagina}`,
   type: 'GET',
   dataType: 'json',
 }).done(function (data) {
@@ -161,7 +170,7 @@ $.ajax({
 }
 function ConsultarUnSoloTour(id){
 $.ajax({
-  url: `http://127.0.0.1:8000/api/tourPredefinido`,
+  url: `${apiUrl}/api/tourPredefinido`,
   type: 'GET',
   data:{
     Opcion:"Unico",
@@ -190,7 +199,7 @@ function ConsultaTourHtml() {
                   <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"></path>
                   <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
               </svg>
-              <a href="./TourAlta.html" class="text-white text-decoration-none ">Agregar nuevo</a>
+              <a href="./TourAlta.html" class="text-white text-decoration-none ">Nuevo</a>
           </button>
       </th>
     </tr>
@@ -223,7 +232,7 @@ $('#div-busqueda').append(`<div class="input-group w-75">
 }
 function ConsultarPuntosDeInteresParaTour(categoria) {
   $.ajax({
-    url: `http://127.0.0.1:8000/api/PuntosInteres/${categoria}`,
+    url: `${apiUrl}/api/PuntosInteres/${categoria}`,
     type: 'GET',
     dataType: 'json',
   }).done(function (data) {
@@ -252,7 +261,7 @@ function ConsultarPuntosDeInteresParaTour(categoria) {
 }
 function BuscarUnPuntoDeInteres(){
   $.ajax({
-    url: `http://127.0.0.1:8000/api/PuntosInteres/PuntosDeInteres`,
+    url: `${apiUrl}/api/PuntosInteres/PuntosDeInteres`,
     type: 'GET',
     dataType: 'json',
     data:{
@@ -273,7 +282,7 @@ function BuscarUnPuntoDeInteres(){
 }
 function BuscarTourPorNombre(){
   $.ajax({
-    url: `http://127.0.0.1:8000/api/Eventos`,
+    url: `${apiUrl}/api/Eventos`,
     type: 'GET',
     dataType: 'json',
     data:{
@@ -408,6 +417,14 @@ function getInputTour(){
   if ($('#horaDeInicioTourPredefinido').val() != '') {
     $('#horaDeInicioTourPredefinido').removeClass('is-invalid').addClass('is-valid');
   }
+
+  if ($('#imagenTour').val() == '') {
+    return $('#imagenTour').addClass('is-invalid');
+  }
+  if ($('#imagenTour').val() != '') {
+    $('#imagenTour').removeClass('is-invalid').addClass('is-valid');
+  }
+
   if ($('#descripcionTourPredefinido').val() == '') {
     return $('#descripcionTourPredefinido').addClass('is-invalid');
   }
@@ -418,6 +435,7 @@ function getInputTour(){
     nombreTourPredefinido:$('#nombreTourPredefinido').val(),
     horaDeInicioTourPredefinido:$('#horaDeInicioTourPredefinido').val(),
     descripcionTourPredefinido:$('#descripcionTourPredefinido').val(),
+    imagenTour:$('#imagenTour').val(),
     id:InformacionTour.id
   };
 
@@ -427,9 +445,11 @@ function getInputTour(){
   return InformacionTour;
 }
 function setInputTour(data){
+  console.log(data);
   $('#nombreTourPredefinido').val(data.nombreTourPredefinido);
   $('#horaDeInicioTourPredefinido').val(data.horaDeInicioTourPredefinido);
   $('#descripcionTourPredefinido').val(data.descripcionTourPredefinido);
+  $('#imagenTour').val(data.imagenTour);
   InformacionTour={
     nombreTourPredefinido:data.nombreTourPredefinido,
     horaDeInicioTourPredefinido:data.horaDeInicioTourPredefinido,
@@ -442,6 +462,7 @@ function setItemsInputTour(respuestaHTTP){
   DraggAndDrop();
   puntosdeInteresTour=[];
   console.log(puntosdeInteresTour);
+  //return console.log(respuestaHTTP);
   for(i=0;i<respuestaHTTP.tour_items.length;i++){
     getDataTour(respuestaHTTP.tour_items[i].puntos_interes.id,respuestaHTTP.tour_items[i].puntos_interes.Nombre,respuestaHTTP.tour_items[i].puntos_interes.Departamento,respuestaHTTP.tour_items[i].puntos_interes.Direccion);
   }
@@ -478,7 +499,6 @@ function CargarTour(id){
   $('#divBotonImagen').append(`<input onclick="ModificarImagenTour(${id});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
   ConsultarPuntosDeInteresParaTour('PuntosDeInteres');
   ConsultarUnSoloTour(id);
-  ConsultarImagenes(id);
   setTimeout(function (){
     setInputTour(respuestaHTTP);
     setItemsInputTour(respuestaHTTP)
@@ -505,13 +525,39 @@ function Arreglos(){
   $('#divBotonImagen').append(`<input onclick="ModificaImagen(${idTour});" type="button" class="btn btn-success float-end" value="Agregar Imagen">`);
 }
 //IMAGENES------------------------------------------------------------------------------------------------------------------------------------>
+
+$('#imagenes').change(function(){
+  file=$('#imagenes')[0].files[0];
+  function convertirABlob() {
+    const archivoInput = document.getElementById('archivoInput');
+    
+    if (archivoInput.files.length > 0) {
+      const file = archivoInput.files[0];
+      
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const contenido = event.target.result;
+        const tipoMIME = file.type;
+
+        const blob = new Blob([contenido], { type: tipoMIME });
+
+        // Ahora tienes el objeto Blob, y puedes utilizarlo según tus necesidades
+        console.log('Blob creado:', blob);
+
+        // Aquí podrías enviar el blob a un servidor o hacer cualquier otra operación
+      };
+
+      reader.readAsArrayBuffer(file);
+    }
+  }
+})
 function ModificarImagenTour(idTour){
   const formData=new FormData();
   formData.append('file',$('#imagenes')[0].files[0]);
   formData.append('Opcion','AltaDeImagenTour');
   formData.append('idTour',idTour);
   $.ajax({
-      url: `http://127.0.0.1:8000/api/tourPredefinido`,
+      url: `${apiUrl}/api/tourPredefinido`,
       type: 'POST',
       data: formData,
       dataType:'json',
@@ -527,38 +573,14 @@ function ModificarImagenTour(idTour){
       ConsultarImagenes(data.idTour);
     }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
 }
-function ConsultarImagenes(id){
-  console.log(id);
-  $.ajax({
-    url: `http://127.0.0.1:8000/api/tourPredefinido`,
-    type: 'GET',
-    data:{
-      "Opcion":"ImagenTour",
-      "tour_id":id
-    },
-    dataType:'json',
-  }).done(function (data) {
-    console.log(data);
-    let url=data[0].imagen;
-    $('#imagen-container').html('');
-    if(url!=null){
-      $('#imagen-container').append(`<div class="tamano">
-      <img id="ImagenTour" class="pointer" onclick="ImagenCompleta('${url}',${id});"
-        src="${url}"
-        alt="imagen${url}">
-      </div>`);
-    }
-      
-    
-  }).fail(function (jqXHR, textStatus, errorThrown) {ErrorHandler(jqXHR, textStatus);});
-}
+
 function ImagenCompleta(url,id) {
   $('#ModalDeImagenesGrandes').modal('show');
   $('#divImagenGrande').html('');
   $('#divImagenGrande').append(`<input type="button" onclick="EliminarImagenTour('${id}');" class="btn btn-danger" value="Eliminar">`);  
   $('#divImagenGrande').append(`<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>`);
   $('#ImagenCompletaDiv').html('');
-  $('#ImagenCompletaDiv').append(`<img src="${url}" alt="imagen${url}">`)
+  $('#ImagenCompletaDiv').append(`<img src="${url}" alt="<imagen>${url}">`)
   //"
   }
   function EliminarImagenTour(id) {
@@ -566,7 +588,7 @@ function ImagenCompleta(url,id) {
     $('#ModalConsulta').modal('show');
     $('#btnEliminarImagenTour').click(function (e) { 
       $.ajax({
-        url: `http://127.0.0.1:8000/api/tourPredefinido/${id}`,
+        url: `${apiUrl}/api/tourPredefinido/${id}`,
         type: 'DELETE',
         data:{"Opcion":"EliminarImagen"},
         dataType: 'json',
@@ -580,3 +602,32 @@ function ImagenCompleta(url,id) {
     });
   
   }
+ 
+$('#botonnn').click(function (e) { 
+  e.preventDefault();
+  enviarImagen();
+});
+  function enviarImagen() {
+    
+
+    const inputImagen = document.getElementById('imagenInput');
+    const imagen = inputImagen.files[0];
+
+    enviarImagenFetch(imagen);
+}
+  function enviarImagenFetch(imagen) {
+    const formData = new FormData();
+    formData.append('imagen', imagen);
+
+    fetch(`${apiUrl}/api/tourPredefinido`, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
