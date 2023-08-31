@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="../../estilos.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <title>Document</title>
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <title>Backoffice-FeelUY</title>
 </head>
 <body onload="ConsultarEventos();">
     <!--Contenedor -->
@@ -19,31 +23,8 @@
                         <div class="col-sm">
                           <a href="../../index.html"><img src="../../mars-NyN.png" alt="Logo" width="50px"></a>
                         </div>
-                        <div class="col-3">
-                        <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
-                        </div>
-                        <div class="col-auto">
-                            <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">
-                            <input type="button" class="btn btn-secondary" onclick="ConsultarPuntosDeInteres('PuntosDeInteres');" value="Limpiar Filtros">                        
-                        </div>
-                        <div class="col-auto">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                  Seleccionar Categoria
-                                </button>
-                                <ul class="dropdown-menu col" aria-labelledby="dropdownMenuButton1">
-                                    <li><a onclick="FormularioDeAlojamiento();" class="dropdown-item text-white bg-secondary" href="#">Alojamiento</a></li>
-                                    <li><a onclick="FormularioDeGastronomia();" class="dropdown-item text-white bg-secondary" href="#">Gastronomia</a></li>
-                                    <li><a onclick="ConsultarPuntosDeInteres('espectaculos');CargarCategoria('espectaculos');" class="dropdown-item text-white bg-secondary" href="#">Espectaculos</a></li>
-                                    <li><a onclick="FormularioDeActivdadesAlAireLibre();" class="dropdown-item text-white bg-secondary" href="#">Actividades al Aire Libre</a></li>
-                                    <li><a onclick="FormularioDeActividadesNocturnas();" class="dropdown-item text-white bg-secondary " href="#">Actividades Nocturnas</a></li>
-                                    <li><a class="dropdown-item text-white bg-secondary" href="#">Transporte</a></li>
-                                    <li><a onclick="FormularioDeActividadesInfantiles();" class="dropdown-item text-white bg-secondary" href="#">Actividades Infantiles</a></li>
-                                    <li><a onclick="ConsultarPuntosDeInteres('servicios_esenciales');CargarCategoria('servicios_esenciales');" class="dropdown-item text-white bg-secondary" href="#">Servicios Escenciales</a></li>
-                                    <li><a onclick="ConsultarPuntosDeInteres('PuntosDeInteres');CargarCategoria('PuntosDeInteres');" class="dropdown-item text-white bg-secondary" href="#">Mostar Todos</a></li>
-                                </ul>
-                              </div>
-                        </div>
+                        
+                        
                        
                     </form>
                   
@@ -57,7 +38,7 @@
         <!--Aside y Main -->
         <div style="height: 90vh;" class="row">
             <aside class="col-sm-3 col-md-3 col-lg-3 rounded" style="border:2px solid black;">
-                <div class="flex-shrink-0 p-3 ms-3 bg-white" style="width: 280px;">
+                <div class="flex-shrink-0 p-3 ms-3 bg-white">
                     <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
                     <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
                     <span class="fs-5 fw-semibold">Menu Gestor Turistico</span>
@@ -77,11 +58,18 @@
                         </button>  
                     </li>
                     <li class="mb-1">
-                        <button class="btn btn-toggle  d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-                        Gestion de Tours
-                        </button>
+                        <a href="./TourShow.html" class="link-dark text-decoration-none btn btn-toggle  d-inline-flex align-items-center rounded border-0 collapsed">Gestion de Tours</a> 
                     </li>
-                    
+                    <li class="mb-1">
+                      <button class="btn d-inline-flex align-items-center rounded border-0" >
+                          <a onclick="$('#ModalDeNotificaciones').modal('show');" class="link-dark text-decoration-none">Notificaciones</a>
+                      </button>
+                  </li>
+                    <li class="mb-1 mt-5 border-top">
+                      <button class="btn mt-3 d-inline-flex align-items-center rounded border-0" >
+                          <a href="../../index.html" class="link-dark text-decoration-none">Cerrar Sesion</a>
+                      </button>
+                  </li>
                     <li class="border-top my-3"></li>
                     
                     </ul>
@@ -90,18 +78,27 @@
             <main class="col-sm-9 col-md-9 col-lg-9 rounded" style="border:2px solid black;">
                 <div class="row justify-content-center">
                     <div class="col-11 mt-3">
-                        <div>
+                        <div class="row">
                             <h2>EVENTOS</h2>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="button" onclick="BuscarEventoPorNombre();" id="btn-buscar" class="btn btn-primary w-50" value="Buscar">                       
+                                    </div>
+                            </div>
+                            
                         </div>
-                        <div class="table-responsive">
-                            <table class="table table-hover">
+                        <div class="mt-3 table-responsive">
+                            <table class="table table-dark table-hover">
                             <thead>
                               <tr>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Fecha Inicio</th>
                                 <th scope="col">Fecha Fin</th>  
                                 <th scope="col">Tipo</th>
-                                <th>
+                                <th style="text-align: right;">
                                     <button type="button" class="btn btn-success">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
                                             <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"></path>
@@ -112,7 +109,7 @@
                                 </th>
                               </tr>
                             </thead>
-                            <tbody id="TablaEventos">
+                            <tbody class="table-success" id="TablaEventos">
                               
                             </tbody>
                             </table>
@@ -155,14 +152,14 @@
 </div>
 <!-- MODAL DE EVENTOS -------------------------------------------------------------------------->
 <div class="modal fade" id="ModalDeEventos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
         <div class="modal-header">
             <div class="row w-100 justify-content-between">
-                <div class="col-8">
+                <div class="col-md-8">
                     <h3>MODIFICAR EVENTO</h3>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3">
                     <input type="button" onclick="window.location='PuntosInteresAlta.html';" class="ms-5 btn btn-success" value="Agregar Sitio">
                 </div>
             </div>
@@ -180,10 +177,10 @@
                       </div>
                       <div class="row mb-3">
                           
-                          <div class="col-10">
-                              <input type="text" class="form-control" id="LugarDelEvento" name="LugarDelEvento"  placeholder="Agregar sitio del evento">
+                          <div class="col-md-10">
+                              <input disabled type="text" class="form-control" id="LugarDelEvento" name="LugarDelEvento"  placeholder="Agregar sitio del evento">
                           </div>
-                          <div class="col-2">
+                          <div class="col-md-2">
                             
                               <button id="btnConsultarLugar" data-bs-target="#ModalDeLugares" data-bs-toggle="modal" type="button" class="btn btn-success btn-toggle">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
@@ -197,23 +194,7 @@
                                    El campo es requerido
                           </div>
                       </div>
-                      <div class="row mb-3">
-                          
-                          <div class="col-10">
-                              <input type="text" class="form-control" id="ArtistaDelEvento" name="ArtistaDelEvento"  placeholder="Agregar artista al evento">
-                          </div>
-                          <div class="col-2">
-                              <button id="btnConsultarArtista" type="button" class="btn btn-success btn-toggle">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
-                                      <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"></path>
-                                  </svg>        
-                              </button>
-                          </div>
-                         
-                          <div id="campoRequerido0" class="ms-2 invalid-feedback">
-                                   El campo es requerido
-                          </div>
-                      </div>
+                      
                       <div class="mb-3">
                           <div class="mb-3">
                               <select id="LugarDeVentaDeEntradas" class="form-select" aria-label="Default select example">
@@ -221,9 +202,9 @@
                                   <option value="Abitab">Abitab</option>
                                   <option value="RedPagos">RedPagos</option>
                                   <option value="TickAntel">TickAntel</option>
-                                  <option value="Lugar Del Evento">Lugar Del Evento</option>
+                                  <option value="LugarDelEvento">Lugar Del Evento</option>
                                   <option value="AccesoYa">AccesoYa</option>
-                                  <option value="RedTicket">RedTicket</option>
+                                  <option value="RedTickets">RedTicket</option>
                               </select>
                           </div>
                           <div id="campoRequerido1" class="ms-2 invalid-feedback">
@@ -278,6 +259,46 @@
                             
                             </div>
                       </div>
+                      <!--GESTION DE IMAGENES------------------------------------------------------------------------------------>
+      <div class="mb-3">
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button form-control" type="button" data-bs-toggle="collapse"
+                data-bs-target="#accordion-imagenes" aria-expanded="true" aria-controls="collapseOne">
+                Gestion de Imagenes
+              </button>
+            </h2>
+            <div id="accordion-imagenes" class="accordion-collapse collapse" aria-labelledby="headingOne"
+              data-bs-parent="#accordion-imagenes">
+              <div style="height: 40vh;" class="accordion-body">
+
+                <div class="row border mb-3 messi" style="height: 30vh;">
+                  <div class="messi">
+                    <div id="imagen-container" class="img-container">
+
+                      
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row border">
+
+                  <div class="col-md ">
+                    <input id="imagenes" type="file">
+                  </div>
+                  <div id="divBotonImagen" class="col-md ">
+                    
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
                       <div class="mb-3">
                           <input type="text" class="form-control" id="TipoDeEvento" name="TipoDeEvento"  placeholder="Indicar Tipo de Evento" required>
                           <div id="campoRequerido0" class="ms-2 invalid-feedback">
@@ -294,36 +315,44 @@
           </div>
       </div>
       <div class="modal-footer">
-        <div class="row w-100 justify-content-between">
-            <div class="col-8">
-                <p id="mensaje" style="color:rgb(31, 102, 31)"></p>
-            </div>
-            <div class="col-2">
-                <button type="button" onclick="$('#ModalDeEventos').modal('hide');" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            </div>
+        <div class="col-md-1">
+          <button type="button" onclick="$('#ModalDeEventos').modal('hide');" class="btn btn-secondary w-100" data-dismiss="modal">Cerrar</button>
         </div>
+
       
     </div>
     </div>
   </div>
 </div>
     <!-- MODAL DE Lugares -------------------------------------------------------------------------->
-    <div class="modal fade" id="ModalDeLugares" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+    <div class="modal fade w-100" id="ModalDeLugares" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
           <div class="modal-content">
             <div class="modal-header">
-                <div class="row w-100 justify-content-between">
-                    <div class="col-8">
-                        <h5 class="modal-title" id="exampleModalLabel">Lugares de Eventos</h5>
-                    </div>
-                    <div class="col-3">
-                        <input type="button" onclick="window.location='PuntosInteresAlta.html';" class="ms-5 btn btn-success" value="Agregar Sitio">
-                    </div>
+              <div class="row w-100">
+                <div class="col-md-11">
+                  <h2 class="modal-title w-100" id="exampleModalLabel">Lugares de Eventos</h2>
+              </div>
+              <div class="row mt-3 w-100">
+                <div class="col-md-9">
+                  <div class="w-50 input-group">
+                    <input type="text" class="form-control" id="txt-buscar-lugares" placeholder="Buscar">
+                    <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">                        
+                  </div>
+                </div>
+                
+                <div class="col-md-3">
+                  <input type="button" onclick="window.location='PuntosInteresAlta.html';" class="btn btn-success float-end" value="Agregar Sitio">
+                </div>
+              </div>
+              
+                
+                    
                 </div>
             </div>
             <div  class="modal-body">
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-dark table-hover">
                     <thead>
                       <tr>
                         <th scope="col">Nombre</th>
@@ -333,7 +362,7 @@
                         <th scope="col">Gestion</th>               
                       </tr>
                     </thead>
-                    <tbody id="tbody">
+                    <tbody class="table-success" id="tbody">
                       
                     </tbody>
                     </table>
@@ -341,7 +370,7 @@
                 <div class="row justify-content-center">
                     <div  class="col-sm-3">
                       <nav aria-label="Page navigation example">
-                        <ul id="pagination" class="pagination">
+                        <ul id="pagination_lugares" class="pagination">
                           
                         </ul>
                       </nav>
@@ -350,11 +379,11 @@
             </div>
             <div class="modal-footer">
                 <div class="row w-100 justify-content-between">
-                    <div class="col-8">
+                    <div class="col-md-8">
                         <p id="mensaje" style="color:rgb(31, 102, 31)"></p>
                     </div>
-                    <div class="col-2">
-                        <button type="button" onclick="$('#ModalDeLugares').modal('hide');" class="btn btn-secondary" data-bs-target="#ModalDeEventos" data-bs-toggle="modal">Cerrar</button>
+                    <div class="col-md-2">
+                        <button type="button" onclick="$('#ModalDeLugares').modal('hide');" class="btn btn-secondary w-100" data-bs-target="#ModalDeEventos" data-bs-toggle="modal">Cerrar</button>
                     </div>
                 </div>
               
@@ -376,7 +405,77 @@
       </div>
     </div>
 </div>
+<!-- MODAL DE AVISO -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalDeAviso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="Modal-Mensaje">Se realizo correctamente</h5>
+      </div>
+      <div class="modal-footer">
+        <button id="BotonAceptarModalAviso" type="button" onclick="$('#ModalDeAviso').modal('hide');" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- MODAL DE IMAGENES GRANDES -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalDeImagenesGrandes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div id="divImagenGrande" class="modal-header">
+        
+        
+      </div>
+      <div class="modal-body">
+        <div id="ImagenCompletaDiv" class="row justify-content-center">
+          
+            <img onclick="" alt="">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- MODAL DE NOTIFICACIONES -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalDeNotificaciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="Modal-Mensaje">Envio de Notificaciones</h5>
+      </div>
+      <div class="modal-body">
+          <div class="row justify-content-center">
+            
+              <form id="FormularioDeNotificaciones" method="POST" enctype="multipart/formdata">
+                  <div class="input-group mb-3">
+                      <input type="text" class="form-control" id="TituloNotificacion" name="DireccionPuntoDeInteres" placeholder="Titulo Notificacion" >
+                      <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                      <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                               El campo es obligatorio
+                      </div>
+                  </div>
+                  <div class="input-group mb-3">
+                      <textarea placeholder="Mensaje" class="form-control" id="MensajeNotificacion" name="DescripcionPuntoDeInteres" rows="3"></textarea>
+                      <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                      <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                               El campo es obligatorio
+                      </div>
+                  </div>
+                  <div class="row justify-content-center mb-3">
+                      <input onclick="EnviarNotificacion();" id="btnEnviarNotificacion" type="text" class="btn btn-success w-50" value="Enviar Notificaciones">
+                  </div>
+              </form>
+            
+          </div>
+        </div>
+      <div class="modal-footer">
+        <button  type="button" onclick="$('#ModalDeNotificaciones').modal('hide');" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../../jquery-3.6.0.min.js"></script>
     <script src="../../app.js"></script>
     <script src="../../Eventos.js"></script>
     <script src="../../bootstrap/js/bootstrap.bundle.js"></script>

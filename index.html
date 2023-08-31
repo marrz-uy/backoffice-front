@@ -5,16 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
-    <meta http-equiv="Expires" content="0">
-    <meta http-equiv="Last-Modified" content="0">
-    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
-    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <title>Backoffice-MARRZ</title>
 </head>
 <body class="bg-dark">
     <div class="row">
         <div class="col-6 m-auto">
-            <h1 class="text-center text-white mt-3">BIENVENIDO</h1>
+            <h1 style="font-family: 'Dancing Script', cursive;" class="text-center text-white mt-3">BIENVENIDO</h1>
         </div>
     </div>
     <div class="row justify-content-center vh-100">
@@ -27,22 +27,33 @@
                 </div>
                 <h5 class="text-center text-secondary mt-3">Backoffice / MARRZ </h5>
                 <div class="mb-3 input-group">
-                    <input id="user" type="text" class="form-control" placeholder="Usuario" required>
+                    <input type="text" class="form-control" id="user" placeholder="Usuario">
                 </div>
                 <div class="mb-3">
-                    <input id="password" type="password" class="form-control" placeholder="Contraseña" required>
+                    <input type="password" class="form-control" id="password" placeholder="Contraseña">
                 </div>
                 <div class="mb-3">
-                    <a href="./Modulos/PuntosDeInteres/Dashboard.html">Avanzar --></a>
-                    <input onclick="Login();"  class="btn btn-primary form-control" value="Ingresar">
+                    <input type="button" onclick="Login();" class="btn btn-primary form-control" value="Ingresar">
                 </div>
             </form>
         </div>
-        
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- MODAL DE AVISO -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalDeAviso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="Modal-Mensaje">Se realizo correctamente</h5>
+        </div>
+        <div class="modal-footer">
+          <button id="BotonAceptarModalAviso" type="button" onclick="$('#ModalDeAviso').modal('hide');" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    <script src="./jquery-3.6.0.min.js"></script>
     <script src="./bootstrap/js/bootstrap.bundle.js"></script>
     <script src="./app.js"></script>
-    <link rel="stylesheet" href="./Modulos/PuntosDeInteres/Formularios/ServiciosEscencialesAlta.html">
 </body>
 </html>

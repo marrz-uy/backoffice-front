@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../../estilos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <title>Backoffice-FeelUY</title>
+</head>
+<body onload="ConsultaTourHtml();">
+    <!--Contenedor -->
+    <div  class="container-fluid">
+        <div class="row ">
+            <header class="rounded  " style="border:2px solid black">
+                <div class="col-sm m-2">
+                    <form class="row justify-content-center" method="POST">
+                        <div class="col-sm">
+                          <a href="../../index.html"><img src="../../mars-NyN.png" alt="Logo" width="50px"></a>
+                        </div>
+                       
+                       
+                    </form>
+                  
+                </div>
+                
+            </header>    
+        </div>
+        
+            
+        
+        <!--Aside y Main -->
+        <div style="height: 90vh;" class="row">
+            <aside class="col-sm-3 col-md-3 col-lg-3 rounded" style="border:2px solid black;">
+              <div class="flex-shrink-0 p-3 ms-3 bg-white">
+                <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+                <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+                <span class="fs-5 fw-semibold">Menu Gestor Turistico</span>
+                </a>
+                <ul class="list-unstyled ps-0">
+                    <li class="mb-1">
+                        <a class="link-dark d-inline-flex text-decoration-none rounded" href="./Dashboard.html">Dashboard</a>
+                    </li>     
+                    <li class="mb-1">
+                      <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
+                      <a href="./PuntosInteresShow.html" class="link-dark text-decoration-none">Puntos de Interes</a>
+                      </button>
+                   
+                  </li>
+                <li class="mb-1">
+                  <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
+                  <a href="./EventosShow.html" class="link-dark text-decoration-none">Eventos</a>
+                  </button>  
+              </li>
+                <li class="mb-1">
+                    
+                    <a class="btn btn-toggle  d-inline-flex align-items-center rounded border-0 collapsed link-dark text-decoration-none " href="./TourShow.html">Gestion de Tours</a> 
+                    
+                </li>
+                <li class="mb-1">
+                  <button class="btn d-inline-flex align-items-center rounded border-0" >
+                      <a onclick="$('#ModalDeNotificaciones').modal('show');" class="link-dark text-decoration-none">Notificaciones</a>
+                  </button>
+              </li>
+                <li class="mb-1 mt-5 border-top">
+                  <button class="btn mt-3 d-inline-flex align-items-center rounded border-0" >
+                      <a href="../../index.html" class="link-dark text-decoration-none">Cerrar Sesion</a>
+                  </button>
+              </li>
+                <li class="border-top my-3"></li>
+                
+                </ul>
+            </div>
+        </aside>
+            <main class="col-sm-9 col-md-9 col-lg-9 rounded" style="border:2px solid black;">
+                <div class="row justify-content-center">
+                    <div class="col-md-11 mt-3">
+                        <div>
+                          <h2 id="TituloTablaTour">TOUR PREDEFINIDOS</h2>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                              <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
+                              </div>
+                              <div class="col-md-3">
+                                  <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary w-50" value="Buscar">                       
+                              </div>
+                      </div>
+                        <div id="contenido-tour">
+                              
+                        </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </main>
+        </div>
+            
+        
+    </div>
+<!-- MODAL MODIFICAR TOUR --------------------------------------------------------------------------------------->
+<div class="modal fade w-100" id="Modal-Tour" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div style="max-width: none;" id="ModalSize" class="modal-dialog modal-xl w-100">
+      <div  class="modal-content w-100">
+        <div class="modal-header">
+          <h2 class="modal-title text-center" id="ModalTitle">MODIFICACION DE TOUR</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div  class="modal-body">
+            <div id="ModalBody" class="row justify-content-center">
+              <div class="row justify-content-center">
+                <div class="col-md-11 mt-3">
+                    
+                    <div id="contenido-tour">
+                          <div class="row">
+                            <!--DIV PARA NOMBRE DEL TOUR-->
+                            <div class="col-sm-6">
+                              <form id="FormularioTourPredefinido" method="POST" enctype="multipart/formdata">
+                                <h2 class="text-center">Nombre Tour</h2>
+                                <br>
+                                <div  class="input-group mb-3">
+                                    <input type="text" class="form-control" id="nombreTourPredefinido" placeholder="Nombre del Tour Predefinido" required>
+                                    <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                                    <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                                            El campo es obligatorio
+                                    </div>
+                                </div>
+                                
+                                <div  class="input-group mb-3">
+                                    <input type="text" class="form-control" id="horaDeInicioTourPredefinido" placeholder="Hora de Inicio" required>
+                                    <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                                    <div id="campoRequerido1" class="ms-2 invalid-feedback">
+                                        El campo es obligatorio
+                                   
+                              </div>
+                              <div style="margin-top: 1rem;" class="input-group mb-3">
+                                <input type="text" class="form-control" id="imagenTour" placeholder="Agregue una URL de imagen" required>
+                                <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                              </div>
+                              
+                                </div>
+                                <div class="mb-3">
+                                  <textarea class="form-control" id="descripcionTourPredefinido" name="DescripcionPuntoDeInteres" rows="3"></textarea>
+                                </div>
+                                <div class="row justify-content-center">
+                                <input type="button" value="Guardar Nombre" onclick="getInputTour();" class="btn mt-3 btn-primary form-control w-50">
+                                <div style="position: relative;height: 60px;" class="mt-3" id="div-mensaje">
+                                  
+                                </div>
+                              </div>
+                                
+                            </form>
+                            </div>
+                            <!--DIV PARA BUSCAR PUNTOS-->
+                            <div class="col-sm-6">
+                              <div class="row justify-content-center ">
+                                <div class="row justify-content-center " id="div-busqueda">
+                                  
+                                </div>
+                                
+                              </div>
+                              <br>
+                              <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
+                                <table class="table table-hover table-bordered table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Departamento</th> 
+                                    <th scope="col">Agregar</th>               
+                                  </tr>
+                                </thead>
+                                <tbody id="tbody">
+                                  
+                                </tbody>
+                                </table>
+                                      </div>
+                                          
+                          </div>
+                          <!--DIV PARA VER ANTES DE GUARDAR-->
+                          
+                          <div class="row">
+                                    <div style="height: 50vh;" class="col-md">
+                                      <br>
+                                      <h3 id="titulo-tabla-tour">Preview</h3>
+                              <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
+                                <table class="table table-hover table-bordered table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Departamento</th>   
+                                    <th scope="col">Direccion</th>
+                                    <th scope="col">Eliminar</th>               
+                                  </tr>
+                                </thead>
+                                <tbody id="tbody-tourPreview">
+                                  
+                                </tbody>
+                                </table>
+                              </div>
+                              <div class="row justify-content-center">
+                                <div class="col-sm-3">
+                                    <nav aria-label="Page navigation example">
+                                      <ul id="pagination" class="pagination">
+                                      
+                                      </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            </div>
+                          </div>
+                          </div>
+                    </div>
+                </div>
+                    
+            </div>
+            </div>
+              <div class="row mb-3 justify-content-center">
+                <input type="button" class="w-50 btn btn-primary form-control" id="btnModificarTour" value="Modificar">
+              </div>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- MODAL DE CONSULTA -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalConsulta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">¿Desea Eliminar?</h5>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="btnEliminarImagenTour" class="btn btn-danger">Eliminar</button>
+          <button type="button" id="btnCerrarConsulta" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- MODAL DE CONSULTA -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalConsultaTour" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">¿Desea Eliminar?</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnEliminarTour" class="btn btn-danger">Eliminar</button>
+        <button type="button" onclick="$('#ModalConsultaTour').modal('hide');" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- MODAL DE AVISO -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalDeAviso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="Modal-Mensaje">Se realizo correctamente</h5>
+      </div>
+      <div class="modal-footer">
+        <button id="BotonAceptarModalAviso" type="button" onclick="$('#ModalDeAviso').modal('hide');" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- MODAL DE IMAGENES GRANDES -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalDeImagenesGrandes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div id="divImagenGrande" class="modal-header">
+        
+        
+      </div>
+      <div class="modal-body">
+        <div id="ImagenCompletaDiv" class="row justify-content-center">
+          
+            <img onclick=""  alt="">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- MODAL DE NOTIFICACIONES -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalDeNotificaciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="Modal-Mensaje">Envio de Notificaciones</h5>
+      </div>
+      <div class="modal-body">
+          <div class="row justify-content-center">
+            
+              <form id="FormularioDeNotificaciones" method="POST" enctype="multipart/formdata">
+                  <div class="input-group mb-3">
+                      <input type="text" class="form-control" id="TituloNotificacion" name="DireccionPuntoDeInteres" placeholder="Titulo Notificacion" >
+                      <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                      <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                               El campo es obligatorio
+                      </div>
+                  </div>
+                  <div class="input-group mb-3">
+                      <textarea placeholder="Mensaje" class="form-control" id="MensajeNotificacion" name="DescripcionPuntoDeInteres" rows="3"></textarea>
+                      <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                      <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                               El campo es obligatorio
+                      </div>
+                  </div>
+                  <div class="row justify-content-center mb-3">
+                      <input onclick="EnviarNotificacion();" id="btnEnviarNotificacion" type="text" class="btn btn-success w-50" value="Enviar Notificaciones">
+                  </div>
+              </form>
+            
+          </div>
+        </div>
+      <div class="modal-footer">
+        <button  type="button" onclick="$('#ModalDeNotificaciones').modal('hide');" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../../jquery-3.6.0.min.js"></script>
+    <script src="../../app.js"></script>
+    <script src="../../Tour.js"></script>
+    <script src="../../bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../../formularios.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
+</body>
+</html>

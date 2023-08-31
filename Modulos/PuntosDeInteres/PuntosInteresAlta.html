@@ -9,27 +9,18 @@
     <meta http-equiv="Last-Modified" content="0">
     <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
     <meta http-equiv="Pragma" content="no-cache">
-    <title>Document</title>
+    <title>Backoffice-FeelUY</title>
 </head>
 <body>
     <!--Contenedor -->
     <div  class="container-fluid">
         <div class="row ">
             <header class="rounded  " style="border:2px solid black">
-                <div class="col-sm m-2">
+                <div class="col-md m-2">
                     <form class="row justify-content-center" method="POST">
-                        <div class="col-sm">
+                        <div class="col-md">
                             <img src="../../mars-NyN.png" alt="Logo" width="50px">
                         </div>
-                        <div class="col-3">
-                        <input type="text" class="form-control" id="txt-buscar" placeholder="Buscar">
-                        </div>
-                        <div class="col-auto">
-                            <input type="button" onclick="BuscarUnPuntoDeInteres();" id="btn-buscar" class="btn btn-primary" value="Buscar">
-                            <input type="button" class="btn btn-secondary" onclick="ConsultarPuntosDeInteres();" value="Limpiar Filtros">                        
-                        </div>
-                
-                       
                     </form>
                   
                 </div>
@@ -38,8 +29,8 @@
         </div>     
         <!--Aside y Main -->
         <div style="height: 90vh;" class="row">
-            <aside class="col-3 rounded" style="border:2px solid black;">
-                <div class="flex-shrink-0 p-3 ms-3 bg-white" style="width: 280px;">
+            <aside class="col-md-3 rounded" style="border:2px solid black;">
+                <div class="flex-shrink-0 p-3 ms-3 bg-white">
                     <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
                     <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
                     <span class="fs-5 fw-semibold">Menu Gestor Turistico</span>
@@ -60,25 +51,28 @@
                         </button>  
                     </li>
                     <li class="mb-1">
-                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-                        Gestion de Tours
+                        
+                        <a href="./TourShow.html" class="link-dark text-decoration-none btn btn-toggle d-inline-flex align-items-center rounded border-0 ">Gestion de Tours</a> 
+                        
+                     </li>
+                     <li class="mb-1">
+                        <button class="btn d-inline-flex align-items-center rounded border-0" >
+                            <a onclick="$('#ModalDeNotificaciones').modal('show');" class="link-dark text-decoration-none">Notificaciones</a>
                         </button>
-                        <div class="collapse" id="dashboard-collapse">
-                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Agregar Nuevo</a></li>
-                            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Mostrar Todos</a></li>
-                        </ul>
-                        </div>
                     </li>
-                    
+                     <li class="mb-1 mt-5 border-top">
+                        <button class="btn mt-3 d-inline-flex align-items-center rounded border-0" >
+                            <a href="../../index.html" class="link-dark text-decoration-none">Cerrar Sesion</a>
+                        </button>
+                    </li>
                     <li class="border-top my-3"></li>
                     
                     </ul>
                 </div>
             </aside>
-            <main id="main" class="col-9 rounded" style="border:2px solid black;">
+            <main id="main" class="col-md-9 rounded" style="border:2px solid black;">
                 <div class="row justify-content-center">
-                    <div class="col-sm-6 mt-3">
+                    <div class="col-md-6 mt-3">
                         <form id="FormularioPuntoDeInteres" method="POST" enctype="multipart/formdata">
                             <h3 class="text-center">REGISTRO DE PUNTOS DE INTERES</h3>
                             
@@ -105,15 +99,58 @@
                                 </div>
                             </div>
                             <div class="input-group mb-3">
-                                <input type="number" class="form-control me-1" id="Latitud" placeholder="Latitud">
+                                <input  type="number" class="form-control me-1" id="Latitud" placeholder="Latitud">
+                                <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                                <div id="campoRequerido3" class="ms-2 invalid-feedback">
+                                    El campo es obligatorio
+                                </div>
                                 <input type="number" class="form-control ms-1" id="Longitud" placeholder="Longitud">
+                                <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                                <div id="campoRequerido4" class="ms-2 invalid-feedback">
+                                    El campo es obligatorio
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <select id="TipoDeLugar" class="form-select" aria-label="Default select example">
+                                    <option selected>Tipo De Lugar</option>
+                                    <option value="Espacio cerrado">Espacio cerrado</option>
+                                    <option value="Al aire libre">Al aire libre</option>
+                                    <option value="Ambos">Ambos</option>
+                                </select>
+                                <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                                <div id="campoRequerido5" class="ms-2 invalid-feedback">
+                                    El campo es obligatorio
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <select id="RestriccionDeEdad" class="form-select" aria-label="Default select example">
+                                    <option selected>Restriccion De Edad</option>
+                                    <option value="Todas">Todas</option>
+                                    <option value="Mayores">Mayores</option>
+                                </select>
+                                <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                                <div id="campoRequerido6" class="ms-2 invalid-feedback">
+                                    El campo es obligatorio
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <select id="EnfoqueDePersonas" class="form-select" aria-label="Default select example">
+                                    <option selected>Enfoque De Personas</option>
+                                    <option value="Grupo">Grupo</option>
+                                    <option value="Familia">Familia</option>
+                                    <option value="Pareja">Pareja</option>
+                                    <option value="Individual">Individual</option>
+                                    <option value="Sin restriccion">Sin restriccion</option>
+                                </select>
+                                <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                                <div id="campoRequerido7" class="ms-2 invalid-feedback">
+                                    El campo es obligatorio
+                                </div>
                             </div>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" id="DireccionPuntoDeInteres1" name="DireccionPuntoDeInteres" placeholder="Direccion" >
-                                <input type="text" class="form-control ms-2" id="DireccionPuntoDeInteres2" name="DireccionPuntoDeInteres" placeholder="N° de puerta" >
-                                <input type="text" class="form-control ms-2" id="DireccionPuntoDeInteres3" name="DireccionPuntoDeInteres" placeholder="Esquina" >
 
-                                <div id="campoRequerido3" class="ms-2 invalid-feedback">
+                                <div id="campoRequerido8" class="ms-2 invalid-feedback">
                                     El campo es obligatorio
                            </div>
                             </div>
@@ -129,10 +166,16 @@
                                       <div id="contactos" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#contactos">
                                         <div class="accordion-body">
                                             <div class="mb-3">
-                                                <input type="number" class="form-control" id="TelefonoPuntoDeInteres" name="TelefonoPuntoDeInteres" placeholder="Telefono" required>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-forward-fill" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511zm10.761.135a.5.5 0 0 1 .708 0l2.5 2.5a.5.5 0 0 1 0 .708l-2.5 2.5a.5.5 0 0 1-.708-.708L14.293 4H9.5a.5.5 0 0 1 0-1h4.793l-1.647-1.646a.5.5 0 0 1 0-.708z"/>
+                                                  </svg>
+                                                <input type="number" class="form-control" id="TelefonoPuntoDeInteres" name="TelefonoPuntoDeInteres" >
                                             </div>
                                             <div class="mb-3">
-                                                <input type="number" class="form-control" id="CelularPuntoDeInteres" name="CelularPuntoDeInteres" placeholder="Celular" required>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-browser-safari" viewBox="0 0 16 16">
+                                                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16Zm.25-14.75v1.5a.25.25 0 0 1-.5 0v-1.5a.25.25 0 0 1 .5 0Zm0 12v1.5a.25.25 0 1 1-.5 0v-1.5a.25.25 0 1 1 .5 0ZM4.5 1.938a.25.25 0 0 1 .342.091l.75 1.3a.25.25 0 0 1-.434.25l-.75-1.3a.25.25 0 0 1 .092-.341Zm6 10.392a.25.25 0 0 1 .341.092l.75 1.299a.25.25 0 1 1-.432.25l-.75-1.3a.25.25 0 0 1 .091-.34ZM2.28 4.408l1.298.75a.25.25 0 0 1-.25.434l-1.299-.75a.25.25 0 0 1 .25-.434Zm10.392 6 1.299.75a.25.25 0 1 1-.25.434l-1.3-.75a.25.25 0 0 1 .25-.434ZM1 8a.25.25 0 0 1 .25-.25h1.5a.25.25 0 0 1 0 .5h-1.5A.25.25 0 0 1 1 8Zm12 0a.25.25 0 0 1 .25-.25h1.5a.25.25 0 1 1 0 .5h-1.5A.25.25 0 0 1 13 8ZM2.03 11.159l1.298-.75a.25.25 0 0 1 .25.432l-1.299.75a.25.25 0 0 1-.25-.432Zm10.392-6 1.299-.75a.25.25 0 1 1 .25.433l-1.3.75a.25.25 0 0 1-.25-.434ZM4.5 14.061a.25.25 0 0 1-.092-.341l.75-1.3a.25.25 0 0 1 .434.25l-.75 1.3a.25.25 0 0 1-.342.091Zm6-10.392a.25.25 0 0 1-.091-.342l.75-1.299a.25.25 0 1 1 .432.25l-.75 1.3a.25.25 0 0 1-.341.09ZM6.494 1.415l.13.483a.25.25 0 1 1-.483.13l-.13-.483a.25.25 0 0 1 .483-.13ZM9.86 13.972l.13.483a.25.25 0 1 1-.483.13l-.13-.483a.25.25 0 0 1 .483-.13ZM3.05 3.05a.25.25 0 0 1 .354 0l.353.354a.25.25 0 0 1-.353.353l-.354-.353a.25.25 0 0 1 0-.354Zm9.193 9.193a.25.25 0 0 1 .353 0l.354.353a.25.25 0 1 1-.354.354l-.353-.354a.25.25 0 0 1 0-.353ZM1.545 6.01l.483.13a.25.25 0 1 1-.13.483l-.483-.13a.25.25 0 1 1 .13-.482Zm12.557 3.365.483.13a.25.25 0 1 1-.13.483l-.483-.13a.25.25 0 1 1 .13-.483Zm-12.863.436a.25.25 0 0 1 .176-.306l.483-.13a.25.25 0 1 1 .13.483l-.483.13a.25.25 0 0 1-.306-.177Zm12.557-3.365a.25.25 0 0 1 .176-.306l.483-.13a.25.25 0 1 1 .13.483l-.483.13a.25.25 0 0 1-.306-.177ZM3.045 12.944a.299.299 0 0 1-.029-.376l3.898-5.592a.25.25 0 0 1 .062-.062l5.602-3.884a.278.278 0 0 1 .392.392L9.086 9.024a.25.25 0 0 1-.062.062l-5.592 3.898a.299.299 0 0 1-.382-.034l-.005-.006Zm3.143 1.817a.25.25 0 0 1-.176-.306l.129-.483a.25.25 0 0 1 .483.13l-.13.483a.25.25 0 0 1-.306.176ZM9.553 2.204a.25.25 0 0 1-.177-.306l.13-.483a.25.25 0 1 1 .483.13l-.13.483a.25.25 0 0 1-.306.176Z"/>
+                                                  </svg>
+                                                <input type="text" class="form-control" id="WebPuntoDeInteres" name="WebPuntoDeInteres" placeholder="Sitio web">
                                             </div>
                                             <div class="mb-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
@@ -177,10 +220,7 @@
                                   </div>
                             </div>
                             <div class="mb-3">
-                                <input class="form-control" type="file" id="Imagen" name="Imagen">
-                              </div>
-                            <div class="mb-3">
-                                <textarea class="form-control" id="DescripcionPuntoDeInteres" name="DescripcionPuntoDeInteres" rows="3"></textarea>
+                                <textarea placeholder="Descripcion del sitio" class="form-control" id="DescripcionPuntoDeInteres" name="DescripcionPuntoDeInteres" rows="3"></textarea>
                             </div>
                             <div class="mb-3">
                                 <div class="mb-3">
@@ -188,6 +228,7 @@
                                         <option selected>Seleccionar Categoria</option>
                                         <option value="Alojamiento">Alojamiento</option>
                                         <option value="transporte">Transporte</option>
+                                        <option value="paseos">Paseos</option>
                                         <option value="gastronomicos">Gastronomia</option>
                                         <option value="Espectaculos">Espectaculos</option>
                                         <option value="Actividades_al_Aire_Libre">Actividades al Aire Libre</option>
@@ -195,23 +236,6 @@
                                         <option value="Actividades_Infantiles">Actividades Infantiles</option>
                                         <option value="Servicios_Esenciales">Servicios Esenciales</option>
                                     </select>
-                                </div>
-                                <div hidden class="dropdown">
-                                    <button class="btn btn-secondary form-control dropdown-toggle" type="submit" id="btnRegistrarPuntosInteres" data-bs-toggle="dropdown" aria-expanded="false">Seleccionar Categoria</button>
-                                    <div class="row">
-                                        <ul class="dropdown-menu col" aria-labelledby="dropdownMenuButton1">
-                                            <li><a onclick="FormularioDeAlojamiento();" class="dropdown-item text-white bg-secondary" href="#">Alojamiento</a></li>
-                                            <li><a onclick="FormularioDeGastronomia();" class="dropdown-item text-white bg-secondary" href="#">Gastronomia</a></li>
-                                            <li><a onclick="FormularioDeEspectaculos();" class="dropdown-item text-white bg-secondary" href="#">Espectaculos</a></li>
-                                            <li><a onclick="FormularioDeActivdadesAlAireLibre();" class="dropdown-item text-white bg-secondary" href="#">Actividades al Aire Libre</a></li>
-                                            <li><a onclick="FormularioDeActividadesNocturnas();" class="dropdown-item text-white bg-secondary " href="#">Actividades Nocturnas</a></li>
-                                            <li><a class="dropdown-item text-white bg-secondary" href="#">Transporte</a></li>
-                                            <li><a onclick="FormularioDeActividadesInfantiles();" class="dropdown-item text-white bg-secondary" href="#">Actividades Infantiles</a></li>
-                                            <li><a onclick="FormularioDeServiciosEscenciales();" class="dropdown-item text-white bg-secondary" href="#">Servicios Escenciales</a></li>
-                                          </ul>
-                                    </div>
-                                    
-                                    
                                 </div>
                                 <button id="btnSiguiente" class="btn mt-3 btn-primary form-control">Siguiente</button>
                             </div>
@@ -225,7 +249,59 @@
             
         
     </div>
+    <!-- MODAL DE AVISO -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalDeAviso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="Modal-Mensaje">Se realizo correctamente</h5>
+        </div>
+        <div class="modal-footer">
+          <button id="BotonAceptarModalAviso" type="button" onclick="$('#ModalDeAviso').modal('hide');" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- MODAL DE NOTIFICACIONES -------------------------------------------------------------------------->
+<div class="modal fade" id="ModalDeNotificaciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="Modal-Mensaje">Envio de Notificaciones</h5>
+        </div>
+        <div class="modal-body">
+            <div class="row justify-content-center">
+              
+                <form id="FormularioDeNotificaciones" method="POST" enctype="multipart/formdata">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="TituloNotificacion" name="DireccionPuntoDeInteres" placeholder="Titulo Notificacion" >
+                        <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                        <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                                 El campo es obligatorio
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <textarea placeholder="Mensaje" class="form-control" id="MensajeNotificacion" name="DescripcionPuntoDeInteres" rows="3"></textarea>
+                        <span style="color:red;" class="input-group-text" id="basic-addon1">*</span>
+                        <div id="campoRequerido0" class="ms-2 invalid-feedback">
+                                 El campo es obligatorio
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mb-3">
+                        <input onclick="EnviarNotificacion();" id="btnEnviarNotificacion" type="text" class="btn btn-success w-50" value="Enviar Notificaciones">
+                    </div>
+                </form>
+              
+            </div>
+          </div>
+        <div class="modal-footer">
+          <button  type="button" onclick="$('#ModalDeNotificaciones').modal('hide');" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../../jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
     <script src="../../formularios.js"></script>
     <script src="../../app.js"></script>
