@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+
 jobs:
   Deploy:
     runs-on: self-hosted
@@ -12,8 +13,8 @@ jobs:
           fetch-depth: 1
       - name: Actualizar imagen
         run: |
-          docker pull marrzuy/backoffice-backend:latest
-      - name: Detenes contenedores
+          docker pull marrzuy/backoffice-frontend:latest
+      - name: Detener contenedores
         run: |
           cd /var/www/html/Arquitectura-de-Backoffice
           docker compose down
