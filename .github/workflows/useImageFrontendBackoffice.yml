@@ -13,6 +13,7 @@ jobs:
           fetch-depth: 1
       - name: Actualizar imagen
         run: |
+          docker rmi marrzuy/backoffice-frontend:latest || true
           docker pull marrzuy/backoffice-frontend:latest
       - name: Detener contenedores
         run: |
