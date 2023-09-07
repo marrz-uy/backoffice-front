@@ -29,3 +29,4 @@ jobs:
           docker exec -i backoffice-backend chmod o+w ./storage/ -R  
           docker exec -i backoffice-backend php artisan key:generate
           docker exec -i backoffice-backend php artisan optimize
+          
