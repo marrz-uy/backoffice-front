@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-
 jobs:
   Deploy:
     runs-on: self-hosted
@@ -13,7 +12,9 @@ jobs:
           fetch-depth: 1
       - name: Actualizar imagen
         run: |
-          docker rmi marrzuy/backoffice-frontend:latest || true
+          cd /var/www/html/Arquitectura-de-Backoffice
+          docker compose down
+          docker rmi marrzuy/backoffice-frontend:latest
           docker pull marrzuy/backoffice-frontend:latest
       - name: Detener contenedores
         run: |
@@ -23,3 +24,8 @@ jobs:
         run: |
           cd /var/www/html/Arquitectura-de-Backoffice
           docker compose up -d
+      - name: Preparar contenedores
+        run: |
+          docker exec -i laravel chmod o+w ./storage/ -R  
+          docker exec -i laravel php artisan key:generate
+          docker exec -i laravel php artisan optimize
