@@ -14,7 +14,7 @@ jobs:
         run: |
           cd /var/www/html/Arquitectura-de-Backoffice
           docker compose down
-          docker rmi marrzuy/backoffice-frontend:latest
+          docker rmi marrzuy/backoffice-frontend:latest || true
           docker pull marrzuy/backoffice-frontend:latest
       - name: Detener contenedores
         run: |
