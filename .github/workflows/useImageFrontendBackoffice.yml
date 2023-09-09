@@ -23,11 +23,5 @@ jobs:
       - name: Iniciar contenedores
         run: |
           cd /var/www/html/Arquitectura-de-Backoffice
-          docker compose up -d
-      - name: Preparar contenedores
-        run: |
-          docker exec -i backoffice-backend chmod o+w ./storage/ -R  
-          docker exec -i backoffice-backend php artisan key:generate
-      - name: Optimizar backend
-        run: |
-          docker exec -i backoffice-backend php artisan optimize
+          ./RUN_BACKO.sh
+     
